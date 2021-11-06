@@ -91,7 +91,7 @@ int main()
                 jp.gate = hill.startGate;
             }
             jp.gateDiff = hill.startGate - jp.gate;
-            for (auto &jp : jumpers)
+            for (auto jp : jumpers)
             {
                 if (jp.points > hill.leaderPoints)
                     hill.leaderPoints = jp.points;
@@ -111,6 +111,11 @@ int main()
                     Sleep(hill.sleepAfterJump);
                 cls;
             }
+            if(i==0)
+            {
+                hill.leaderPoints = jp.points;
+            }
+
             cls;
             saveJumpers.push_back(jp);
             i++;
