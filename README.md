@@ -72,10 +72,10 @@ Siła wybicia, technika wybicia i technika lotu to ```Umiejętność + forma + l
 - **Rekompensata za wiatr** (0 = nie, 1 = tak)
 - **Noty sędziowskie** (0 = nie, 1 = tak)
 - **Pokazywanie wyników** (0 = nie, 1 = tak)
-- **Oczekiwanie po skoku** (Jeśli 0, trzeba nacisnąć dowolny klawisz po skoku aby kontynuować, inaczej czeka X milisekund. Sekunda = 1000ms)
 - **Pokazywanie wyników** (0 = nie, 1 = tak. Np. jeśli chcesz szybko przesymulować konkurs bez oglądania wyników na bieżąco to możesz wyłączyć tą opcje)
+- **Oczekiwanie po skoku** (Jeśli 0, trzeba nacisnąć dowolny klawisz po skoku aby kontynuować, inaczej czeka X milisekund. Sekunda = 1000ms)
 
 Przykład
 ```
-0.80, 0.80, 0.25, 0.10, 1, 1, 1, 1, 0, 1
+0.80, 0.80, 0.25, 0.10, 1, 1, 1, 1, 1, 0
 ```
