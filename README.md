@@ -54,8 +54,8 @@ Domen,Prevc,Slowenia,79,81,96,2,53,53,75
 
 Przykład:
 ```
-Wisla,Polska, 120, 134, 7.24, -1, 10.8, 7.9, 13.07, 9.15, 145.5, -117, 130, -14, 18, 19, 20, 20, 88.5, 1.4, 0.48, 0.48
-Planica,Slowenia, 200, 240, 8.64, -1, 14.4, 11, 17.42, 15.5, 252.5, -157, 180, -27, 20, 24.5, 27, 30, 82, 1, 0.54, 0.83
+Wisla,Polska, 120, 134, 7.24, -1, 10.8, -1, 13.07, -1, 145.5, -117, 130, -14, 18, 19, 20, 20, 88.5, 1.4, 0.48, 0.48
+Planica,Slowenia, 200, 240, 8.64, -1, 14.4, -1, 17.42, -1, 252.5, -157, 180, -27, 20, 24.5, 27, 30, 82, 1, 0.54, 0.83
 ```
 
 ### Obliczanie odległości
@@ -72,10 +72,10 @@ Siła wybicia, technika wybicia i technika lotu to ```Umiejętność + forma + l
 - **Rekompensata za wiatr** (0 = nie, 1 = tak)
 - **Noty sędziowskie** (0 = nie, 1 = tak)
 - **Pokazywanie wyników** (0 = nie, 1 = tak)
-- **Oczekiwanie po skoku** (Jeśli 0, trzeba nacisnąć dowolny klawisz po skoku aby kontynuować, inaczej czeka X milisekund. Sekunda = 1000ms)
 - **Pokazywanie wyników** (0 = nie, 1 = tak. Np. jeśli chcesz szybko przesymulować konkurs bez oglądania wyników na bieżąco to możesz wyłączyć tą opcje)
+- **Oczekiwanie po skoku** (Jeśli 0, trzeba nacisnąć dowolny klawisz po skoku aby kontynuować, inaczej czeka X milisekund. Sekunda = 1000ms)
 
 Przykład
 ```
-0.80, 0.80, 0.25, 0.10, 1, 1, 1, 1, 0, 1
+0.80, 0.80, 0.25, 0.10, 1, 1, 1, 1, 1, 0
 ```
