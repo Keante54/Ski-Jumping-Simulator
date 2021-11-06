@@ -1,10 +1,3 @@
-Martin Hamann (Niemcy)  |  241m  Belka: 22  Wiatr: -0.635911  Rekompensata: 11.0776  |17|17.5|16.5|17.5|17.5|  232.278pkt
-Stephan Leyhe (Niemcy)  |  231m  Belka: 22  Wiatr: -0.438371  Rekompensata: 7.63643  |19|18|18|18|18.5|  219.336pkt
-Richard Freitag (Niemcy)  |  242m  Belka: 22  Wiatr: -0.321832  Rekompensata: 5.60632  |17|17|17|17|17|  227.006pkt
-David Siegel (Niemcy)  |  226.5m  Belka: 22  Wiatr: -0.69908  Rekompensata: 12.178  |17.5|18|17.5|18|18.5|  217.478pkt
-Severin Freund (Niemcy)  |  219m  Belka: 22  Wiatr: -0.40533  Rekompensata: 7.06084  |17.5|17.5|18|18|18|  203.361pkt
-Andreas Wellinger (Niemcy)  |  250m  Belka: 22  Wiatr: -0.317151  Rekompensata: 5.52478  |10|11|11|11.5|9.5|  217.525pkt
-Pius Paschke (Niemcy)  |  230m  Belka: 20  Wiatr: -0.71849  Rekompensata: 29.7961  |19|18.5|19|19|19.5|  242.796pkt
-Constantin Schmid (Niemcy)  |  230.5m  Belka: 20  Wiatr: -0.149071  Rekompensata: 19.8768  |19|18.5|19.5|19|19|  233.477pkt
-Markus Eisenbichler (Niemcy)  |  234m  Belka: 18  Wiatr: -0.281599  Rekompensata: 39.4654  |17.5|19|16.5|18|18|  253.765pkt
-Karl Geiger (Niemcy)  |  207.5m  Belka: 19  Wiatr: -0.778363  Rekompensata: 39.4791  |17.5|18|18|18|18.5|  222.479pkt
+Martin Hamann (Niemcy)  |  74.5m  Belka: 12  Wiatr: -0.266444  Rekompensata: 2.57917  |16.5|16|16|16|15.5|  79.5792pkt
+Stephan Leyhe (Niemcy)  |  92m  Belka: 15  Wiatr: -0.760717  Rekompensata: -13.6363  |17.5|16.5|17|17|17|  101.364pkt
+Richard Freitag (Niemcy)  |  92.5m  Belka: 16  Wiatr: -0.715308  Rekompensata: -21.0758  |19|18|18.5|18|18|  98.4242pkt
