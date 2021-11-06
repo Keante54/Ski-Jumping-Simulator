@@ -9,7 +9,7 @@ public:
     string name, surname, nationality;
     int takeoffPowerS, takeoffTechniqueS;
     int takeoffPower, takeoffTechnique;
-    int lean, flightStyle;
+    int flightStyle;
     int flightTechniqueS, flightTechnique;
     int landSkill, landStyle, landType;
     double landRating, takeoffPowerDiff;

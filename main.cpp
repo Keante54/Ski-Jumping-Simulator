@@ -8,7 +8,7 @@ void loadHills();
 void loadJumpers();
 void loadConfig(Hill &h);
 void selectHill(Hill &h);
-void selectTrainingJumper();
+void selectTrainingJumper(Jumper &jp);
 void showHillInfo(Hill hl);
 void showJumpers();
 void defaultClearFile(string file);
@@ -86,6 +86,7 @@ int main()
             cls;
 
             hill.startGate = jumpers[0].gate;
+
             if (hill.IsshowResults == 0)
             {
                 jp.gate = hill.startGate;
@@ -111,7 +112,7 @@ int main()
                     Sleep(hill.sleepAfterJump);
                 cls;
             }
-            if(i==0)
+            if (i == 0)
             {
                 hill.leaderPoints = jp.points;
             }
@@ -132,13 +133,13 @@ int main()
         cls;
         loadJumpers();
         loadHills();
-        tj = jumpers[0];
-        hill = hills[0];
+        selectHill(hill);
+        cls;
         loadConfig(hill);
-        tj.setHill(hill);
-        tj.hill.windComp = hill.windComp;
-        cout << "Wiatr: ";
-        cin >> tj.wind;
+        tj.hill = hill;
+        selectTrainingJumper(tj);
+        cls;
+
         cout << "Belka: ";
         cin >> tj.gate;
         hill.startGate = tj.gate;
@@ -178,6 +179,19 @@ void selectHill(Hill &h)
     cout << "Skocznia: ";
     cin >> c;
     h = hills[c - 1];
+}
+
+void selectTrainingJumper(Jumper &jp)
+{
+    int i = 1, c;
+    for (auto jp : jumpers)
+    {
+        cout << i << ". " << jp.name << " " << jp.surname << " (" << jp.nationality << ")"<<endl;
+        i++;
+    }
+    cout << "Zawodnik: ";
+    cin >> c;
+    jp = jumpers[c - 1];
 }
 
 void loadConfig(Hill &h)

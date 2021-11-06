@@ -13,9 +13,8 @@ void Jumper::jump()
     hill.startup();
     hill.setType();
 
-    wind += normalRandom(0, hill.windChange);
-    windB = wind + normalRandom(0, hill.windFaulty);
-    wind = ceil(points * 100.0) / 100.0;
+    wind += normalRandom(-hill.windChange, hill.windChange);
+    windB = wind + normalRandom(-hill.windFaulty, hill.windFaulty);
 
     setTakeoffPower();
     setTakeoffTechnique();
@@ -25,9 +24,7 @@ void Jumper::jump()
     int rd;
 
     if (flightStyle > 4)
-        flightStyle = 2; // Styl "nowoczesne V 1"
-    if (lean > 14)
-        lean = 10;
+        flightStyle = 2;
 
     takeoffPowerDiff = (takeoffPower - hill.optimalTakeoffPower);
 
