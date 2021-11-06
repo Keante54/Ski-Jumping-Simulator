@@ -1,9 +1,11 @@
-Wisla K120 HS134
-Halvor Egner Granerud (Norwegia)  |  146.5m  Belka: 20  Wiatr: 0.14036  Rekompensata: -1.51589  |17|17.5|17|17.5|18|  158.184pkt
-Yukiya Sato (Japonia)  |  130.5m  Belka: 20  Wiatr: -0.316494  Rekompensata: 4.13657  |18|18.5|18|18|18|  137.037pkt
-Markus Eisenbichler (Niemcy)  |  147m  Belka: 20  Wiatr: 0.0979356  Rekompensata: -1.0577  |16.5|16.5|16.5|17|17|  157.542pkt
-Jan Habdas (Polska)  |  113m  Belka: 20  Wiatr: -0.143471  Rekompensata: 1.87517  |17|17|17|17.5|17|  100.275pkt
-Ryoyu Kobayashi (Japonia)  |  140.5m  Belka: 20  Wiatr: 0.0952736  Rekompensata: -1.02895  |18.5|19|19.5|19.5|19|  153.371pkt
-Timi Zajc (Slowenia)  |  133.5m  Belka: 20  Wiatr: 0.00915447  Rekompensata: -0.0988683  |19|19|18.5|19|19.5|  141.201pkt
-Domen Prevc (Slowenia)  |  130m  Belka: 20  Wiatr: -0.016686  Rekompensata: 0.218086  |18|17.5|18|18|18|  132.218pkt
-Stefan Hula (Polska)  |  147.5m  Belka: 20  Wiatr: 0.285435  Rekompensata: -3.0827  |19|19|19.5|18.5|19|  163.417pkt
+Willingen K130 HS147
+Martin Hamann (Niemcy)  |  144m  Belka: 16  Wiatr: 0.214559  Rekompensata: -2.51034  |9|8.5|10|9|8.5|  109.19pkt
+Stephan Leyhe (Niemcy)  |  128.5m  Belka: 14  Wiatr: -0.0509899  Rekompensata: 16.702  |17|17|17|17|17|  125.002pkt
+Richard Freitag (Niemcy)  |  118m  Belka: 14  Wiatr: 0.0130037  Rekompensata: 15.8279  |16.5|16|16|16|16|  102.228pkt
+David Siegel (Niemcy)  |  128m  Belka: 14  Wiatr: 0.0242666  Rekompensata: 15.6961  |17|17|17|16.5|17.5|  123.096pkt
+Severin Freund (Niemcy)  |  121.5m  Belka: 14  Wiatr: -0.177862  Rekompensata: 18.4985  |16|17|17|17|17|  114.199pkt
+Andreas Wellinger (Niemcy)  |  132.5m  Belka: 15  Wiatr: -0.0899937  Rekompensata: 9.26431  |18.5|17.5|18.5|18|18|  128.264pkt
+Pius Paschke (Niemcy)  |  124.5m  Belka: 15  Wiatr: 0.292471  Rekompensata: 4.56808  |17.5|17|17|17|16|  105.668pkt
+Constantin Schmid (Niemcy)  |  140.5m  Belka: 15  Wiatr: 0.18257  Rekompensata: 5.85393  |18.5|18|18|18|18.5|  139.254pkt
+Markus Eisenbichler (Niemcy)  |  136m  Belka: 14  Wiatr: -0.305797  Rekompensata: 20.3101  |17.5|18|18.5|18|18|  145.11pkt
+Karl Geiger (Niemcy)  |  133.5m  Belka: 14  Wiatr: 0.0217818  Rekompensata: 15.7252  |18|18.5|18|18|18.5|  136.525pkt

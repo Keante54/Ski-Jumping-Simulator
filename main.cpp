@@ -45,8 +45,7 @@ int main()
         cls;
         // showJumpers();
         loadConfig(hill);
-        if (hill.autoWind == 1)
-            hill.startWind = randomDouble(hill.typicalWind[0], hill.typicalWind[1]);
+        hill.startWind = randomDouble(hill.typicalWind[0], hill.typicalWind[1]);
 
         for (auto &jp : jumpers)
         {

@@ -106,14 +106,17 @@ void Jumper::setGateAndWindMeters()
     if (hill.gateMeters == (-1))
     {
         hill.gateMeters = (hill.gatePoints / hill.metersPoints);
+        hill.gateMeters *= 0.97;
     }
     if (hill.windMetersBack == (-1))
     {
         hill.windMetersBack = (hill.windMetersBack / hill.metersPoints);
+        hill.windMetersBack *= 1.17;
     }
     if (hill.windMetersFront == (-1))
     {
         hill.windMetersFront = (hill.windMetersFront / hill.metersPoints);
+        hill.windMetersFront *= 1.04;
     }
 }
 
@@ -170,8 +173,8 @@ void Jumper::land()
     rd1 = 63000 - (landRating * 440);
     rd1 += ((distance - hill.maxdist) * 16 * hill.landDifficulty);
 
-    //cout << "rd1: " << rd1 << endl;
-    //getch();
+    // cout << "rd1: " << rd1 << endl;
+    // getch();
     if (rd < rd1)
     {
         landType = 4;
@@ -182,8 +185,8 @@ void Jumper::land()
         rd = randomInt(1, 100000);
         rd1 = 63000 - (landRating * 440); // - (expernice * 300);
         rd1 += ((distance - hill.maxdist) * 16 * hill.landDifficulty);
-        //cout << "rd1: " << rd1 << endl;
-        //getch();
+        // cout << "rd1: " << rd1 << endl;
+        // getch();
         if (rd < rd1)
         {
             landType = 3;
@@ -195,8 +198,8 @@ void Jumper::land()
             rd1 = 78000 - (landRating * 480); // - (expernice * 300);
             rd1 += ((distance - hill.maxdist) * 19 * hill.landDifficulty);
 
-            //cout << "rd1: " << rd1 << endl;
-            //getch();
+            // cout << "rd1: " << rd1 << endl;
+            // getch();
             if (rd < rd1)
             {
                 landType = 2;
@@ -264,7 +267,7 @@ void Jumper::showResult()
     cout << "Odleglosc: " << distance << "m"
          << " (Belka " << gate << " (";
 
-         int t = -gateDiff;
+    int t = -gateDiff;
     if (t > 0)
     {
         colorText(2, "+");
