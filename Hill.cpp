@@ -28,6 +28,9 @@ void Hill::startup()
         metersPoints = 1.2;
         pointsForK = 120;
     }
+
+    maxdistRandom = (maxdist - kpoint) / 23;
+    judgeDivider = (kpoint) / 7.42;
 }
 
 void Hill::setType()
@@ -62,10 +65,10 @@ void Hill::showHideInfo()
          << "Falszywosc przeliczników: " << windFaulty << endl;
 }
 
-
 void Hill::showHillInfo()
 {
-    cout<<name<<" K"<<kpoint<<" "<<" HS"<<hspoint<<endl;
-    cout<<"Punkty za belke (metry): "<<gatePoints<<" ("<<gateMeters<<")"<<endl;
-    cout<<"Punkty za wiatr tylni (metry): "<<windPointsBack<<"("<<windMetersBack<<")";
+    cout << name << " K" << kpoint << " "
+         << " HS" << hspoint << endl;
+    cout << "Punkty za belke (metry): " << gatePoints << " (" << gateMeters << ")" << endl;
+    cout << "Punkty za wiatr tylni (metry): " << windPointsBack << "(" << windMetersBack << ")";
 }

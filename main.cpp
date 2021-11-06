@@ -3,10 +3,9 @@ using namespace std;
 #include "other.cpp"
 #include "Hill.cpp"
 #include "Jumper.cpp"
-#include "Competition.cpp"
 
 void loadHills();
-void loadJumpers(bool ifForm);
+void loadJumpers();
 void loadConfig(Hill &h);
 void selectHill(Hill &h);
 void selectTrainingJumper();
@@ -40,7 +39,7 @@ int main()
     {
         vector<Jumper> saveJumpers;
         cls;
-        loadJumpers(true);
+        loadJumpers();
         loadHills();
         selectHill(hill);
         cls;
@@ -60,7 +59,10 @@ int main()
         {
             jp.hill = hill;
             jp.wind = hill.startWind;
-            jp.setup();
+            if (hill.IsshowResults == 1)
+            {
+                jp.setup();
+            }
             if (i == 0)
             {
                 cout << "Belka startowa: ";
@@ -71,20 +73,18 @@ int main()
 
             if (i == 0)
                 jumpers[0].gate = hill.startGate;
-            else
+            else if (hill.IsshowResults == 1)
             {
                 cout << "Belka: ";
                 cin >> jp.gate;
             }
             cls;
-            if (hill.autoWind == 0)
-            {
-                cout << "Wiatr: ";
-                cin >> jp.wind;
-            }
-            cls;
-            hill.startGate = jumpers[0].gate;
 
+            hill.startGate = jumpers[0].gate;
+            if (hill.IsshowResults == 0)
+            {
+                jp.gate = hill.startGate;
+            }
             jp.gateDiff = hill.startGate - jp.gate;
             for (auto &jp : jumpers)
             {
@@ -92,8 +92,11 @@ int main()
                     hill.leaderPoints = jp.points;
             }
             jp.jump();
-            jp.showDistanceAndToBeat();
-            jp.showResult();
+            if (hill.IsshowResults == 1)
+            {
+                jp.showDistanceAndToBeat();
+                jp.showResult();
+            }
 
             if (hill.IsshowResults == 1)
             {
@@ -102,11 +105,10 @@ int main()
                 else
                     Sleep(hill.sleepAfterJump);
                 cls;
-
-                i++;
             }
             cls;
             saveJumpers.push_back(jp);
+            i++;
         }
         saveToTxt("results/results.txt", hill, saveJumpers);
 
@@ -116,7 +118,7 @@ int main()
     case '2':
     {
         cls;
-        loadJumpers(true);
+        loadJumpers();
         loadHills();
         tj = jumpers[0];
         hill = hills[0];
@@ -219,8 +221,8 @@ void loadConfig(Hill &h)
     h.IsshowResults = stoi(tmp);
     getline(cf, tmp, ',');
     h.sleepAfterJump = stoi(tmp);
-    getline(cf, tmp, ',');
-    h.autoWind = stoi(tmp);
+    // getline(cf, tmp, ',');
+    // h.autoWind = stoi(tmp);
 }
 
 void loadHills()
@@ -256,11 +258,9 @@ void loadHills()
         getline(hlf, tmp, ',');
         vechill.maxdist = stod(tmp);
         getline(hlf, tmp, ',');
-        vechill.maxdistRandom = stod(tmp);
-        getline(hlf, tmp, ',');
         vechill.startDist = stod(tmp);
         getline(hlf, tmp, ',');
-        vechill.hsLandDifficulty = stod(tmp);
+        vechill.landDifficulty = stod(tmp);
         getline(hlf, tmp, ',');
         vechill.flightStyleMeters[0] = stod(tmp);
         getline(hlf, tmp, ',');
@@ -277,16 +277,14 @@ void loadHills()
         vechill.takeoffPowerImportance = stod(tmp);
         getline(hlf, tmp, ',');
         vechill.takeoffTechniqueMeters = stod(tmp);
-        getline(hlf, tmp, ',');
-        vechill.flightTechniqueMeters = stod(tmp);
         getline(hlf, tmp);
-        vechill.judgeDivider = stod(tmp);
+        vechill.flightTechniqueMeters = stod(tmp);
         hills.push_back(vechill);
     }
     hlf.close();
 }
 
-void loadJumpers(bool ifForm)
+void loadJumpers()
 {
     Jumper jp;
     string tmp;
@@ -322,12 +320,8 @@ void loadJumpers(bool ifForm)
         getline(jpf, tmp, ',');
         jp.landStyle = stoi(tmp);
         // cout << jp.landStyle << endl;
-        if (ifForm == true)
-        {
-            getline(jpf, tmp, ',');
-            jp.form = stoi(tmp);
-            // cout << jp.form << endl;
-        }
+        getline(jpf, tmp);
+        jp.form = stoi(tmp);
         jumpers.push_back(jp);
     }
     jpf.close();

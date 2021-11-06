@@ -1,8 +1,9 @@
 Wisla K120 HS134
-Karl Geiger (Niemcy)  |  127.5m  Belka: 16  Wiatr: -0.273018  Rekompensata: 3.56834  |18|18.5|17.5|18|17|  130.568pkt
-
-Piotr Zyla (Polska)  |  91m  Belka: 16  Wiatr: -0.828077  Rekompensata: 10.823  |15|14.5|15.5|15|15|  63.623pkt
-
-Kamil Stoch (Polska)  |  98.5m  Belka: 16  Wiatr: -0.588498  Rekompensata: 7.69167  |17|17|17|17|16.5|  79.9917pkt
-
-Domen Prevc (Slowenia)  |  85m  Belka: 16  Wiatr: -0.329335  Rekompensata: 4.30441  |15|14.5|15|15.5|15.5|  46.8044pkt
+Halvor Egner Granerud (Norwegia)  |  146.5m  Belka: 20  Wiatr: 0.14036  Rekompensata: -1.51589  |17|17.5|17|17.5|18|  158.184pkt
+Yukiya Sato (Japonia)  |  130.5m  Belka: 20  Wiatr: -0.316494  Rekompensata: 4.13657  |18|18.5|18|18|18|  137.037pkt
+Markus Eisenbichler (Niemcy)  |  147m  Belka: 20  Wiatr: 0.0979356  Rekompensata: -1.0577  |16.5|16.5|16.5|17|17|  157.542pkt
+Jan Habdas (Polska)  |  113m  Belka: 20  Wiatr: -0.143471  Rekompensata: 1.87517  |17|17|17|17.5|17|  100.275pkt
+Ryoyu Kobayashi (Japonia)  |  140.5m  Belka: 20  Wiatr: 0.0952736  Rekompensata: -1.02895  |18.5|19|19.5|19.5|19|  153.371pkt
+Timi Zajc (Slowenia)  |  133.5m  Belka: 20  Wiatr: 0.00915447  Rekompensata: -0.0988683  |19|19|18.5|19|19.5|  141.201pkt
+Domen Prevc (Slowenia)  |  130m  Belka: 20  Wiatr: -0.016686  Rekompensata: 0.218086  |18|17.5|18|18|18|  132.218pkt
+Stefan Hula (Polska)  |  147.5m  Belka: 20  Wiatr: 0.285435  Rekompensata: -3.0827  |19|19|19.5|18.5|19|  163.417pkt

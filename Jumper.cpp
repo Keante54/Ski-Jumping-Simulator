@@ -67,7 +67,6 @@ void Jumper::setTakeoffTechnique()
 
     takeoffTechnique = (takeoffTechniqueS * 0.980) + (form * 1.057);
     takeoffTechnique += normalRandom(0, 7);
-    takeoffTechnique += randomInt((importance - 6), 0);
     takeoffTechnique = round(takeoffTechnique);
     if (takeoffTechnique > 280)
         takeoffTechnique = 280;
@@ -95,7 +94,6 @@ void Jumper::setFlightTechnique()
         flightTechnique += randomInt(-6, 6);
 
     flightTechnique += normalRandom(0, 7);
-    flightTechnique += randomInt((importance - 6), 0);
     flightTechnique = round(flightTechnique);
     if (flightTechnique > 280)
         flightTechnique = 280;
@@ -153,7 +151,7 @@ void Jumper::land()
 {
     int rd, rd1;
 
-    landRating = landSkill + form / 13 + landStyle / 25;
+    landRating = landSkill + (form / 13) + (landStyle / 25);
     landRating += normalRandom(0, 3);
 
     if (landRating > 80)
@@ -168,14 +166,12 @@ void Jumper::land()
 
     judgeRating = (round(judgeRating) * 2) / 2;
 
-    rd = randomInt(0, 1000 * 100);
-    rd1 = 86950 - (landRating * 720); // - (expernice * 300);
-    rd1 -= ((hill.maxdist - distance) * 16 * hill.hsLandDifficulty);
-    if (rd1 < 0)
-        rd1 = randomInt(200, 900);
+    rd = randomInt(0, 100000);
+    rd1 = 63000 - (landRating * 440);
+    rd1 += ((distance - hill.maxdist) * 16 * hill.landDifficulty);
 
-    // cout << "rd1: " << rd1 << endl;
-    // getch();
+    //cout << "rd1: " << rd1 << endl;
+    //getch();
     if (rd < rd1)
     {
         landType = 4;
@@ -183,13 +179,11 @@ void Jumper::land()
     }
     else
     {
-        rd = randomInt(1, 1000 * 100);
-        rd1 = 77210 - (landRating * 720); // - (expernice * 300);
-        rd1 -= ((hill.maxdist - distance) * 18.5 * hill.hsLandDifficulty);
-        if (rd1 < 0)
-            rd1 = randomInt(250, 950);
-        // cout << "rd1: " << rd1 << endl;
-        // getch();
+        rd = randomInt(1, 100000);
+        rd1 = 63000 - (landRating * 440); // - (expernice * 300);
+        rd1 += ((distance - hill.maxdist) * 16 * hill.landDifficulty);
+        //cout << "rd1: " << rd1 << endl;
+        //getch();
         if (rd < rd1)
         {
             landType = 3;
@@ -197,14 +191,12 @@ void Jumper::land()
         }
         else
         {
-            rd = randomInt(1, 1000 * 100);
-            rd1 = 117039 - (landRating * 720); // - (expernice * 300);
-            rd1 -= ((hill.maxdist - distance) * 20.7 * hill.hsLandDifficulty);
-            if (rd1 < 0)
-                rd1 = randomInt(2000, 7000);
+            rd = randomInt(1, 100000);
+            rd1 = 78000 - (landRating * 480); // - (expernice * 300);
+            rd1 += ((distance - hill.maxdist) * 19 * hill.landDifficulty);
 
-            // cout << "rd1: " << rd1 << endl;
-            // getch();
+            //cout << "rd1: " << rd1 << endl;
+            //getch();
             if (rd < rd1)
             {
                 landType = 2;
@@ -434,7 +426,7 @@ void Jumper::basicDistance()
     else if (windB < 0)
         distance += (windB * hill.windMetersBack);
 
-    distance += ((takeoffPower - hill.optimalTakeoffPower) * hill.takeoffPowerImportance);
+    distance -= (abs(hill.optimalTakeoffPower - takeoffPower) * hill.takeoffPowerImportance);
     distance += takeoffTechnique * hill.takeoffTechniqueMeters;
     distance += flightTechnique * hill.flightTechniqueMeters;
 

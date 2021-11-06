@@ -11,7 +11,8 @@ public:
     int kpoint, hspoint, pointsForK;
     double maxdist, maxdistRandom;
     double windMetersFront, windMetersBack, windPointsFront, windPointsBack;
-    double metersPoints, hsLandDifficulty;
+    double metersPoints;
+    double landDifficulty;
     double startDist, takeoffDist, flightDist, minWindChange, maxWindChange;
     int optimalSkisPosition;
     double skisPositionEffect;
