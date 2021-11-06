@@ -117,6 +117,7 @@ int main()
 
     case '2':
     {
+        break;
         cls;
         loadJumpers();
         loadHills();
