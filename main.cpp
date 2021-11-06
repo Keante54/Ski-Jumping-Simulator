@@ -11,7 +11,6 @@ void selectHill(Hill &h);
 void selectTrainingJumper();
 void showHillInfo(Hill hl);
 void showJumpers();
-void saveToTxt(string filename, Hill hl, vector<Jumper> jps);
 void defaultClearFile(string file);
 Hill hill;
 Jumper trainingJumper;
@@ -51,6 +50,13 @@ int main()
         {
             jp.points = 0;
         }
+
+        rsf.open("results/results.txt", ios::out);
+        rsf.clear();
+        rsf.close();
+        rsf.open("results/results.csv", ios::out);
+        rsf.clear();
+        rsf.close();
 
         int i = 0;
         hill.leaderPoints = 0;
@@ -108,8 +114,9 @@ int main()
             cls;
             saveJumpers.push_back(jp);
             i++;
+            jp.saveToCsv("results/results.csv");
+            jp.saveToTxt("results/results.txt");
         }
-        saveToTxt("results/results.txt", hill, saveJumpers);
 
         break;
     }
@@ -142,31 +149,6 @@ int main()
     }
 
     getch();
-}
-
-void saveToTxt(string filename, Hill hl, vector<Jumper> jps)
-{
-    rsf.open(filename, ios::out);
-    rsf.clear();
-    rsf << hl.name << " K" << hl.kpoint << " HS" << hl.hspoint << "\n";
-    for (auto jp : jps)
-    {
-        rsf << jp.name << " " << jp.surname << " (" << jp.nationality << ")  |  " << jp.distance << "m  Belka: " << jp.gate << "  Wiatr: " << jp.windB;
-        if (hl.windComp == 1 || hl.gateComp == 1)
-        {
-            rsf << "  Rekompensata: " << jp.compensationGate + jp.compensationWind;
-        }
-        if (hl.isJudges == true)
-        {
-            rsf << "  |";
-            for (int i = 0; i < 5; i++)
-            {
-                rsf << jp.judges[i] << "|";
-            }
-        }
-        rsf << "  " << jp.points << "pkt";
-        rsf << endl;
-    }
 }
 void showJumpers()
 {

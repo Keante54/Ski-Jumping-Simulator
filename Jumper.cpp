@@ -15,6 +15,7 @@ void Jumper::jump()
 
     wind += normalRandom(0, hill.windChange);
     windB = wind + normalRandom(0, hill.windFaulty);
+    wind = ceil(points * 100.0) / 100.0;
 
     setTakeoffPower();
     setTakeoffTechnique();
@@ -461,4 +462,48 @@ void Jumper::setToBeat()
     toBeat /= hill.metersPoints;
     toBeat += hill.kpoint;
     toBeat = ceil(toBeat * 2) / 2;
+}
+
+void Jumper::saveToTxt(string filename)
+{
+    fstream rsf;
+    rsf.open(filename, ios::out | ios::app);
+    rsf << name << " " << surname << " (" << nationality << ")  |  " << distance << "m  Belka: " << gate << "  Wiatr: " << windB;
+    if (hill.windComp == 1 || hill.gateComp == 1)
+    {
+        rsf << "  Rekompensata: " << compensationGate + compensationWind;
+    }
+    if (hill.isJudges == true)
+    {
+        rsf << "  |";
+        for (int i = 0; i < 5; i++)
+        {
+            rsf << judges[i] << "|";
+        }
+    }
+    rsf << "  " << points << "pkt";
+    rsf << endl;
+    rsf.close();
+}
+
+void Jumper::saveToCsv(string filename)
+{
+    fstream rsf;
+    char c = ';';
+    rsf.open(filename, ios::out | ios::app);
+    rsf << name << c << surname << c << nationality << c << distance << c << gate << c << windB << c;
+    if (hill.windComp == 1 || hill.gateComp == 1)
+        rsf << compensationGate + compensationWind << c;
+
+    if (hill.isJudges == 1)
+    {
+        rsf << "|";
+        for (auto jg : judges)
+        {
+            rsf << jg << "|";
+        }
+        rsf << c;
+    }
+    rsf << points << endl;
+    rsf.close();
 }

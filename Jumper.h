@@ -37,4 +37,6 @@ public:
     void setToBeat();
     void jump();
     void setHill(Hill &h);
+    void saveToTxt(string filename);
+    void saveToCsv(string filename);
 };
