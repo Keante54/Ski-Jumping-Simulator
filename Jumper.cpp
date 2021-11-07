@@ -504,3 +504,28 @@ void Jumper::saveToCsv(string filename)
     rsf << points << endl;
     rsf.close();
 }
+
+void Jumper::setDsq()
+{
+    int rd = randomInt(1, 100);
+    if (rd == 1)
+        dsq = true;
+    else
+        dsq = false;
+
+    if (dsq)
+    {
+        rd = randomInt(1, 3);
+
+        if (rd >= 1 && rd <= 2)
+            dsqReason = "Za krótkie narty";
+        else if (rd >= 3 && rd <= 4)
+            dsqReason = "Za długie narty";
+        else if (rd >= 5 || rd <= 11)
+            dsqReason = "Kombinezon";
+        else if (rd == 12)
+            dsqReason = "Za szybkie wystartowanie";
+        else if (rd == 13)
+            dsqReason = "Za późne wystartowanie";
+    }
+}

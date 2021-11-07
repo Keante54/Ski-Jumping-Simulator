@@ -19,6 +19,7 @@ public:
     double judges[5], minJudge, maxJudge, wind, windB, windBonus, judgeRating, judgesPoints, judgesAll;
     double points, compensationGate, compensationWind;
     bool dsq;
+    string dsqReason;
     int importance;
     Hill hill;
 
@@ -39,4 +40,5 @@ public:
     void setHill(Hill &h);
     void saveToTxt(string filename);
     void saveToCsv(string filename);
+    void setDsq();
 };

@@ -62,8 +62,10 @@ int main()
         hill.leaderPoints = 0;
         for (auto &jp : jumpers)
         {
+            jp.setDsq();
             jp.hill = hill;
             jp.wind = hill.startWind;
+
             if (hill.IsshowResults == 1)
             {
                 jp.setup();
@@ -97,11 +99,18 @@ int main()
                 if (jp.points > hill.leaderPoints)
                     hill.leaderPoints = jp.points;
             }
-            jp.jump();
-            if (hill.IsshowResults == 1)
+            if (jp.dsq == false)
             {
-                jp.showDistanceAndToBeat();
-                jp.showResult();
+                jp.jump();
+                if (hill.IsshowResults == 1)
+                {
+                    jp.showDistanceAndToBeat();
+                    jp.showResult();
+                }
+            }
+            if (jp.dsq == true)
+            {
+                cout << "Dyskwalifikacja!!!" << endl;
             }
 
             if (hill.IsshowResults == 1)
@@ -112,6 +121,7 @@ int main()
                     Sleep(hill.sleepAfterJump);
                 cls;
             }
+
             if (i == 0)
             {
                 hill.leaderPoints = jp.points;
@@ -186,7 +196,7 @@ void selectTrainingJumper(Jumper &jp)
     int i = 1, c;
     for (auto jp : jumpers)
     {
-        cout << i << ". " << jp.name << " " << jp.surname << " (" << jp.nationality << ")"<<endl;
+        cout << i << ". " << jp.name << " " << jp.surname << " (" << jp.nationality << ")" << endl;
         i++;
     }
     cout << "Zawodnik: ";
