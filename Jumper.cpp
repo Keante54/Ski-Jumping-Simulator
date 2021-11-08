@@ -171,8 +171,8 @@ void Jumper::land()
     rd1 = 80000 - (landRating * 350);
     rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
 
-    //cout << "rd1: " << rd1 << endl;
-    //getch();
+    // cout << "rd1: " << rd1 << endl;
+    // getch();
     if (rd < rd1)
     {
         landType = 4;
@@ -183,8 +183,8 @@ void Jumper::land()
         rd = randomInt(1, 100000);
         rd1 = 60000 - (landRating * 350); // - (expernice * 300);
         rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
-        //cout << "rd1: " << rd1 << endl;
-        //getch();
+        // cout << "rd1: " << rd1 << endl;
+        // getch();
         if (rd < rd1)
         {
             landType = 3;
@@ -194,10 +194,10 @@ void Jumper::land()
         {
             rd = randomInt(1, 100000);
             rd1 = 100000 - (landRating * 460); // - (expernice * 300);
-            rd1 += ((distance - hill.maxdist)* hill.landDifficulty * 17);
+            rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 17);
 
-            //cout << "rd1: " << rd1 << endl;
-            //getch();
+            // cout << "rd1: " << rd1 << endl;
+            // getch();
             if (rd < rd1)
             {
                 landType = 2;
@@ -515,7 +515,7 @@ void Jumper::setDsq()
 
     if (dsq)
     {
-        rd = randomInt(1, 3);
+        rd = randomInt(1, 15);
 
         if (rd >= 1 && rd <= 2)
             dsqReason = "Za krótkie narty";
@@ -527,5 +527,7 @@ void Jumper::setDsq()
             dsqReason = "Za szybkie wystartowanie";
         else if (rd == 13)
             dsqReason = "Za późne wystartowanie";
+        else if (rd >= 14 || rd <= 15)
+            dsqReason = "Buty";
     }
 }
