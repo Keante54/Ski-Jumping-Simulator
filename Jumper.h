@@ -11,7 +11,7 @@ public:
     int takeoffPower, takeoffTechnique;
     int flightStyle;
     int flightTechniqueS, flightTechnique;
-    int landSkill, landStyle, landType;
+    int landSkill, landType;
     double landRating, takeoffPowerDiff;
     int form;
     int gate, gateDiff;

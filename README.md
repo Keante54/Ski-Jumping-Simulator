@@ -16,36 +16,34 @@ Plik znajduje się w folderze "resources" (i musi tam być). Są w nim wpisani s
 - **Umiejętność techniki wybicia** (od 1 do 120)
 - **Umiejętność techniki lotu** (od 1 do 120)
 - **Styl lotu** (od 0 do 4: *styl klasyczny, styl V, nowoczesne V, szerokie V, styl H*)
-- **Umiejętność lądowania** (od 1 do 60) (ma wpływ na to jak dobrze umie wylądować zawodnik, a nie jak ładnie. Np Ammann umie dobrze lądować ale niezbyt ładnie.)
-- **Styl lądowania** (od 1 do 60)
+- **Umiejętność lądowania** (od 1 do 60)
 - **Forma** (od 1 do 120)
 ### Zapisywanie w pliku
 Wszystkie atrybuty powinny być w takiej kolejności jak powyżej, **oddzielone przecinkami!!!**
 
 Przykład:
 ```
-Karl,Geiger,Niemcy,96,95,87,1,54,53,89
-Piotr,Zyla,Polska,86,86,95,3,53,52,88
-Kamil,Stoch,Polska,89,93,91,2,56,58,86
-Domen,Prevc,Slowenia,79,81,96,2,53,53,75
+Karl,Geiger,Niemcy,96,95,87,1,54,89
+Piotr,Zyla,Polska,86,86,95,3,53,88
+Kamil,Stoch,Polska,89,93,91,2,58,86
+Domen,Prevc,Slowenia,79,81,96,2,53,75
 ```
 
 *W przypadku atrybutów od 1 do 120 (czyli bez atrybutów lądowania) wartości powinny być max do 100. Wtedy wyniki będą bardziej realne.*
 
 ## Plik "hills.csv"
 - **Nazwa**
-- **Narodowość**
+- **Kraj**
 - **Punkt K**
 - **Punkt HS**
 - **Punkty za belkę**
 - **Metry za belkę** (-1 oznacza że będzie wynosić `Punkty za belke / Punkty za metr` (dla dużej skoczni 1.8, dla normalnej 2.0 itd)
 - **Punkty za wiatr przedni**
-- **Metry za wiatr przedni**
+- **Metry za wiatr przedni** (tak samo jak za belkę)
 - **Punkty za wiatr tylni**
-- **Metry za wiatr tylni**
+- **Metry za wiatr tylni** (tak samo jak za belkę)
 - **Maksymalna odległość mniej/więcej**
 - **Startowa odległość**
-- **Trudność lądowania**
 - **Bonus za styl lotu** (dla każdego stylu osobno)
 - **Optymalna siła wybicia**
 - **Metry za siłe wybicia**
@@ -54,8 +52,8 @@ Domen,Prevc,Slowenia,79,81,96,2,53,53,75
 
 Przykład:
 ```
-Wisla,Polska, 120, 134, 7.24, -1, 10.8, -1, 13.07, -1, 145.5, -117, 130, -14, 18, 19, 20, 20, 88.5, 1.4, 0.48, 0.48
-Planica,Slowenia, 200, 240, 8.64, -1, 14.4, -1, 17.42, -1, 252.5, -157, 180, -27, 20, 24.5, 27, 30, 82, 1, 0.54, 0.83
+Wisla,Polska, 120, 134, 7.24, -1, 10.8, -1, 13.07, -1, 145.5, -117. -14, 18, 19, 20, 20, 88.5, 1.4, 0.48, 0.48
+Planica,Slowenia, 200, 240, 8.64, -1, 14.4, -1, 17.42, -1, 252.5, -157, -27, 20, 24.5, 27, 30, 82, 1, 0.54, 0.83
 ```
 
 ### Obliczanie odległości
@@ -71,11 +69,10 @@ Siła wybicia, technika wybicia i technika lotu to ```Umiejętność + forma + l
 - **Rekompensata za belkę** (0 = nie, 1 = tak)
 - **Rekompensata za wiatr** (0 = nie, 1 = tak)
 - **Noty sędziowskie** (0 = nie, 1 = tak)
-- **Pokazywanie wyników** (0 = nie, 1 = tak)
 - **Pokazywanie wyników** (0 = nie, 1 = tak. Np. jeśli chcesz szybko przesymulować konkurs bez oglądania wyników na bieżąco to możesz wyłączyć tą opcje)
 - **Oczekiwanie po skoku** (Jeśli 0, trzeba nacisnąć dowolny klawisz po skoku aby kontynuować, inaczej czeka X milisekund. Sekunda = 1000ms)
 
 Przykład
 ```
-0.80, 0.80, 0.25, 0.10, 1, 1, 1, 1, 1, 0
+0.80, 0.80, 0.25, 0.10, 1, 1, 1, 1, 1
 ```

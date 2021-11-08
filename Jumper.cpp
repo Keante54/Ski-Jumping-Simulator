@@ -13,8 +13,8 @@ void Jumper::jump()
     hill.startup();
     hill.setType();
 
-    wind += normalRandom(-hill.windChange, hill.windChange);
-    windB = wind + normalRandom(-hill.windFaulty, hill.windFaulty);
+    wind += normalRandom(0, hill.windChange);
+    windB = wind + normalRandom(0, hill.windFaulty);
 
     setTakeoffPower();
     setTakeoffTechnique();
@@ -152,7 +152,7 @@ void Jumper::land()
 {
     int rd, rd1;
 
-    landRating = landSkill + (form / 13) + (landStyle / 25);
+    landRating = landSkill + (form / 12) + (landSkill / 25);
     landRating += normalRandom(0, 3);
 
     if (landRating > 80)
@@ -161,18 +161,18 @@ void Jumper::land()
         landRating = 1;
 
     judgeRating = 4.9;
-    judgeRating += (double)landStyle / 5.5;
+    judgeRating += (double)landSkill / 5.5;
     judgeRating += landRating / 20.755;
     judgeRating += ((distance - hill.kpoint) / hill.judgeDivider);
 
     judgeRating = (round(judgeRating) * 2) / 2;
 
     rd = randomInt(0, 100000);
-    rd1 = 60000 - (landRating * 600);
-    rd1 += ((distance - hill.maxdist) * 30 * hill.landDifficulty);
+    rd1 = 80000 - (landRating * 350);
+    rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
 
-    // cout << "rd1: " << rd1 << endl;
-    // getch();
+    //cout << "rd1: " << rd1 << endl;
+    //getch();
     if (rd < rd1)
     {
         landType = 4;
@@ -181,10 +181,10 @@ void Jumper::land()
     else
     {
         rd = randomInt(1, 100000);
-        rd1 = 60000 - (landRating * 600); // - (expernice * 300);
-        rd1 += ((distance - hill.maxdist) * 30 * hill.landDifficulty);
-        // cout << "rd1: " << rd1 << endl;
-        // getch();
+        rd1 = 60000 - (landRating * 350); // - (expernice * 300);
+        rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
+        //cout << "rd1: " << rd1 << endl;
+        //getch();
         if (rd < rd1)
         {
             landType = 3;
@@ -193,11 +193,11 @@ void Jumper::land()
         else
         {
             rd = randomInt(1, 100000);
-            rd1 = 76000 - (landRating * 600); // - (expernice * 300);
-            rd1 += ((distance - hill.maxdist) * 32 * hill.landDifficulty);
+            rd1 = 100000 - (landRating * 460); // - (expernice * 300);
+            rd1 += ((distance - hill.maxdist)* hill.landDifficulty * 17);
 
-            // cout << "rd1: " << rd1 << endl;
-            // getch();
+            //cout << "rd1: " << rd1 << endl;
+            //getch();
             if (rd < rd1)
             {
                 landType = 2;

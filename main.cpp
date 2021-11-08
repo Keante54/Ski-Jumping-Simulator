@@ -271,8 +271,6 @@ void loadHills()
         getline(hlf, tmp, ',');
         vechill.startDist = stod(tmp);
         getline(hlf, tmp, ',');
-        vechill.landDifficulty = stod(tmp);
-        getline(hlf, tmp, ',');
         vechill.flightStyleMeters[0] = stod(tmp);
         getline(hlf, tmp, ',');
         vechill.flightStyleMeters[1] = stod(tmp);
@@ -328,9 +326,6 @@ void loadJumpers()
         getline(jpf, tmp, ',');
         jp.landSkill = stoi(tmp);
         // cout << jp.landSkill << endl;
-        getline(jpf, tmp, ',');
-        jp.landStyle = stoi(tmp);
-        // cout << jp.landStyle << endl;
         getline(jpf, tmp);
         jp.form = stoi(tmp);
         jumpers.push_back(jp);

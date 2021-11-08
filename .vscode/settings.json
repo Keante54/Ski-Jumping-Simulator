@@ -8,6 +8,7 @@
         "ctime": "cpp",
         "iosfwd": "cpp",
         "*.tcc": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "ostream": "cpp"
     }
 }

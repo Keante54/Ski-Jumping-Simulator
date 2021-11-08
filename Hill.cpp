@@ -31,7 +31,7 @@ void Hill::startup()
 
     maxdistRandom = (maxdist - kpoint) / 23;
     judgeDivider = (kpoint) / 7.42;
-    landDifficulty = 155;
+    landDifficulty = 75 + ((maxdist - kpoint) * 1.5);
 }
 
 void Hill::setType()
