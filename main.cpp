@@ -111,6 +111,7 @@ int main()
             if (jp.dsq == true)
             {
                 cout << "Dyskwalifikacja!!!" << endl;
+                cout<< "Powod: "<<jp.dsqReason<<endl;
             }
 
             if (hill.IsshowResults == 1)
@@ -270,16 +271,6 @@ void loadHills()
         vechill.maxdist = stod(tmp);
         getline(hlf, tmp, ',');
         vechill.startDist = stod(tmp);
-        getline(hlf, tmp, ',');
-        vechill.flightStyleMeters[0] = stod(tmp);
-        getline(hlf, tmp, ',');
-        vechill.flightStyleMeters[1] = stod(tmp);
-        getline(hlf, tmp, ',');
-        vechill.flightStyleMeters[2] = stod(tmp);
-        getline(hlf, tmp, ',');
-        vechill.flightStyleMeters[3] = stod(tmp);
-        getline(hlf, tmp, ',');
-        vechill.flightStyleMeters[4] = stod(tmp);
         getline(hlf, tmp, ',');
         vechill.optimalTakeoffPower = stoi(tmp);
         getline(hlf, tmp, ',');

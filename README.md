@@ -44,7 +44,6 @@ Domen,Prevc,Slowenia,79,81,96,2,53,75
 - **Metry za wiatr tylni** (tak samo jak za belkę)
 - **Maksymalna odległość mniej/więcej**
 - **Startowa odległość**
-- **Bonus za styl lotu** (dla każdego stylu osobno)
 - **Optymalna siła wybicia**
 - **Metry za siłe wybicia**
 - **Metry za technike wybicia**
@@ -52,8 +51,8 @@ Domen,Prevc,Slowenia,79,81,96,2,53,75
 
 Przykład:
 ```
-Wisla,Polska, 120, 134, 7.24, -1, 10.8, -1, 13.07, -1, 145.5, -117. -14, 18, 19, 20, 20, 88.5, 1.4, 0.48, 0.48
-Planica,Slowenia, 200, 240, 8.64, -1, 14.4, -1, 17.42, -1, 252.5, -157, -27, 20, 24.5, 27, 30, 82, 1, 0.54, 0.83
+Wisla,Polska, 120, 134, 7.24, -1, 10.8, -1, 13.07, -1, 145.5, -117, 88.5, 1.4, 0.48, 0.48
+Planica,Slowenia, 200, 240, 8.64, -1, 14.4, -1, 17.42, -1, 252.5, -157, 82, 1, 0.54, 0.83
 ```
 
 ### Obliczanie odległości

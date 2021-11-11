@@ -30,46 +30,11 @@ void Hill::startup()
     }
 
     maxdistRandom = (maxdist - kpoint) / 23;
-    judgeDivider = (kpoint) / 7.42;
-    landDifficulty = 75 + ((maxdist - kpoint) * 1.5);
-}
-
-void Hill::setType()
-{
-    if (kpoint <= 0)
-        type = "brak danych";
-    if (kpoint <= 44)
-        type = "mała";
-    if (kpoint <= 74)
-        type = "średnia";
-    if (kpoint <= 99)
-        type = "normalna";
-    if (kpoint <= 169)
-        type = "duża";
-    else
-        type = "mamucia";
-}
-
-void Hill::setStartGate()
-{
-    cout << "Belka startowa: ";
-    cin >> startGate;
-}
-
-void Hill::showHideInfo()
-{
-    cout << "Przeliczniki za belke: " << (bool)gateComp << endl
-         << "Przeliczniki za wiatr: " << (bool)windComp << endl
-         << "Noty sędziowskie: " << (bool)isJudges << endl
-         << "Zakres wiatru: " << typicalWind[0] << " - " << typicalWind[1] << endl
-         << "Podstawowy wiatr: " << startWind << endl
-         << "Falszywosc przeliczników: " << windFaulty << endl;
-}
-
-void Hill::showHillInfo()
-{
-    cout << name << " K" << kpoint << " "
-         << " HS" << hspoint << endl;
-    cout << "Punkty za belke (metry): " << gatePoints << " (" << gateMeters << ")" << endl;
-    cout << "Punkty za wiatr tylni (metry): " << windPointsBack << "(" << windMetersBack << ")";
+    judgeDivider = (kpoint) / 7.4;
+    landDifficulty = 290 - ((maxdist - kpoint) * 2.5);
+    flightStyleMeters[0] = -13 - ((kpoint - 100) / 7);
+    flightStyleMeters[1] = 15.5 + ((kpoint - 100) / 7.2);
+    flightStyleMeters[2] = 14 + ((kpoint - 100) / 6);
+    flightStyleMeters[3] = 13.2 + ((kpoint - 100) / 5.3);
+    flightStyleMeters[4] = 12 + ((kpoint - 100) / 4.5);
 }

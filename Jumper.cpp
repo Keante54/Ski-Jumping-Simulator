@@ -11,7 +11,6 @@ void Jumper::setup()
 void Jumper::jump()
 {
     hill.startup();
-    hill.setType();
 
     wind += normalRandom(0, hill.windChange);
     windB = wind + normalRandom(0, hill.windFaulty);
@@ -140,12 +139,6 @@ void Jumper::setPoints()
 
     if (points < 0)
         points = 0;
-}
-
-void Jumper::setGate()
-{
-    cout << "Podaj belke: ";
-    cin >> gate;
 }
 
 void Jumper::land()
@@ -518,15 +511,15 @@ void Jumper::setDsq()
         rd = randomInt(1, 15);
 
         if (rd >= 1 && rd <= 2)
-            dsqReason = "Za krótkie narty";
+            dsqReason = "Za krotkie narty";
         else if (rd >= 3 && rd <= 4)
-            dsqReason = "Za długie narty";
+            dsqReason = "Za dlugie narty";
         else if (rd >= 5 || rd <= 11)
             dsqReason = "Kombinezon";
         else if (rd == 12)
             dsqReason = "Za szybkie wystartowanie";
         else if (rd == 13)
-            dsqReason = "Za późne wystartowanie";
+            dsqReason = "Za pozne wystartowanie";
         else if (rd >= 14 || rd <= 15)
             dsqReason = "Buty";
     }

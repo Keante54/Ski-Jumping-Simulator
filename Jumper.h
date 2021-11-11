@@ -29,7 +29,6 @@ public:
     void setFlightTechnique();
     void setGateAndWindMeters();
     void setPoints();
-    void setGate();
     void land();
     void showResult();
     void showHideInfo();
