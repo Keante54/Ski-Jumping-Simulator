@@ -48,7 +48,7 @@ void Jumper::setTakeoffPower()
         takeoffPowerS = 1;
 
     takeoffPower = (takeoffPowerS);
-    takeoffPower += normalRandom(0, 5);
+    takeoffPower += normalRandom(0, 4);
     takeoffPower = round(takeoffPower);
     if (takeoffPower > 160)
         takeoffPower = 160;
@@ -63,7 +63,7 @@ void Jumper::setTakeoffTechnique()
         takeoffTechniqueS = 1;
 
     takeoffTechnique = (takeoffTechniqueS * 0.980) + (form * 1.057);
-    takeoffTechnique += normalRandom(0, 7);
+    takeoffTechnique += normalRandom(0, 6);
     takeoffTechnique = round(takeoffTechnique);
     if (takeoffTechnique > 280)
         takeoffTechnique = 280;
@@ -82,15 +82,15 @@ void Jumper::setFlightTechnique()
     if (flightStyle == 0)
         flightTechnique += randomInt(-17, -9);
     else if (flightStyle == 1)
-        flightTechnique += randomInt(-3, 3);
+        flightTechnique += randomInt(-2.5, 2.5);
     else if (flightStyle == 2)
-        flightTechnique += randomInt(-4, 4);
+        flightTechnique += randomInt(-3.2, 3.2);
     else if (flightStyle == 3)
-        flightTechnique += randomInt(-5, 5);
+        flightTechnique += randomInt(-4, 4);
     else if (flightStyle == 4)
-        flightTechnique += randomInt(-6, 6);
+        flightTechnique += randomInt(-4.8, 4.8);
 
-    flightTechnique += normalRandom(0, 7);
+    flightTechnique += normalRandom(0, 6);
     flightTechnique = round(flightTechnique);
     if (flightTechnique > 280)
         flightTechnique = 280;
@@ -153,9 +153,9 @@ void Jumper::land()
     else if (landRating < 1)
         landRating = 1;
 
-    judgeRating = 4.9;
-    judgeRating += (double)landSkill / 5.5;
-    judgeRating += landRating / 20.755;
+    judgeRating = 15;
+    judgeRating += landSkill / 35;
+    judgeRating += landSkill / 25;
     judgeRating += ((distance - hill.kpoint) / hill.judgeDivider);
 
     judgeRating = (round(judgeRating) * 2) / 2;
@@ -500,7 +500,7 @@ void Jumper::saveToCsv(string filename)
 
 void Jumper::setDsq()
 {
-    int rd = randomInt(1, 100);
+    int rd = randomInt(1, 130);
     if (rd == 1)
         dsq = true;
     else

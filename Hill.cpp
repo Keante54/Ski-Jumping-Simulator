@@ -30,7 +30,7 @@ void Hill::startup()
     }
 
     maxdistRandom = (maxdist - kpoint) / 23;
-    judgeDivider = (kpoint) / 7.4;
+    judgeDivider = (kpoint) / 7;
     landDifficulty = 290 - ((maxdist - kpoint) * 2.5);
     flightStyleMeters[0] = -13 - ((kpoint - 100) / 7);
     flightStyleMeters[1] = 15.5 + ((kpoint - 100) / 7.2);
