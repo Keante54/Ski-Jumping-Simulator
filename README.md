@@ -73,5 +73,5 @@ Siła wybicia, technika wybicia i technika lotu to ```Umiejętność + forma + l
 
 Przykład
 ```
-0.80, 0.80, 0.25, 0.10, 1, 1, 1, 1, 1
+0.80, 0.80, 0.25, 0.10, 1, 1, 1, 1, 0
 ```
