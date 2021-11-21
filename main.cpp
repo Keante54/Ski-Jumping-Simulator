@@ -111,7 +111,7 @@ int main()
             if (jp.dsq == true)
             {
                 cout << "Dyskwalifikacja!!!" << endl;
-                cout<< "Powod: "<<jp.dsqReason<<endl;
+                cout << "Powod: " << jp.dsqReason << endl;
             }
 
             if (hill.IsshowResults == 1)
@@ -297,7 +297,7 @@ void loadJumpers()
     }
     while (getline(jpf, jp.name, ','))
     {
-        //cout << jp.name << endl;
+        // cout << jp.name << endl;
         getline(jpf, jp.surname, ',');
         // cout << jp.surname << endl;
         getline(jpf, jp.nationality, ',');

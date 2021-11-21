@@ -1,9 +1,6 @@
-Daiki Ito (Japonia)  |  185.5m  Belka: 9  Wiatr: 2.29261  Rekompensata: -33.0136  |17|17|17.5|17|17|  120.586pkt
-Noriaki Kasai (Japonia)  |  172.5m  Belka: 9  Wiatr: 0.942041  Rekompensata: -13.5654  |17.5|17.5|17.5|17.5|18|  125.935pkt
-Naoki Nakamura (Japonia)  |  186.5m  Belka: 9  Wiatr: 1.01225  Rekompensata: -14.5765  |16.5|17.5|17|17.5|17|  140.724pkt
-Taku Takeuchi (Japonia)  |  165.5m  Belka: 9  Wiatr: 2.12614  Rekompensata: -30.6164  |16.5|16|17.5|16|16.5|  96.9836pkt
-Yuken Iwasa (Japonia)  |  180m  Belka: 9  Wiatr: 2.04209  Rekompensata: -29.4061  |17|16.5|17|17|17|  117.594pkt
-Keichii Sato (Japonia)  |  196m  Belka: 12  Wiatr: 1.46292  Rekompensata: -46.986  |18|19|18|18|18|  122.214pkt
-Junshiro Kobayashi (Japonia)  |  210m  Belka: 12  Wiatr: 2.21436  Rekompensata: -57.8068  |18|18.5|18|18.5|18.5|  129.193pkt
-Yukiya Sato (Japonia)  |  200m  Belka: 12  Wiatr: 2.13624  Rekompensata: -56.6819  |17.5|18|18|18|18|  117.318pkt
-Ryoyu Kobayashi (Japonia)  |  217m  Belka: 12  Wiatr: 2.31146  Rekompensata: -59.205  |18.5|17.5|17|18|18.5|  135.195pkt
+Michael Hayboeck (Austria)  |  124.5m  Belka: 11  Wiatr: 1.54302  Rekompensata: -15.2759  |16.5|15.5|16|15.5|16.5|  100.824pkt
+Stefan Huber (Austria)  |  114.5m  Belka: 11  Wiatr: 1.83279  Rekompensata: -18.1446  |16.5|16|16|16|16.5|  80.4554pkt
+Stefan Kraft (Austria)  |  131m  Belka: 11  Wiatr: 1.65302  Rekompensata: -16.3649  |18.5|18.5|19|16.5|18|  118.435pkt
+Sandro Hauswirth (Szwajcaria)  |  102.5m  Belka: 11  Wiatr: 1.52701  Rekompensata: -15.1174  |16|16|15.5|16|16|  61.3826pkt
+Vladimir Zografski (Bulgaria)  |  103.5m  Belka: 11  Wiatr: 1.75244  Rekompensata: -17.3491  |16.5|17|17|17.5|17|  63.9509pkt
+Halvor Egner Granerud (Norwegia)  |  118.5m  Belka: 8  Wiatr: 1.63175  Rekompensata: 5.56563  |18|18|18|18.5|18|  116.866pkt

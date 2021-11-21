@@ -62,7 +62,7 @@ void Jumper::setTakeoffTechnique()
     if (takeoffTechniqueS < 1)
         takeoffTechniqueS = 1;
 
-    takeoffTechnique = (takeoffTechniqueS * 0.980) + (form * 1.057);
+    takeoffTechnique = (takeoffTechniqueS * 1.12) + (form * 0.88);
     takeoffTechnique += normalRandom(0, 6);
     takeoffTechnique = round(takeoffTechnique);
     if (takeoffTechnique > 280)
@@ -78,7 +78,7 @@ void Jumper::setFlightTechnique()
     if (flightTechniqueS < 1)
         flightTechniqueS = 1;
 
-    flightTechnique = (flightTechniqueS * 0.875) + (form * 1.162);
+    flightTechnique = (flightTechniqueS * 1.22) + (form * 0.78);
     if (flightStyle == 0)
         flightTechnique += randomInt(-17, -9);
     else if (flightStyle == 1)
@@ -153,15 +153,14 @@ void Jumper::land()
     else if (landRating < 1)
         landRating = 1;
 
-    judgeRating = 15;
-    judgeRating += landSkill / 35;
-    judgeRating += landSkill / 25;
+    judgeRating = 16.3;
+    judgeRating += landSkill / 23;
     judgeRating += ((distance - hill.kpoint) / hill.judgeDivider);
 
     judgeRating = (round(judgeRating) * 2) / 2;
 
     rd = randomInt(0, 100000);
-    rd1 = 80000 - (landRating * 350);
+    rd1 = 75000 - (landRating * 350);
     rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
 
     // cout << "rd1: " << rd1 << endl;
@@ -174,7 +173,7 @@ void Jumper::land()
     else
     {
         rd = randomInt(1, 100000);
-        rd1 = 60000 - (landRating * 350); // - (expernice * 300);
+        rd1 = 55000 - (landRating * 350); // - (expernice * 300);
         rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
         // cout << "rd1: " << rd1 << endl;
         // getch();
@@ -186,7 +185,7 @@ void Jumper::land()
         else
         {
             rd = randomInt(1, 100000);
-            rd1 = 100000 - (landRating * 460); // - (expernice * 300);
+            rd1 = 95000 - (landRating * 460); // - (expernice * 300);
             rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 17);
 
             // cout << "rd1: " << rd1 << endl;

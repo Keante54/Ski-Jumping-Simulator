@@ -21,6 +21,7 @@ public:
     bool dsq;
     string dsqReason;
     int importance;
+    int position;
     Hill hill;
 
     void setup();
