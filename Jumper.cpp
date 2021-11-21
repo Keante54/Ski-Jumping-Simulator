@@ -147,7 +147,8 @@ void Jumper::land()
 
     landRating = landSkill + (form / 12) + (landSkill / 25);
     landRating += normalRandom(0, 3);
-
+    cout << "landRating: " << landRating << endl;
+    getch();
     if (landRating > 80)
         landRating = 80;
     else if (landRating < 1)
@@ -160,7 +161,7 @@ void Jumper::land()
     judgeRating = (round(judgeRating) * 2) / 2;
 
     rd = randomInt(0, 100000);
-    rd1 = 75000 - (landRating * 350);
+    rd1 = 75000 - (landRating * 500);
     rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
 
     // cout << "rd1: " << rd1 << endl;
@@ -173,7 +174,7 @@ void Jumper::land()
     else
     {
         rd = randomInt(1, 100000);
-        rd1 = 55000 - (landRating * 350); // - (expernice * 300);
+        rd1 = 55000 - (landRating * 500); // - (expernice * 300);
         rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
         // cout << "rd1: " << rd1 << endl;
         // getch();
@@ -185,7 +186,7 @@ void Jumper::land()
         else
         {
             rd = randomInt(1, 100000);
-            rd1 = 95000 - (landRating * 460); // - (expernice * 300);
+            rd1 = 95000 - (landRating * 500); // - (expernice * 300);
             rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 17);
 
             // cout << "rd1: " << rd1 << endl;
