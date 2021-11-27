@@ -48,7 +48,7 @@ void Jumper::setTakeoffPower()
         takeoffPowerS = 1;
 
     takeoffPower = (takeoffPowerS);
-    takeoffPower += normalRandom(0, 4);
+    takeoffPower += normalRandom(0, 6);
     takeoffPower = round(takeoffPower);
     if (takeoffPower > 160)
         takeoffPower = 160;
@@ -62,8 +62,8 @@ void Jumper::setTakeoffTechnique()
     if (takeoffTechniqueS < 1)
         takeoffTechniqueS = 1;
 
-    takeoffTechnique = (takeoffTechniqueS * 1.12) + (form * 0.88);
-    takeoffTechnique += normalRandom(0, 6);
+    takeoffTechnique = (takeoffTechniqueS * 0.82) + (form * 1.18);
+    takeoffTechnique += normalRandom(0, 8);
     takeoffTechnique = round(takeoffTechnique);
     if (takeoffTechnique > 280)
         takeoffTechnique = 280;
@@ -78,17 +78,17 @@ void Jumper::setFlightTechnique()
     if (flightTechniqueS < 1)
         flightTechniqueS = 1;
 
-    flightTechnique = (flightTechniqueS * 1.22) + (form * 0.78);
+    flightTechnique = (flightTechniqueS * 0.8) + (form * 1.2);
     if (flightStyle == 0)
         flightTechnique += randomInt(-17, -9);
     else if (flightStyle == 1)
-        flightTechnique += randomInt(-2.5, 2.5);
+        flightTechnique += randomInt(-3, 3);
     else if (flightStyle == 2)
-        flightTechnique += randomInt(-3.2, 3.2);
+        flightTechnique += randomInt(-3.7, 3.7);
     else if (flightStyle == 3)
-        flightTechnique += randomInt(-4, 4);
+        flightTechnique += randomInt(-4.4, 4.4);
     else if (flightStyle == 4)
-        flightTechnique += randomInt(-4.8, 4.8);
+        flightTechnique += randomInt(-5, 5);
 
     flightTechnique += normalRandom(0, 6);
     flightTechnique = round(flightTechnique);
@@ -147,25 +147,21 @@ void Jumper::land()
 
     landRating = landSkill + (form / 12) + (landSkill / 25);
     landRating += normalRandom(0, 3);
-    cout << "landRating: " << landRating << endl;
-    getch();
     if (landRating > 80)
         landRating = 80;
     else if (landRating < 1)
         landRating = 1;
 
-    judgeRating = 16.3;
-    judgeRating += landSkill / 23;
+    judgeRating = 16;
+    judgeRating += landSkill / 24;
     judgeRating += ((distance - hill.kpoint) / hill.judgeDivider);
 
     judgeRating = (round(judgeRating) * 2) / 2;
 
     rd = randomInt(0, 100000);
-    rd1 = 75000 - (landRating * 500);
+    rd1 = 65000 - (landRating * 500);
     rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
 
-    // cout << "rd1: " << rd1 << endl;
-    // getch();
     if (rd < rd1)
     {
         landType = 4;
@@ -174,7 +170,7 @@ void Jumper::land()
     else
     {
         rd = randomInt(1, 100000);
-        rd1 = 55000 - (landRating * 500); // - (expernice * 300);
+        rd1 = 45000 - (landRating * 500); // - (expernice * 300);
         rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
         // cout << "rd1: " << rd1 << endl;
         // getch();
@@ -186,7 +182,7 @@ void Jumper::land()
         else
         {
             rd = randomInt(1, 100000);
-            rd1 = 95000 - (landRating * 500); // - (expernice * 300);
+            rd1 = 85000 - (landRating * 500); // - (expernice * 300);
             rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 17);
 
             // cout << "rd1: " << rd1 << endl;
