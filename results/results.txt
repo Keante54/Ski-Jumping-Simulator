@@ -1,40 +1,4 @@
-Johann Andre Forfang (Norwegia)  |  93.5m  Belka: 10  Wiatr: 0.0143724  Rekompensata: -0.114979  |17|18|18.5|18|17.5|  110.385pkt
-Johann Andre Forfang (Norwegia)  |  93.5m  Belka: 10  Wiatr: -0.33784  Rekompensata: 3.27029  |18.5|18|18|16.5|18.5|  114.77pkt
-Johann Andre Forfang (Norwegia)  |  92m  Belka: 10  Wiatr: 0.0943134  Rekompensata: -0.754507  |18|18|17.5|17.5|18|  106.745pkt
-Johann Andre Forfang (Norwegia)  |  95.5m  Belka: 10  Wiatr: 0.0943134  Rekompensata: -0.754507  |18|16.5|18|18.5|17.5|  113.745pkt
-Johann Andre Forfang (Norwegia)  |  93m  Belka: 10  Wiatr: 0.124514  Rekompensata: -0.99611  |18.5|18|18|18|18.5|  109.504pkt
-Johann Andre Forfang (Norwegia)  |  91m  Belka: 10  Wiatr: 0.0483754  Rekompensata: -0.387003  |18|18.5|18.5|17.5|18|  106.113pkt
-Johann Andre Forfang (Norwegia)  |  95.5m  Belka: 10  Wiatr: -0.0251069  Rekompensata: 0.243035  |17.5|16.5|18.5|18|17.5|  114.243pkt
-Johann Andre Forfang (Norwegia)  |  97m  Belka: 10  Wiatr: 0.361395  Rekompensata: -2.89116  |17.5|18|18|17.5|16.5|  114.109pkt
-Johann Andre Forfang (Norwegia)  |  92m  Belka: 10  Wiatr: -0.223656  Rekompensata: 2.16499  |17.5|18|18|18|18|  110.165pkt
-Johann Andre Forfang (Norwegia)  |  92m  Belka: 10  Wiatr: -0.463109  Rekompensata: 4.4829  |18|18.5|18|17.5|17.5|  111.983pkt
-Clemens Aigner (Austria)  |  89.5m  Belka: 10  Wiatr: 0.199727  Rekompensata: -1.59781  |18|18|17.5|18.5|17.5|  100.902pkt
-Clemens Aigner (Austria)  |  88.5m  Belka: 10  Wiatr: 0.0461187  Rekompensata: -0.36895  |19|18|18|18.5|17.5|  101.131pkt
-Clemens Aigner (Austria)  |  86m  Belka: 10  Wiatr: 0.33155  Rekompensata: -2.6524  |17|17|17|17|17.5|  90.3476pkt
-Clemens Aigner (Austria)  |  92m  Belka: 10  Wiatr: -0.137933  Rekompensata: 1.33519  |18.5|18|17.5|18|18|  109.335pkt
-Clemens Aigner (Austria)  |  86.5m  Belka: 10  Wiatr: 0.361395  Rekompensata: -2.89116  |16.5|17|17|16.5|17|  90.6088pkt
-Clemens Aigner (Austria)  |  89.5m  Belka: 10  Wiatr: -0.328569  Rekompensata: 3.18055  |18|18|17|17|18|  105.181pkt
-Clemens Aigner (Austria)  |  86m  Belka: 10  Wiatr: 0.621924  Rekompensata: -4.97539  |17|16.5|17|16.5|17.5|  87.5246pkt
-Clemens Aigner (Austria)  |  85.5m  Belka: 10  Wiatr: 0.289694  Rekompensata: -2.31755  |17.5|18|17|16|16.5|  89.6824pkt
-Clemens Aigner (Austria)  |  88.5m  Belka: 10  Wiatr: 0.156648  Rekompensata: -1.25319  |17.5|18|18.5|18.5|17.5|  99.7468pkt
-Clemens Aigner (Austria)  |  88m  Belka: 10  Wiatr: 0.0696887  Rekompensata: -0.55751  |17|17|17|17.5|17|  96.4425pkt
-Antti Aalto (Finlandia)  |  85m  Belka: 10  Wiatr: -0.347622  Rekompensata: 3.36498  |16|16|16.5|16|16|  91.365pkt
-Antti Aalto (Finlandia)  |  86m  Belka: 10  Wiatr: 0.05134  Rekompensata: -0.41072  |16.5|15.5|16|16|16|  89.5893pkt
-Antti Aalto (Finlandia)  |  88.5m  Belka: 10  Wiatr: -0.0597527  Rekompensata: 0.578406  |17|17.5|18|17|16.5|  99.0784pkt
-Antti Aalto (Finlandia)  |  92.5m  Belka: 10  Wiatr: 0.276331  Rekompensata: -2.21065  |17.5|17.5|16.5|17|18|  104.789pkt
-Antti Aalto (Finlandia)  |  88m  Belka: 10  Wiatr: 0.0175479  Rekompensata: -0.140383  |15|15.5|16|16|16.5|  93.3596pkt
-Antti Aalto (Finlandia)  |  85.5m  Belka: 10  Wiatr: 0.138012  Rekompensata: -1.10409  |16|15|16.5|16|16|  87.8959pkt
-Antti Aalto (Finlandia)  |  87m  Belka: 10  Wiatr: -0.26416  Rekompensata: 2.55707  |16|16|16.5|16.5|16|  95.0571pkt
-Antti Aalto (Finlandia)  |  87m  Belka: 10  Wiatr: 0.102954  Rekompensata: -0.823635  |16|15.5|16.5|16|16|  91.1764pkt
-Antti Aalto (Finlandia)  |  89.5m  Belka: 10  Wiatr: 0.186527  Rekompensata: -1.49222  |17|17|17|16.5|17|  98.5078pkt
-Antti Aalto (Finlandia)  |  89m  Belka: 10  Wiatr: 0.323401  Rekompensata: -2.58721  |17|16.5|16.5|17.5|17|  95.9128pkt
-Halvor Egner Granerud (Norwegia)  |  95m  Belka: 10  Wiatr: 0.180119  Rekompensata: -1.44095  |18.5|18.5|18|17.5|17.5|  112.559pkt
-Halvor Egner Granerud (Norwegia)  |  99.5m  Belka: 10  Wiatr: 0.13366  Rekompensata: -1.06928  |18|18|18.5|18|17.5|  121.931pkt
-Halvor Egner Granerud (Norwegia)  |  97m  Belka: 10  Wiatr: -0.307414  Rekompensata: 2.97577  |17.5|18.5|17.5|18.5|18|  120.976pkt
-Halvor Egner Granerud (Norwegia)  |  93.5m  Belka: 10  Wiatr: -0.252666  Rekompensata: 2.4458  |18|18|18|18.5|17.5|  113.446pkt
-Halvor Egner Granerud (Norwegia)  |  99m  Belka: 10  Wiatr: 0.392601  Rekompensata: -3.14081  |16|16|15.5|16|16.5|  112.859pkt
-Halvor Egner Granerud (Norwegia)  |  95m  Belka: 10  Wiatr: 0.342418  Rekompensata: -2.73934  |18|18|18|18|19|  111.261pkt
-Halvor Egner Granerud (Norwegia)  |  100.5m  Belka: 10  Wiatr: -0.118282  Rekompensata: 1.14497  |16.5|17|17|17|17|  123.145pkt
-Halvor Egner Granerud (Norwegia)  |  98.5m  Belka: 10  Wiatr: -0.156422  Rekompensata: 1.51416  |18|18|18.5|18|18|  122.514pkt
-Halvor Egner Granerud (Norwegia)  |  94.5m  Belka: 10  Wiatr: 0.200234  Rekompensata: -1.60188  |18|18.5|18|18|18|  111.398pkt
-Halvor Egner Granerud (Norwegia)  |  98.5m  Belka: 10  Wiatr: 0.441702  Rekompensata: -3.53362  |17|18|18|18|17.5|  116.966pkt
+Johann Andre Forfang (Norwegia)  |  97m  Belka: 10  Wiatr: -0.141364  Rekompensata: 1.3684  |18|18|18|18|18.5|  111.368pkt
+Clemens Aigner (Austria)  |  88.5m  Belka: 10  Wiatr: 0.134787  Rekompensata: -1.07829  |17|16.5|17|16|17|  88.4217pkt
+Antti Aalto (Finlandia)  |  93m  Belka: 10  Wiatr: 0.0654854  Rekompensata: -0.523883  |17|17|17.5|17|17|  98.4761pkt
+Halvor Egner Granerud (Norwegia)  |  95m  Belka: 10  Wiatr: 0.212567  Rekompensata: -1.70053  |18.5|18.5|18|18|18|  104.799pkt

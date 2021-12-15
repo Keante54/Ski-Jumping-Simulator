@@ -140,26 +140,46 @@ int main()
 
     case '2':
     {
-        break;
         cls;
         loadJumpers();
         loadHills();
         selectHill(hill);
         cls;
         loadConfig(hill);
-        tj.hill = hill;
         selectTrainingJumper(tj);
         cls;
 
+        int jumpsAmount;
+        vector<Jumper> trainingJumps;
         cout << "Belka: ";
         cin >> tj.gate;
-        hill.startGate = tj.gate;
-        tj.setup();
-        tj.jump();
-        tj.showDistanceAndToBeat();
-        tj.showResult();
+        cls;
+        tj.hill = hill;
+        tj.hill.startGate = tj.gate;
+        cout << "Ilosc skokow: ";
+        cin >> jumpsAmount;
+        cls;
+        for (int i = 1; i <= jumpsAmount; i++)
+        {
+            tj.jump();
+            trainingJumps.push_back(tj);
+        }
 
-        getch();
+        cout << tj.name << " " << tj.surname << ":" << endl;
+        int ii = 1;
+        for (auto trj : trainingJumps)
+        {
+            cout << ii << " Skok: " << trj.distance << "m, (Belka " << trj.gate << "), ";
+            for (int i = 0; i <= 4; i++)
+            {
+                cout << "|" << trj.judges[i];
+            }
+            cout << "|, Rekompensata: " << trj.compensationWind << ", Wiatr " << trj.windB << ", " << trj.points << "pkt" << endl;
+            ii++;
+        }
+        +
+
+            getch();
 
         break;
     }
