@@ -37,11 +37,7 @@ Domen,Prevc,Slowenia,79,81,96,2,53,75
 - **Punkt K**
 - **Punkt HS**
 - **Punkty za belkę**
-- **Metry za belkę** (-1 oznacza że będzie wynosić `Punkty za belke / Punkty za metr` (dla dużej skoczni 1.8, dla normalnej 2.0 itd)
 - **Punkty za wiatr przedni**
-- **Metry za wiatr przedni** (tak samo jak za belkę)
-- **Punkty za wiatr tylni**
-- **Metry za wiatr tylni** (tak samo jak za belkę)
 - **Maksymalna odległość mniej/więcej**
 - **Startowa odległość**
 - **Optymalna siła wybicia**
@@ -49,10 +45,12 @@ Domen,Prevc,Slowenia,79,81,96,2,53,75
 - **Metry za technike wybicia**
 - **Metry za technike lotu**
 
+*Punkty za wiatr tylni będą obliczane automatycznie*
+
 Przykład:
 ```
-Wisla,Polska, 120, 134, 7.24, -1, 10.8, -1, 13.07, -1, 145.5, -117, 88.5, 1.4, 0.48, 0.48
-Planica,Slowenia, 200, 240, 8.64, -1, 14.4, -1, 17.42, -1, 252.5, -157, 82, 1, 0.54, 0.83
+Wisla,Polska, 120, 134, 7.24, 10.8, 145.5, -117, 88.5, 1.4, 0.48, 0.48
+Planica,Slowenia, 200, 240, 8.64, 14.4, 252.5, -157, 82, 1, 0.54, 0.83
 ```
 
 ### Obliczanie odległości

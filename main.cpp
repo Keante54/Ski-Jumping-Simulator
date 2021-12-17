@@ -278,15 +278,7 @@ void loadHills()
         getline(hlf, tmp, ',');
         vechill.gatePoints = stod(tmp);
         getline(hlf, tmp, ',');
-        vechill.gateMeters = stod(tmp);
-        getline(hlf, tmp, ',');
         vechill.windPointsFront = stod(tmp);
-        getline(hlf, tmp, ',');
-        vechill.windMetersFront = stod(tmp);
-        getline(hlf, tmp, ',');
-        vechill.windPointsBack = stod(tmp);
-        getline(hlf, tmp, ',');
-        vechill.windMetersBack = stod(tmp);
         getline(hlf, tmp, ',');
         vechill.maxdist = stod(tmp);
         getline(hlf, tmp, ',');

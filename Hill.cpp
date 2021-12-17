@@ -37,4 +37,10 @@ void Hill::startup()
     flightStyleMeters[2] = 14 + ((kpoint - 100) / 6);
     flightStyleMeters[3] = 13.2 + ((kpoint - 100) / 5.3);
     flightStyleMeters[4] = 12 + ((kpoint - 100) / 4.5);
+
+    windMetersFront = windPointsFront / metersPoints;
+    windPointsBack = percent(121, windPointsFront);
+    windMetersBack = windPointsBack / metersPoints;
+    gateMeters= gatePoints / metersPoints;
+
 }
