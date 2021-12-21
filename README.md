@@ -4,7 +4,7 @@ Symulator skoków narciarskich w C++.
 
 ## Tryby
 - **Seria skoków:** Wybierasz skocznię, po czym wszyscy skoczkowie wpisani do pliku "jumpers.csv" oddają swoje skoki (tylko konkursy jednoseryjne).
-- **Pojedynczy skok** (niedostępne): Wybierasz jednego skoczka (i skocznię) i na własno ustawionym wietrze + belce skoczek oddaje 1 skok lub więcej.
+- **Pojedynczy skok**: Wybierasz jednego skoczka (i skocznię) z listy. Wybierasz też ile razy skoczyć ma zawodnik i wyświetla się lista z jego wynikami.
 
 ## Plik jumpers.csv
 Plik znajduje się w folderze "resources" (i musi tam być). Są w nim wpisani skoczkowie do serii skoków (lub pojedynczego skoku).
