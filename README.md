@@ -60,7 +60,7 @@ Startowa odległosc + (Technika wybicia * Metry za technike wybicia) + (Technika
 Siła wybicia, technika wybicia i technika lotu to ```Umiejętność + forma + losowość```
 
 ## Plik "config.csv"
-- **Przedział wiatru** (Dwie oddzielne wartośći. Wiatr startowy będzie losowany między tymi wartościami)
+- **Wiatr startowy**
 - **Zmiana wiatru** (Jak wiatr może się zmienić. Wiatr jest obliczany: `Wiatr startowy + (losowanie między -zmiana wiatru a zmiana wiatru` np. `0.45 + (losowanie między -0.20 a 0.20)`);
 - **Fałszywość wiatru** (Jest aby dodać realizmu. Wiatr przy skoku jest bez zmian, ale przy podawaniu wyników i podliczaniu punktów będzie inny. Np. jeżeli fałszywośc wiatru = 0.10. `Wiatr w wynikach = Wiatr + (losowanie między -0.10 a 0.10`. Można wyłączyć wpisując 0);
 - **Rekompensata za belkę** (0 = nie, 1 = tak)

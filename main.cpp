@@ -7,16 +7,19 @@ using namespace std;
 void loadHills();
 void loadJumpers();
 void loadConfig(Hill &h);
+void loadInjuries();
 void selectHill(Hill &h);
 void selectTrainingJumper(Jumper &jp);
 void showHillInfo(Hill hl);
 void showJumpers();
 void defaultClearFile(string file);
+struct Injury;
 Hill hill;
 Jumper trainingJumper;
-fstream hillsfile, jumpersfile, configfile, resultsfile;
+fstream hillsfile, jumpersfile, configfile, resultsfile, injuriesfile;
 vector<Hill> hills;
 vector<Jumper> jumpers;
+vector<Injury> injuries;
 #define tj trainingJumper
 
 int main()
@@ -40,6 +43,7 @@ int main()
         cls;
         loadJumpers();
         loadHills();
+        loadInjuries();
         selectHill(hill);
         cls;
         // showJumpers();
@@ -104,7 +108,6 @@ int main()
                 jp.jump();
                 if (hill.IsshowResults == 1)
                 {
-                    jp.showDistanceAndToBeat();
                     jp.showResult();
                 }
             }
@@ -253,8 +256,6 @@ void loadConfig(Hill &h)
     h.IsshowResults = stoi(tmp);
     getline(cf, tmp, ',');
     h.sleepAfterJump = stoi(tmp);
-    // getline(cf, tmp, ',');
-    // h.autoWind = stoi(tmp);
 }
 
 void loadHills()
@@ -296,6 +297,20 @@ void loadHills()
     hlf.close();
 }
 
+void loadInjuries()
+{
+    Injury i;
+    string tmp;
+    injuriesfile.open("resources/injuries.csv", ios::in);
+    while (getline(injuriesfile, tmp, ','))
+    {
+        i.name = tmp;
+        getline(injuriesfile, tmp);
+        i.chance = stoi(tmp);
+        injuries.push_back(i);
+    }
+    injuriesfile.close();
+}
 void loadJumpers()
 {
     Jumper jp;
@@ -331,6 +346,7 @@ void loadJumpers()
         // cout << jp.landSkill << endl;
         getline(jpf, tmp);
         jp.form = stoi(tmp);
+        jp.injList = injuries;
         jumpers.push_back(jp);
     }
     jpf.close();

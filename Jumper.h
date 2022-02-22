@@ -3,6 +3,12 @@
 #include "Hill.h"
 using namespace std;
 
+struct Injury
+{
+    string name;
+    short chance;
+};
+
 class Jumper
 {
 public:
@@ -23,6 +29,9 @@ public:
     int importance;
     int position;
     Hill hill;
+
+    Injury injury;
+    vector <Injury> injList;
 
     void setup();
     void setTakeoffPower();

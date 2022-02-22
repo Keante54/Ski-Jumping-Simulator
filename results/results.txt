@@ -1,4 +1,5 @@
-Johann Andre Forfang (Norwegia)  |  92m  Belka: 10  Wiatr: 0.157402  Rekompensata: -1.25921  |18.5|18.5|18|18|17.5|  117.241pkt
-Clemens Aigner (Austria)  |  92m  Belka: 10  Wiatr: -0.0152462  Rekompensata: 0.147583  |18|18|18.5|18|18|  118.148pkt
-Antti Aalto (Finlandia)  |  91.5m  Belka: 10  Wiatr: -0.050488  Rekompensata: 0.488724  |17|17|17|17|17|  114.489pkt
-Halvor Egner Granerud (Norwegia)  |  99m  Belka: 10  Wiatr: -0.0255684  Rekompensata: 0.247502  |19.5|18.5|18.5|19.5|19|  135.248pkt
+Michael Hayboeck (Austria)  |  98m  Belka: 8  Wiatr: -0.895271  Rekompensata: 11.6994  |17|17|17|17.5|17|  83.0994pkt
+Stefan Hula (Polska)  |  87m  Belka: 8  Wiatr: -0.178692  Rekompensata: 2.33514  |16|15.5|16|15.5|16|  50.4351pkt
+Timi Zajc (Slowenia)  |  100m  Belka: 8  Wiatr: -0.471217  Rekompensata: 6.15786  |17|18|17|17|17|  81.1579pkt
+Jan Habdas (Polska)  |  92m  Belka: 8  Wiatr: -0.452726  Rekompensata: 5.91623  |16|15.5|16|16|16.5|  63.5162pkt
+Alex Insam (Wlochy)  |  96m  Belka: 8  Wiatr: -0.181809  Rekompensata: 2.37588  |17.5|17|17|17|16.5|  70.1759pkt

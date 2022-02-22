@@ -159,7 +159,7 @@ void Jumper::land()
     judgeRating = (round(judgeRating) * 2) / 2;
 
     rd = randomInt(0, 100000);
-    rd1 = 65000 - (landRating * 500);
+    rd1 = 32000 - (landRating * 500);
     rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
 
     if (rd < rd1)
@@ -170,7 +170,7 @@ void Jumper::land()
     else
     {
         rd = randomInt(1, 100000);
-        rd1 = 45000 - (landRating * 500); // - (expernice * 300);
+        rd1 = 30000 - (landRating * 500); // - (expernice * 300);
         rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
         // cout << "rd1: " << rd1 << endl;
         // getch();
@@ -361,6 +361,9 @@ void Jumper::showResult()
         colorText(12, "upadkiem");
 
     SetConsoleTextAttribute(hcon, 15);
+
+    if(landType == 4)
+    cout<<"\n KONTUZJA: "<<injury.name;
 }
 
 void Jumper::showHideInfo()
