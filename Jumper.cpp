@@ -48,7 +48,7 @@ void Jumper::setTakeoffPower()
         takeoffPowerS = 1;
 
     takeoffPower = (takeoffPowerS);
-    takeoffPower += normalRandom(0, 6);
+    takeoffPower += normalRandom(0, 7);
     takeoffPower = round(takeoffPower);
     if (takeoffPower > 160)
         takeoffPower = 160;
@@ -62,8 +62,8 @@ void Jumper::setTakeoffTechnique()
     if (takeoffTechniqueS < 1)
         takeoffTechniqueS = 1;
 
-    takeoffTechnique = (takeoffTechniqueS * 0.82) + (form * 1.18);
-    takeoffTechnique += normalRandom(0, 8);
+    takeoffTechnique = (takeoffTechniqueS * 0.88) + (form * 1.12);
+    takeoffTechnique += normalRandom(0, 10);
     takeoffTechnique = round(takeoffTechnique);
     if (takeoffTechnique > 280)
         takeoffTechnique = 280;
@@ -78,17 +78,17 @@ void Jumper::setFlightTechnique()
     if (flightTechniqueS < 1)
         flightTechniqueS = 1;
 
-    flightTechnique = (flightTechniqueS * 0.8) + (form * 1.2);
+    flightTechnique = (flightTechniqueS * 0.81) + (form * 1.19);
     if (flightStyle == 0)
-        flightTechnique += randomInt(-17, -9);
+        flightTechnique += randomInt(-22, -15);
     else if (flightStyle == 1)
-        flightTechnique += randomInt(-3, 3);
+        flightTechnique += randomInt(-4, 4);
     else if (flightStyle == 2)
-        flightTechnique += randomInt(-3.7, 3.7);
+        flightTechnique += randomInt(-4.8, 4.8);
     else if (flightStyle == 3)
-        flightTechnique += randomInt(-4.4, 4.4);
+        flightTechnique += randomInt(-6, 6);
     else if (flightStyle == 4)
-        flightTechnique += randomInt(-5, 5);
+        flightTechnique += randomInt(-6.8, 6.8);
 
     flightTechnique += normalRandom(0, 6);
     flightTechnique = round(flightTechnique);
@@ -143,108 +143,111 @@ void Jumper::setPoints()
 
 void Jumper::land()
 {
-    int rd, rd1;
+    int rd, rd1, rd2;
 
-    landRating = landSkill + (form / 12) + (landSkill / 25);
-    landRating += normalRandom(0, 3);
+    landRating = (landSkill * 1.2) + normalRandom(0, 5);
     if (landRating > 80)
         landRating = 80;
     else if (landRating < 1)
         landRating = 1;
 
-    judgeRating = 16;
-    judgeRating += landSkill / 24;
+    judgeRating = 15.3;
+    judgeRating += landSkill / 20;
     judgeRating += ((distance - hill.kpoint) / hill.judgeDivider);
-
     judgeRating = (round(judgeRating) * 2) / 2;
 
-    rd = randomInt(0, 100000);
-    rd1 = 32000 - (landRating * 500);
-    rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
+    rd = (landRating - 32);
+    rd1 = (((hill.maxdist - distance) * 1.35) * hill.landDifficulty) + rd;
+    if (rd1 < 2)
+        rd1 = 2;
 
-    if (rd < rd1)
+    rd2 = randomInt(0, rd1);
+    cout << rd1 << endl;
+    //<< rd2 << endl;
+    getch();
+    if (rd2 == rd1)
     {
         landType = 4;
         judgeRating -= (9 + (randomInt(1, 1) / 2));
     }
     else
     {
-        rd = randomInt(1, 100000);
-        rd1 = 30000 - (landRating * 500); // - (expernice * 300);
-        rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 15);
-        // cout << "rd1: " << rd1 << endl;
-        // getch();
-        if (rd < rd1)
+        rd = (landRating - 36);
+            rd1 = (((hill.maxdist - distance) * 1.4) * hill.landDifficulty) + rd;
+        if (rd1 < 2)
+            rd1 = 2;
+
+        rd2 = randomInt(0, rd1);
+        cout << rd1 << endl;
+        //<< rd2 << endl;
+        getch();
+        if (rd2 == rd1)
         {
             landType = 3;
             judgeRating -= (7 + (randomInt(1, 1) / 2));
         }
         else
-        {
-            rd = randomInt(1, 100000);
-            rd1 = 85000 - (landRating * 500); // - (expernice * 300);
-            rd1 += ((distance - hill.maxdist) * hill.landDifficulty * 17);
 
-            // cout << "rd1: " << rd1 << endl;
-            // getch();
-            if (rd < rd1)
+        {
+            rd = (landRating - 60);
+                rd1 = (((hill.maxdist - distance) * 0.77) * hill.landDifficulty) + rd;
+            if (rd1 < 2)
+                rd1 = 2;
+
+            rd2 = randomInt(0, rd1);
+            cout << rd1 << endl;
+            //<< rd2 << endl;
+            getch();
+            if (rd2 == rd1)
             {
                 landType = 2;
-                judgeRating -= randomInt(1, 2);
-                rd = randomInt(1, 30);
-                if (rd == 1)
-                    judgeRating -= 1;
-                else
-                {
-                    landType = 2;
-                    judgeRating -= (randomInt(-1, 1) / 2);
-                }
+                judgeRating -= (2 + (randomInt(1, 1) / 2));
             }
             else
+            {
                 landType = 1;
+                judgeRating += (randomInt(1, 1) / 2);
+            }
         }
     }
-    if (hill.isJudges == 1)
+
+    for (auto &jg : judges)
     {
-        for (auto &jdg : judges)
-        {
-            jdg = judgeRating;
-            rd = randomInt(1, 5);
-            if (rd == 1)
-                jdg += (-0.5);
-            if (rd == 2 || rd == 3 || rd == 4)
-                jdg += (0);
-            if (rd == 5)
-                jdg += (0.5);
+        jg = judgeRating;
+        rd = randomInt(1, 5);
+        if (rd == 1)
+            jg += (-0.5);
+        if (rd == 2 || rd == 3 || rd == 4)
+            jg += (0);
+        if (rd == 5)
+            jg += (0.5);
 
-            rd = (randomInt(1, 20));
-            if (rd == 1)
-                jdg += (-1);
-            if (rd == 2)
-                jdg += (1);
+        rd = (randomInt(1, 20));
+        if (rd == 1)
+            jg += (-1);
+        if (rd == 2)
+            jg += (1);
 
-            if (jdg > 20)
-                jdg = 20;
-            else if (jdg < 1)
-                jdg = 1;
-        }
-
-        minJudge = judges[0];
-        maxJudge = judges[0];
-        for (auto jg : judges)
-        {
-            if (jg < minJudge)
-                minJudge = jg;
-            if (jg > maxJudge)
-                maxJudge = jg;
-        }
-        judgesAll = 0;
-        for (auto jg : judges)
-        {
-            judgesAll += jg;
-        }
-        judgesAll -= (minJudge + maxJudge);
+        if (jg > 20)
+            jg = 20;
+        else if (jg < 1)
+            jg = 1;
     }
+    minJudge = judges[0];
+    maxJudge = judges[0];
+    for (auto jg : judges)
+    {
+        if (jg < minJudge)
+            minJudge = jg;
+        if (jg > maxJudge)
+            maxJudge = jg;
+    }
+    judgesAll = 0;
+    for (auto jg : judges)
+    {
+        judgesAll += jg;
+    }
+    judgesAll -= (minJudge + maxJudge);
 }
 
 void Jumper::showResult()
@@ -362,47 +365,13 @@ void Jumper::showResult()
 
     SetConsoleTextAttribute(hcon, 15);
 
-    if(landType == 4)
-    cout<<"\n KONTUZJA: "<<injury.name;
+    if (landType == 4)
+        cout << "\n KONTUZJA: " << injury.name;
 }
 
 void Jumper::showHideInfo()
 {
     cout << "Moc wybicia: " << takeoffPower << ", Technika wybicia: " << takeoffTechnique << ", Technika lotu: " << flightTechnique << endl;
-}
-
-void Jumper::showDistanceAndToBeat()
-{
-    for (int i = 0; i <= distance; i++)
-    {
-        cout << "Do objecia prowadzenia: " << toBeat << endl;
-        if (i == distance)
-        {
-            cout << "| " << i << "m |" << endl;
-        }
-        else
-            cout << i << "m" << endl;
-
-        if (distance - i < 5 + (randomInt(-12, 12)))
-            Sleep(80.5);
-        else if (distance - i < 10 + (randomInt(-12, 12)))
-            Sleep(72);
-        else if (distance - i < 25 + (randomInt(-12, 12)))
-            Sleep(60);
-        else if (distance - i < 45 + (randomInt(-12, 12)))
-            Sleep(47);
-        else if (distance - i < 70 + (randomInt(-12, 12)))
-            Sleep(30);
-        else if (distance - i < 100 + (randomInt(-12, 12)))
-            Sleep(16);
-        else if (distance - i < 150 + (randomInt(-12, 12)))
-            Sleep(12);
-        else
-            Sleep(8);
-
-        cls;
-    }
-    cls;
 }
 
 void Jumper::setHill(Hill &h)
@@ -499,8 +468,8 @@ void Jumper::saveToCsv(string filename)
 
 void Jumper::setDsq()
 {
-    int rd = randomInt(1, 130);
-    if (rd == 1)
+    int rd = randomInt(100, 230);
+    if (rd == 100)
         dsq = true;
     else
         dsq = false;

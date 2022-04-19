@@ -48,7 +48,7 @@ int main()
         cls;
         // showJumpers();
         loadConfig(hill);
-        hill.startWind = randomDouble(hill.typicalWind[0], hill.typicalWind[1]);
+        hill.startWind = hill.typicalWind;
 
         for (auto &jp : jumpers)
         {
@@ -119,11 +119,7 @@ int main()
 
             if (hill.IsshowResults == 1)
             {
-                if (hill.sleepAfterJump <= 0)
                     getch();
-                else
-                    Sleep(hill.sleepAfterJump);
-                cls;
             }
 
             if (i == 0)
@@ -239,9 +235,7 @@ void loadConfig(Hill &h)
         exit(0);
     }
     getline(cf, tmp, ',');
-    h.typicalWind[0] = stod(tmp);
-    getline(cf, tmp, ',');
-    h.typicalWind[1] = stod(tmp);
+    h.typicalWind = stod(tmp);
     getline(cf, tmp, ',');
     h.windChange = stod(tmp);
     getline(cf, tmp, ',');
@@ -254,8 +248,6 @@ void loadConfig(Hill &h)
     h.isJudges = stoi(tmp);
     getline(cf, tmp, ',');
     h.IsshowResults = stoi(tmp);
-    getline(cf, tmp, ',');
-    h.sleepAfterJump = stoi(tmp);
 }
 
 void loadHills()

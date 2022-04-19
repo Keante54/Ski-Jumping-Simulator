@@ -1,5 +1,6 @@
-Michael Hayboeck (Austria)  |  98m  Belka: 8  Wiatr: -0.895271  Rekompensata: 11.6994  |17|17|17|17.5|17|  83.0994pkt
-Stefan Hula (Polska)  |  87m  Belka: 8  Wiatr: -0.178692  Rekompensata: 2.33514  |16|15.5|16|15.5|16|  50.4351pkt
-Timi Zajc (Slowenia)  |  100m  Belka: 8  Wiatr: -0.471217  Rekompensata: 6.15786  |17|18|17|17|17|  81.1579pkt
-Jan Habdas (Polska)  |  92m  Belka: 8  Wiatr: -0.452726  Rekompensata: 5.91623  |16|15.5|16|16|16.5|  63.5162pkt
-Alex Insam (Wlochy)  |  96m  Belka: 8  Wiatr: -0.181809  Rekompensata: 2.37588  |17.5|17|17|17|16.5|  70.1759pkt
+Michael Hayboeck (Austria)  |  133.5m  Belka: 15  Wiatr: -0.302373  Rekompensata: 3.95141  |17.5|18|18|18|18|  142.251pkt
+Stefan Hula (Polska)  |  113m  Belka: 15  Wiatr: -0.0979618  Rekompensata: 1.28016  |17|16.5|17|17|17.5|  99.6802pkt
+Timi Zajc (Slowenia)  |  121m  Belka: 15  Wiatr: -0.675857  Rekompensata: 8.83211  |17|17|17|17|17|  121.632pkt
+Jan Habdas (Polska)  |  103.5m  Belka: 15  Wiatr: -0.384723  Rekompensata: 5.02757  |16|16.5|16|15.5|16|  83.3276pkt
+Alex Insam (Wlochy)  |  118.5m  Belka: 15  Wiatr: 0.0263421  Rekompensata: -0.284495  |17|17.5|16.5|17.5|17.5|  109.016pkt
+Marius Lindvik (Norwegia)  |  123.5m  Belka: 15  Wiatr: -0.393404  Rekompensata: 5.141  |18.5|18|18|18|18|  125.441pkt

@@ -20,7 +20,7 @@ public:
     double takeoffPowerImportance, judgeDivider;
 
     int startGate;
-    double typicalWind[2], windChange, startWind, windFaulty, leaderPoints, sleepAfterJump;
+    double typicalWind, windChange, startWind, windFaulty, leaderPoints, sleepAfterJump;
     bool gateComp, windComp, isJudges, IsshowResults, autoWind;
     void startup();
 };
