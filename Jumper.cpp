@@ -156,15 +156,15 @@ void Jumper::land()
     judgeRating += ((distance - hill.kpoint) / hill.judgeDivider);
     judgeRating = (round(judgeRating) * 2) / 2;
 
-    rd = (landRating - 32);
-    rd1 = (((hill.maxdist - distance) * 1.35) * hill.landDifficulty) + rd;
+    rd = (landRating - 75);
+    rd1 = (((hill.maxdist - distance) * 3.7) * hill.landDifficulty) + rd;
     if (rd1 < 2)
         rd1 = 2;
 
-    rd2 = randomInt(0, rd1);
-    cout << rd1 << endl;
+    rd2 = randomInt(1, rd1);
+    //cout << rd1 << endl;
     //<< rd2 << endl;
-    getch();
+    //getch();
     if (rd2 == rd1)
     {
         landType = 4;
@@ -172,32 +172,31 @@ void Jumper::land()
     }
     else
     {
-        rd = (landRating - 36);
-            rd1 = (((hill.maxdist - distance) * 1.4) * hill.landDifficulty) + rd;
+        rd = (landRating - 75);
+        rd1 = (((hill.maxdist - distance) * 3.7) * hill.landDifficulty) + rd;
         if (rd1 < 2)
             rd1 = 2;
 
-        rd2 = randomInt(0, rd1);
-        cout << rd1 << endl;
+        rd2 = randomInt(1, rd1);
+        //cout << rd1 << endl;
         //<< rd2 << endl;
-        getch();
+        //getch();
         if (rd2 == rd1)
         {
             landType = 3;
             judgeRating -= (7 + (randomInt(1, 1) / 2));
         }
         else
-
         {
-            rd = (landRating - 60);
-                rd1 = (((hill.maxdist - distance) * 0.77) * hill.landDifficulty) + rd;
+            rd = (landRating - 66);
+            rd1 = (((hill.maxdist - distance) * 1.92) * hill.landDifficulty) + rd;
             if (rd1 < 2)
                 rd1 = 2;
 
-            rd2 = randomInt(0, rd1);
-            cout << rd1 << endl;
+            rd2 = randomInt(1, rd1);
+            //cout << rd1 << endl;
             //<< rd2 << endl;
-            getch();
+            //getch();
             if (rd2 == rd1)
             {
                 landType = 2;

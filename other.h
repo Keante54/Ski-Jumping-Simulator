@@ -36,7 +36,7 @@ void showHillInfo(Hill hl);
 void showJumpers();
 void defaultClearFile(string file);
 
-#define APP_VERSION "0.3.2"
+#define APP_VERSION "0.5.1"
 #define cls system("cls")
 #define hillsfile hlf
 #define jumpersfile jpf

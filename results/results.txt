@@ -1,6 +1,5 @@
-Michael Hayboeck (Austria)  |  133.5m  Belka: 15  Wiatr: -0.302373  Rekompensata: 3.95141  |17.5|18|18|18|18|  142.251pkt
-Stefan Hula (Polska)  |  113m  Belka: 15  Wiatr: -0.0979618  Rekompensata: 1.28016  |17|16.5|17|17|17.5|  99.6802pkt
-Timi Zajc (Slowenia)  |  121m  Belka: 15  Wiatr: -0.675857  Rekompensata: 8.83211  |17|17|17|17|17|  121.632pkt
-Jan Habdas (Polska)  |  103.5m  Belka: 15  Wiatr: -0.384723  Rekompensata: 5.02757  |16|16.5|16|15.5|16|  83.3276pkt
-Alex Insam (Wlochy)  |  118.5m  Belka: 15  Wiatr: 0.0263421  Rekompensata: -0.284495  |17|17.5|16.5|17.5|17.5|  109.016pkt
-Marius Lindvik (Norwegia)  |  123.5m  Belka: 15  Wiatr: -0.393404  Rekompensata: 5.141  |18.5|18|18|18|18|  125.441pkt
+Giovanni Bresadola (Wlochy)  |  218m  Belka: 8  Wiatr: 1.52799  Rekompensata: -22.0031  |18.5|17.5|18|17.5|18|  173.097pkt
+Daniel Huber (Austria)  |  0m  Belka: 8  Wiatr: 1.65781e-316  Rekompensata: 2.27142e-310  |2.47033e-323|5.95775e-317|5.95775e-317|0|5.95775e-317|  0pkt
+Kamil Stoch (Polska)  |  239m  Belka: 8  Wiatr: 1.5384  Rekompensata: -22.153  |19|18.5|19|19|18|  201.147pkt
+Constantin Schmid (Niemcy)  |  233m  Belka: 8  Wiatr: 2.02542  Rekompensata: -29.1661  |17.5|18|18|18|18|  184.434pkt
+Maciej Kot (Polska)  |  216m  Belka: 8  Wiatr: 2.19294  Rekompensata: -31.5783  |18.5|18.5|18.5|17.5|18|  162.622pkt
