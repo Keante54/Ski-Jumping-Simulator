@@ -119,7 +119,7 @@ int main()
 
             if (hill.IsshowResults == 1)
             {
-                    getch();
+                getch();
             }
 
             if (i == 0)
@@ -148,7 +148,7 @@ int main()
         selectTrainingJumper(tj);
         cls;
 
-        int jumpsAmount;
+        double jumpsAmount;
         vector<Jumper> trainingJumps;
         cout << "Belka: ";
         cin >> tj.gate;
@@ -158,11 +158,42 @@ int main()
         cout << "Ilosc skokow: ";
         cin >> jumpsAmount;
         cls;
+        double avg_dist = 0, avg_points = 0, avg_judges = 0, dist_diff = 0, pts_diff, min_pts = 0, max_pts = 0, min_dist = 0, max_dist = 0;
         for (int i = 1; i <= jumpsAmount; i++)
         {
             tj.jump();
             trainingJumps.push_back(tj);
+            avg_dist += tj.distance;
+            avg_points += tj.points;
+            for (int i = 0; i <= 4; i++)
+            {
+                avg_judges += tj.judges[i];
+            }
+            //jp.saveToCsv("results/results.csv");
+            //jp.saveToTxt("results/results.txt");
         }
+        min_pts = trainingJumps[0].points;
+        max_pts = trainingJumps[0].points;
+        min_dist = trainingJumps[0].distance;
+        max_dist = trainingJumps[0].distance;
+        for (int i = 0; i < jumpsAmount; i++)
+        {
+            if (trainingJumps[i].points < min_pts)
+                min_pts = trainingJumps[i].points;
+            if (trainingJumps[i].points > max_pts)
+                max_pts = trainingJumps[i].points;
+
+            if (min_dist > trainingJumps[i].distance)
+                min_dist = trainingJumps[i].distance;
+            if (trainingJumps[i].distance > max_dist)
+                max_dist = trainingJumps[i].distance;
+        }
+        dist_diff = max_dist - min_dist;
+        pts_diff = max_pts - min_pts;
+
+        avg_dist /= jumpsAmount;
+        avg_points /= jumpsAmount;
+        avg_judges /= jumpsAmount * 5;
 
         cout << tj.name << " " << tj.surname << ":" << endl;
         int ii = 1;
@@ -176,9 +207,18 @@ int main()
             cout << "|, Rekompensata: " << trj.compensationWind << ", Wiatr " << trj.windB << ", " << trj.points << "pkt" << endl;
             ii++;
         }
-        +
-
-            getch();
+        cout << setprecision(5);
+        cout << "Srednia odleglosc: " << avg_dist << endl;
+        cout << "Srednia punktow: " << avg_points << endl;
+        cout << "Srednia noty za styl: " << avg_judges << endl;
+        cout << "Najgorsza odleglosc: " << min_dist << endl;
+        cout << "Najlepsza odleglosc: " << max_dist << endl;
+        cout << "Roznica: " << dist_diff << endl;
+        cout << "Najgorsza nota: " << min_pts << endl;
+        cout << "Najlepsza nota: " << max_pts << endl;
+        cout << "Roznica: " << pts_diff << endl;
+        cout << fixed;
+        getch();
 
         break;
     }
@@ -186,6 +226,7 @@ int main()
 
     getch();
 }
+
 void showJumpers()
 {
     int n = 1;

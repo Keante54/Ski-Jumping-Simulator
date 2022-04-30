@@ -151,7 +151,7 @@ void Jumper::land()
     else if (landRating < 1)
         landRating = 1;
 
-    judgeRating = 15.3;
+    judgeRating = 15.4;
     judgeRating += landSkill / 20;
     judgeRating += ((distance - hill.kpoint) / hill.judgeDivider);
     judgeRating = (round(judgeRating) * 2) / 2;

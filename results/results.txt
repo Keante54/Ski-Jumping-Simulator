@@ -1,5 +1,0 @@
-Giovanni Bresadola (Wlochy)  |  218m  Belka: 8  Wiatr: 1.52799  Rekompensata: -22.0031  |18.5|17.5|18|17.5|18|  173.097pkt
-Daniel Huber (Austria)  |  0m  Belka: 8  Wiatr: 1.65781e-316  Rekompensata: 2.27142e-310  |2.47033e-323|5.95775e-317|5.95775e-317|0|5.95775e-317|  0pkt
-Kamil Stoch (Polska)  |  239m  Belka: 8  Wiatr: 1.5384  Rekompensata: -22.153  |19|18.5|19|19|18|  201.147pkt
-Constantin Schmid (Niemcy)  |  233m  Belka: 8  Wiatr: 2.02542  Rekompensata: -29.1661  |17.5|18|18|18|18|  184.434pkt
-Maciej Kot (Polska)  |  216m  Belka: 8  Wiatr: 2.19294  Rekompensata: -31.5783  |18.5|18.5|18.5|17.5|18|  162.622pkt
