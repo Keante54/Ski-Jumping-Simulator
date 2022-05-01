@@ -180,6 +180,13 @@ int main()
             {
                 avg_judges += tj.judges[i];
             }
+
+            cout << i << " Skok: " << tj.distance << "m, (Belka " << tj.gate << "), ";
+            for (int i = 0; i <= 4; i++)
+            {
+                cout << "|" << tj.judges[i];
+            }
+            cout << "|, Rekompensata: " << tj.compensationWind + tj.compensationGate << ", Wiatr " << tj.windB << ", " << tj.points << "pkt" << endl;
             // jp.saveToCsv("results/tresults.csv");
             // jp.saveToTxt("results/tresults.txt");
         }
@@ -225,7 +232,7 @@ int main()
 
         cout << tj.name << " " << tj.surname << ":" << endl;
         int ii = 1;
-        for (auto trj : trainingJumps)
+        /*for (auto trj : trainingJumps)
         {
             cout << ii << " Skok: " << trj.distance << "m, (Belka " << trj.gate << "), ";
             for (int i = 0; i <= 4; i++)
@@ -234,7 +241,7 @@ int main()
             }
             cout << "|, Rekompensata: " << trj.compensationWind + trj.compensationGate << ", Wiatr " << trj.windB << ", " << trj.points << "pkt" << endl;
             ii++;
-        }
+        }*/
         cout << setprecision(5);
         cout << "Srednia odleglosc: " << avg_dist << endl;
         cout << "Srednia punktow: " << avg_points << endl;
