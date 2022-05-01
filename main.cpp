@@ -168,6 +168,7 @@ int main()
         cls;
         tj.gateDiff = 0;
         double avg_dist = 0, avg_points = 0, avg_judges = 0, dist_diff = 0, pts_diff, min_pts = 0, max_pts = 0, min_dist = 0, max_dist = 0, min_wind = 0, max_wind = 0, wind_diff = 0;
+        int telemarkCount = 0, bothCount = 0, proppedCount = 0, fallCount = 0;
         for (int i = 1; i <= jumpsAmount; i++)
         {
             tj.wind = hill.startWind;
@@ -179,8 +180,8 @@ int main()
             {
                 avg_judges += tj.judges[i];
             }
-            //jp.saveToCsv("results/tresults.csv");
-            //jp.saveToTxt("results/tresults.txt");
+            // jp.saveToCsv("results/tresults.csv");
+            // jp.saveToTxt("results/tresults.txt");
         }
         min_pts = trainingJumps[0].points;
         max_pts = trainingJumps[0].points;
@@ -204,6 +205,15 @@ int main()
                 min_wind = trainingJumps[i].wind;
             if (trainingJumps[i].wind > max_wind)
                 max_wind = trainingJumps[i].wind;
+
+            if (trainingJumps[i].landType == 1)
+                telemarkCount++;
+            else if (trainingJumps[i].landType == 2)
+                bothCount++;
+            else if (trainingJumps[i].landType == 3)
+                proppedCount++;
+            else if (trainingJumps[i].landType == 4)
+                fallCount++;
         }
         dist_diff = max_dist - min_dist;
         pts_diff = max_pts - min_pts;
@@ -238,6 +248,22 @@ int main()
         cout << "Najgorszy wiatr: " << min_wind << endl;
         cout << "Najlepszy wiatr: " << max_wind << endl;
         cout << "Roznica: " << wind_diff << endl;
+        cout << "Ilosc ";
+        colorText(11, "telemarkow");
+        SetConsoleTextAttribute(hcon, 15);
+        cout << ": " << telemarkCount;
+        cout << "\nIlosc ";
+        colorText(3, "ladowan na dwie nogi");
+        SetConsoleTextAttribute(hcon, 15);
+        cout << ": " << bothCount;
+        cout << "\nIlosc ";
+        colorText(5, "podporek");
+        SetConsoleTextAttribute(hcon, 15);
+        cout << ": " << proppedCount;
+        cout << "\nIlosc ";
+        colorText(12, "upadkow");
+        SetConsoleTextAttribute(hcon, 15);
+        cout << ": " << fallCount;
         cout << fixed;
         getch();
 
