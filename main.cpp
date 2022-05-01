@@ -46,7 +46,6 @@ int main()
         loadInjuries();
         selectHill(hill);
         cls;
-        // showJumpers();
         loadConfig(hill);
         hill.startWind = hill.typicalWind;
 
@@ -147,6 +146,14 @@ int main()
         loadConfig(hill);
         selectTrainingJumper(tj);
         cls;
+        hill.startWind = hill.typicalWind;
+
+        rsf.open("results/tresults.txt", ios::out);
+        rsf.clear();
+        rsf.close();
+        rsf.open("results/tresults.csv", ios::out);
+        rsf.clear();
+        rsf.close();
 
         double jumpsAmount;
         vector<Jumper> trainingJumps;
@@ -155,12 +162,15 @@ int main()
         cls;
         tj.hill = hill;
         tj.hill.startGate = tj.gate;
+        hill.startGate = tj.gate;
         cout << "Ilosc skokow: ";
         cin >> jumpsAmount;
         cls;
-        double avg_dist = 0, avg_points = 0, avg_judges = 0, dist_diff = 0, pts_diff, min_pts = 0, max_pts = 0, min_dist = 0, max_dist = 0;
+        tj.gateDiff = 0;
+        double avg_dist = 0, avg_points = 0, avg_judges = 0, dist_diff = 0, pts_diff, min_pts = 0, max_pts = 0, min_dist = 0, max_dist = 0, min_wind = 0, max_wind = 0, wind_diff = 0;
         for (int i = 1; i <= jumpsAmount; i++)
         {
+            tj.wind = hill.startWind;
             tj.jump();
             trainingJumps.push_back(tj);
             avg_dist += tj.distance;
@@ -169,13 +179,15 @@ int main()
             {
                 avg_judges += tj.judges[i];
             }
-            //jp.saveToCsv("results/results.csv");
-            //jp.saveToTxt("results/results.txt");
+            //jp.saveToCsv("results/tresults.csv");
+            //jp.saveToTxt("results/tresults.txt");
         }
         min_pts = trainingJumps[0].points;
         max_pts = trainingJumps[0].points;
         min_dist = trainingJumps[0].distance;
         max_dist = trainingJumps[0].distance;
+        min_wind = trainingJumps[0].wind;
+        max_wind = trainingJumps[0].wind;
         for (int i = 0; i < jumpsAmount; i++)
         {
             if (trainingJumps[i].points < min_pts)
@@ -183,13 +195,19 @@ int main()
             if (trainingJumps[i].points > max_pts)
                 max_pts = trainingJumps[i].points;
 
-            if (min_dist > trainingJumps[i].distance)
+            if (trainingJumps[i].distance < min_dist)
                 min_dist = trainingJumps[i].distance;
             if (trainingJumps[i].distance > max_dist)
                 max_dist = trainingJumps[i].distance;
+
+            if (trainingJumps[i].wind < min_wind)
+                min_wind = trainingJumps[i].wind;
+            if (trainingJumps[i].wind > max_wind)
+                max_wind = trainingJumps[i].wind;
         }
         dist_diff = max_dist - min_dist;
         pts_diff = max_pts - min_pts;
+        wind_diff = max_wind - min_wind;
 
         avg_dist /= jumpsAmount;
         avg_points /= jumpsAmount;
@@ -204,7 +222,7 @@ int main()
             {
                 cout << "|" << trj.judges[i];
             }
-            cout << "|, Rekompensata: " << trj.compensationWind << ", Wiatr " << trj.windB << ", " << trj.points << "pkt" << endl;
+            cout << "|, Rekompensata: " << trj.compensationWind + trj.compensationGate << ", Wiatr " << trj.windB << ", " << trj.points << "pkt" << endl;
             ii++;
         }
         cout << setprecision(5);
@@ -217,6 +235,9 @@ int main()
         cout << "Najgorsza nota: " << min_pts << endl;
         cout << "Najlepsza nota: " << max_pts << endl;
         cout << "Roznica: " << pts_diff << endl;
+        cout << "Najgorszy wiatr: " << min_wind << endl;
+        cout << "Najlepszy wiatr: " << max_wind << endl;
+        cout << "Roznica: " << wind_diff << endl;
         cout << fixed;
         getch();
 

@@ -12,8 +12,8 @@ void Jumper::jump()
 {
     hill.startup();
 
-    wind += normalRandom(0, hill.windChange);
-    windB = wind + normalRandom(0, hill.windFaulty);
+    wind += normalRandom((-hill.windChange / 2), (hill.windChange / 2));
+    windB = wind + normalRandom((-hill.windFaulty / 2), (hill.windFaulty / 2));
 
     setTakeoffPower();
     setTakeoffTechnique();
@@ -48,7 +48,7 @@ void Jumper::setTakeoffPower()
         takeoffPowerS = 1;
 
     takeoffPower = (takeoffPowerS);
-    takeoffPower += normalRandom(0, 7);
+    takeoffPower += normalRandom(-2, 3);
     takeoffPower = round(takeoffPower);
     if (takeoffPower > 160)
         takeoffPower = 160;
@@ -63,7 +63,7 @@ void Jumper::setTakeoffTechnique()
         takeoffTechniqueS = 1;
 
     takeoffTechnique = (takeoffTechniqueS * 0.88) + (form * 1.12);
-    takeoffTechnique += normalRandom(0, 10);
+    takeoffTechnique += normalRandom(-4, 8);
     takeoffTechnique = round(takeoffTechnique);
     if (takeoffTechnique > 280)
         takeoffTechnique = 280;
@@ -80,15 +80,15 @@ void Jumper::setFlightTechnique()
 
     flightTechnique = (flightTechniqueS * 0.81) + (form * 1.19);
     if (flightStyle == 0)
-        flightTechnique += randomInt(-22, -15);
+        flightTechnique += randomInt(-29, -18);
     else if (flightStyle == 1)
-        flightTechnique += randomInt(-4, 4);
+        flightTechnique += randomInt(-5, 5);
     else if (flightStyle == 2)
-        flightTechnique += randomInt(-4.8, 4.8);
-    else if (flightStyle == 3)
         flightTechnique += randomInt(-6, 6);
+    else if (flightStyle == 3)
+        flightTechnique += randomInt(-7, 7);
     else if (flightStyle == 4)
-        flightTechnique += randomInt(-6.8, 6.8);
+        flightTechnique += randomInt(-8, 8);
 
     flightTechnique += normalRandom(0, 6);
     flightTechnique = round(flightTechnique);
@@ -125,6 +125,8 @@ void Jumper::setPoints()
             compensationWind = -windB * hill.windPointsBack;
         else if (windB > 0)
             compensationWind = -windB * hill.windPointsFront;
+        else if (windB == 0)
+            compensationWind = 0;
     }
     if (hill.gateComp == 1)
         compensationGate = (gateDiff)*hill.gatePoints;
@@ -162,9 +164,9 @@ void Jumper::land()
         rd1 = 2;
 
     rd2 = randomInt(1, rd1);
-    //cout << rd1 << endl;
+    // cout << rd1 << endl;
     //<< rd2 << endl;
-    //getch();
+    // getch();
     if (rd2 == rd1)
     {
         landType = 4;
@@ -178,9 +180,9 @@ void Jumper::land()
             rd1 = 2;
 
         rd2 = randomInt(1, rd1);
-        //cout << rd1 << endl;
+        // cout << rd1 << endl;
         //<< rd2 << endl;
-        //getch();
+        // getch();
         if (rd2 == rd1)
         {
             landType = 3;
@@ -194,9 +196,9 @@ void Jumper::land()
                 rd1 = 2;
 
             rd2 = randomInt(1, rd1);
-            //cout << rd1 << endl;
+            // cout << rd1 << endl;
             //<< rd2 << endl;
-            //getch();
+            // getch();
             if (rd2 == rd1)
             {
                 landType = 2;
