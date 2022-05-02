@@ -187,8 +187,8 @@ int main()
                 cout << "|" << tj.judges[i];
             }
             cout << "|, Rekompensata: " << tj.compensationWind + tj.compensationGate << ", Wiatr " << tj.windB << ", " << tj.points << "pkt" << endl;
-            // jp.saveToCsv("results/tresults.csv");
-            // jp.saveToTxt("results/tresults.txt");
+            tj.saveToCsv("results/tresults.csv");
+            tj.saveToTxt("results/tresults.txt");
         }
         min_pts = trainingJumps[0].points;
         max_pts = trainingJumps[0].points;

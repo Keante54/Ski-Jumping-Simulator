@@ -12,8 +12,8 @@ void Jumper::jump()
 {
     hill.startup();
 
-    wind += normalRandom((-hill.windChange / 2), (hill.windChange / 2));
-    windB = wind + normalRandom((-hill.windFaulty / 2), (hill.windFaulty / 2));
+    wind += normalRandom(0, hill.windChange);
+    windB = wind + normalRandom(0, hill.windFaulty);
 
     setTakeoffPower();
     setTakeoffTechnique();
@@ -366,8 +366,8 @@ void Jumper::showResult()
 
     SetConsoleTextAttribute(hcon, 15);
 
-    if (landType == 4)
-        cout << "\n KONTUZJA: " << injury.name;
+    //if (landType == 4)
+        //cout << "\n KONTUZJA: " << injury.name;
 }
 
 void Jumper::showHideInfo()
