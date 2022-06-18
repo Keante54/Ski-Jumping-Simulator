@@ -22,8 +22,18 @@ private:
     bool isJudges;
     bool isShowResults;
 
-    int jumpsAmount;
-    int secondRoundJumpersAmount;
+    struct FinalResults
+    {
+        Jumper *jumper;
+        vector<JumpData> jumperResults;
+        double totalPoints;
+        int position;
+
+        FinalResults(Jumper *jum) : jumper(jum){};
+        void show() const;
+        void setTotalPoints();
+        bool operator>(const FinalResults &finalResults) const { return totalPoints > finalResults.totalPoints; }
+    };
 
     vector<Jumper> jumpers;
     vector<JumpData> actualResults;
@@ -31,12 +41,14 @@ private:
     vector<JumpData> actualSumResults;
     vector<JumpData> actualSortedSumResults;
     vector<vector<JumpData>> resultsData;
-    struct FinalResults
-    {
-        Jumper *jumper;
-        vector<JumpData> jumperResults;
-        double totalPoints;
-    };
+    vector<FinalResults> finalResults;
+    vector<FinalResults> tempFinalResults;
+
+    template <typename T>
+    void sortResultsVector(vector<T> &vec);
+
+    void showActualResults();
+    void configFinalResults(Jumper *jumper, JumpData *jumpData);
 
     Hill *hill;
     CompetitionConfig competitionConfig;
@@ -59,5 +71,9 @@ public:
     Hill *getHill() { return hill; }
 
     void setJumpers(const vector<Jumper> &jumpers) { this->jumpers = jumpers; }
+    void setHill(Hill *const hill) { this->hill = hill; }
     void setCompetitionConfig(const CompetitionConfig &config) { competitionConfig = config; }
+
+    void loadParametersFromFile();
+    void showParameters();
 };

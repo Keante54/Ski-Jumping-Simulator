@@ -6,7 +6,7 @@
 
 JumpData::JumpData(Jumper *jumper_, Hill *hill_, Competition *competition_)
 {
-    jumper= jumper_;
+    jumper = jumper_;
     hill = hill_;
     competition = competition_;
 }
@@ -306,8 +306,8 @@ void JumpData::setDsq()
 void JumpData::showResults()
 {
     using namespace std;
-    cout << jumper->getName() << " " << jumper->getSurname() << " (" << jumper->getNationality() << "\n";
-    cout << "Odlegˆo˜†: " << distance << " (Belka: " << gate << ")";
+    cout << jumper->getName() << " " << jumper->getSurname() << " (" << jumper->getNationality() << ")\n";
+    cout << "Odlegˆo˜†: " << distance << " (Belka: " << gate << ") (";
     if ((-getGateDifference()) > 0)
     {
         colorText(2, "+");
@@ -321,6 +321,7 @@ void JumpData::showResults()
     {
         colorText(4, to_string(-getGateDifference()));
     }
+    cout << ")";
 }
 
 int JumpData::getGateDifference() const { return competition->getStartGate() - gate; }

@@ -19,6 +19,8 @@ public:
     bool getIsQualifications() const { return isQualifications; }
     vector<int> getRoundsData() const { return roundsData; }
 
+    void setName(const std::string &arg) { name = arg; }
     void setIsQualifications(bool arg) { isQualifications = arg; }
+    void addRoundsData(int arg) { roundsData.push_back(arg); }
     void setRoundsData(const vector<int> arg) { roundsData = arg; }
 };

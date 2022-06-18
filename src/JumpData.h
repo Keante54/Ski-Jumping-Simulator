@@ -58,7 +58,6 @@ public:
     ~JumpData();
 
     bool operator>(const JumpData &jumpData) const { return points > jumpData.points; }
-    bool operator<(const JumpData &jumpData) const { return points < jumpData.points; }
 
     // dane skoczka
     int getTakeoffPower() const { return takeoffPower; }
