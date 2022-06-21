@@ -4,6 +4,8 @@
 #include "Hill.h"
 #include "CompetitionConfig.h"
 #include <vector>
+#include <string>
+#include <iostream>
 
 using std::vector;
 
@@ -36,16 +38,15 @@ private:
     };
 
     vector<Jumper> jumpers;
+    vector<Jumper> actualJumpers;
     vector<JumpData> actualResults;
-    vector<JumpData> actualSortedResults;
-    vector<JumpData> actualSumResults;
-    vector<JumpData> actualSortedSumResults;
-    vector<vector<JumpData>> resultsData;
     vector<FinalResults> finalResults;
     vector<FinalResults> tempFinalResults;
 
     template <typename T>
     void sortResultsVector(vector<T> &vec);
+    void setFinalResultsPosition();
+    void updateActualJumpers(int round);
 
     void showActualResults();
     void configFinalResults(Jumper *jumper, JumpData *jumpData);

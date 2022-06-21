@@ -47,7 +47,7 @@ void JumpData::jump()
     land();
     setJudges();
     setPoints();
-    setDsq();
+    //setDsq();
 }
 
 void JumpData::setTakeoffPower()
@@ -196,7 +196,7 @@ void JumpData::land()
 void JumpData::setJudges()
 {
     double judgeRating = 15.6;
-    judgeRating += jumper->getLandingSkill();
+    judgeRating += jumper->getLandingSkill() / 20;
     judgeRating += (distance - hill->getKPoint()) / hill->getJudgeDivider();
 
     if (landType == Telemark)
@@ -226,11 +226,11 @@ void JumpData::setJudges()
         else if (rd == 2)
             jg += (1);
 
-        if (jg > 20)
-            jg = 20;
+        // if (jg > 20)
+        // jg = 20;
 
-        else if (jg < 1)
-            jg = 1;
+        // else if (jg < 1)
+        //   jg = 1;
     }
     double minJudge = judges[0];
     double maxJudge = judges[0];
@@ -307,7 +307,8 @@ void JumpData::showResults()
 {
     using namespace std;
     cout << jumper->getName() << " " << jumper->getSurname() << " (" << jumper->getNationality() << ")\n";
-    cout << "Odlegˆo˜†: " << distance << " (Belka: " << gate << ") (";
+    cout << "Odlegˆo˜†: " << distance;
+    cout << " (Belka: " << gate << ") (";
     if ((-getGateDifference()) > 0)
     {
         colorText(2, "+");
@@ -321,7 +322,13 @@ void JumpData::showResults()
     {
         colorText(4, to_string(-getGateDifference()));
     }
-    cout << ")";
+    cout << ")\n|";
+
+    for (const auto &jg : judges)
+    {
+        cout << jg << "|";
+    }
+    cout << "\n";
 }
 
 int JumpData::getGateDifference() const { return competition->getStartGate() - gate; }

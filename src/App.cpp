@@ -13,7 +13,7 @@
 #include <boost/algorithm/string.hpp>
 
 #define sclear system("cls")
-#define getchText cout<<"Kliknij dowolny przycisk... "
+#define getchText cout << "Kliknij dowolny przycisk... "
 
 App::App()
 {
@@ -152,32 +152,11 @@ void App::loadCompetitionConfigFromFile()
 
 void App::singleCompetitionChoice()
 {
-    using std::cout;
 
-    sclear;
-    cout << "Wybierz skocznie: \n";
-    selectHill(&singleCompetition);
-    sclear;
+    askForCompetitionParameters(&singleCompetition);
+    std::cout << "Rozpocz©to konkurs...\n";
+    Sleep(600);
 
-    cout << "Wybierz konfiguracj© konkursu: \n";
-    selectCompetitionConfig(&singleCompetition);
-    sclear;
-
-    cout << "Lista startowa konkursu: \n";
-    showJumpers();
-    getch();
-    getchText;
-    sclear;
-
-    singleCompetition.loadParametersFromFile();
-    cout << "Parametry konkursu: (1 - tak, 0 - nie)\n";
-    singleCompetition.showParameters();
-    getch();
-    sclear;
-
-    cout<<"Rozpocz©to konkurs...\n";
-    Sleep(1200);
-    singleCompetition.setJumpers(jumpersList);
     singleCompetition.startCompetition();
 
     getch();
@@ -197,6 +176,34 @@ void App::selectCompetitionConfig(Competition *comp)
     comp->setCompetitionConfig(competitionConfigList[numberChoice("\n", 1) - 1]);
     std::cout << "Wybrano konfiguracj© " << comp->getCompetitionConfig().getName() << "\n";
     Sleep(1200);
+}
+
+void App::askForCompetitionParameters(Competition *comp)
+{
+    using std::cout;
+
+    sclear;
+    cout << "Wybierz skocznie: \n";
+    selectHill(&singleCompetition);
+    sclear;
+
+    cout << "Wybierz konfiguracj© konkursu: \n";
+    selectCompetitionConfig(&singleCompetition);
+    sclear;
+
+    singleCompetition.setJumpers(jumpersList);
+
+    cout << "Lista startowa konkursu: \n";
+    showJumpers();
+    getch();
+    getchText;
+    sclear;
+
+    singleCompetition.loadParametersFromFile();
+    cout << "Parametry konkursu: (1 - tak, 0 - nie)\n";
+    singleCompetition.showParameters();
+    getch();
+    sclear;
 }
 
 void App::showJumpers()

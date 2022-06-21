@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <algorithm>
+#include <iomanip>
 
 Competition::Competition(int startGate_, double startWind_, double windChange_, double windFaulty_, bool isGateComp_, bool isWindComp_, bool isJudges_, bool isShowResults_)
 {
@@ -43,6 +44,39 @@ void Competition::sortResultsVector(vector<FinalResults> &vec)
     }
 }
 
+void Competition::setFinalResultsPosition()
+{
+    sortResultsVector(finalResults);
+    int i = 1;
+    for (auto &fin : finalResults)
+    {
+        std::cout << fin.jumper->getSurname() << "\n";
+        fin.position = i;
+        i++;
+    }
+}
+
+void Competition::updateActualJumpers(int round)
+{
+    for (const auto &fin : finalResults)
+        if (fin.position > competitionConfig.getRoundsData()[round])
+        {
+            int i = 0;
+            int howManyDeleted = 0;
+            for (const auto &jum : actualJumpers)
+            {
+                if (&jum == fin.jumper)
+                {
+                    std::cout << "Usuni©to skoczka " << actualJumpers[i].getName() << " " << actualJumpers[i].getSurname() << "(pozycja " << fin.position << ")\n";
+                    actualJumpers.erase(actualJumpers.begin() + i);
+                }
+                else
+                    // std::cout << "Nie usuni©to skoczka. (Aktualnie: " << actualJumpers[i].getName() << " " << actualJumpers[i].getSurname() << ")\n";
+                    i++;
+            }
+        }
+}
+
 void Competition::showActualResults()
 {
     int i = 1;
@@ -75,38 +109,40 @@ void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData)
             fin.setTotalPoints();
         }
     }
-    for (auto &fin : finalResults)
-    {
-    }
-
-    sortResultsVector(finalResults);
+    setFinalResultsPosition();
 }
 
 void Competition::startCompetition()
 {
     system("cls");
+    actualJumpers = jumpers;
     for (int actualRound = 0; actualRound < competitionConfig.getRoundsCount(); actualRound++)
     {
         int i = 0;
-        for (auto &jumper : jumpers)
+        int ii = 0;
+        for (auto &jumper : actualJumpers)
         {
             JumpData jumpData = JumpData();
             jumpData.setParameters(jumper, *hill, *this);
             jumpData.jump();
 
             if (isShowResults)
-            {
                 jumpData.showResults();
-            }
-            actualResults.push_back(jumpData);
-            actualSortedResults = actualResults;
-            sortResultsVector(actualSortedResults);
 
+            actualResults.push_back(jumpData);
+            sortResultsVector(actualResults);
             configFinalResults(&jumper, &jumpData);
+
+            if (ii + 1 != actualJumpers.size())
+                std::cout << "\nNast©pny zawodnik: " << actualJumpers[ii + 1].getName() << " " << actualJumpers[ii + 1].getSurname() << " (" << actualJumpers[ii + 1].getNationality() << ")";
+
+            showActualResults();
 
             getch();
             system("cls");
+            ii++;
         }
+        updateActualJumpers(actualRound);
     }
 }
 
@@ -156,7 +192,20 @@ void Competition::showParameters()
 void Competition::FinalResults::show() const
 {
     using std::cout;
-    cout << position << ". " << jumper->getName() << " " << jumper->getSurname() << " --> " << totalPoints << "pkt\n";
+    using std::fixed;
+    using std::setprecision;
+
+    cout << position << ". " << jumper->getName() << " " << jumper->getSurname() << " (" << jumper->getNationality() << ")"
+         << " --> ";
+
+    for (const auto &res : jumperResults)
+    {
+        cout << res.getDistance() << "m (";
+        cout << fixed << setprecision(1);
+        cout << res.getPoints() << "pts), ";
+        cout << fixed;
+    }
+    cout << "--> " << totalPoints << "pts\n";
 }
 void Competition::FinalResults::setTotalPoints()
 {

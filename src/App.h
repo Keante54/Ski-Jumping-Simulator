@@ -20,6 +20,7 @@ private:
     // mini-funkcje dla wybor¢w w menu
     void selectHill(Competition * comp);
     void selectCompetitionConfig(Competition * comp);
+    void askForCompetitionParameters(Competition *comp);
 
     std::vector<Jumper> jumpersList;
     std::vector<Hill> hillsList;
