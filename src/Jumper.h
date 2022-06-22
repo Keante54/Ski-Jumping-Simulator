@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 
 class Jumper
 {
@@ -29,6 +30,7 @@ public:
     ~Jumper();
 
     Jumper &operator=(const Jumper &jumper);
+    friend std::ostream & operator<<(std::ostream & os, const Jumper & jumper);
 
     std::string getName() const { return name; }
     std::string getSurname() const { return surname; }

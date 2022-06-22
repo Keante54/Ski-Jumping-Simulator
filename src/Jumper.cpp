@@ -1,4 +1,5 @@
 #include "Jumper.h"
+#include <iostream>
 
 int Jumper::objectsCount = 0;
 
@@ -58,6 +59,7 @@ Jumper::Jumper()
     takeoffPowerSkill = takeoffTechniqueSkill = flightTechniqueSkill = landingSkill = form = 0;
     flightStyle = 1;
     setID();
+    std::cout << "stworzono skoczka\n";
 
     objectsCount++;
 }
@@ -65,4 +67,10 @@ Jumper::Jumper()
 Jumper::~Jumper()
 {
     --objectsCount;
+}
+
+std::ostream &operator<<(std::ostream &os, const Jumper &jumper)
+{
+    os << jumper.getName() << " " << jumper.getSurname() << " (" << jumper.getNationality() << ")";
+    return os;
 }

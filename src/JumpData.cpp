@@ -1,6 +1,7 @@
 #include <math.h>
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include "JumpData.h"
 #include "Random.h"
 
@@ -47,7 +48,7 @@ void JumpData::jump()
     land();
     setJudges();
     setPoints();
-    //setDsq();
+    // setDsq();
 }
 
 void JumpData::setTakeoffPower()
@@ -271,6 +272,8 @@ void JumpData::setPoints()
     if (competition->getIsWindComp() == true)
         points += windCompensation;
 
+    totalCompensation = gateCompensation + windCompensation;
+
     if (points < 0)
         points = 0;
 }
@@ -322,12 +325,95 @@ void JumpData::showResults()
     {
         colorText(4, to_string(-getGateDifference()));
     }
-    cout << ")\n|";
-
+    cout << ")\n";
+    cout << fixed << setprecision(1);
+    cout << "Punkty: " << points << "\n";
+    cout << setprecision(1);
+    cout << "|";
     for (const auto &jg : judges)
     {
         cout << jg << "|";
     }
+    cout << "\n";
+
+    cout << fixed << setprecision(2);
+    if (wind < 0)
+    {
+        cout << "Wiatr: ";
+        colorText(12, wind);
+    }
+    else if (wind > 0)
+    {
+        cout << "Wiatr: ";
+        colorText(10, wind);
+    }
+    else
+    {
+        cout << "Wiatr: ";
+        colorText(7, wind);
+    }
+    cout << "\n";
+    cout << fixed << setprecision(1);
+    if (gateCompensation < 0)
+    {
+        cout<<"Punkty za belk©: ";
+        colorText(12, gateCompensation);
+    }
+    else if (gateCompensation > 0)
+    {
+        cout << "Punkty za belk©: ";
+        colorText(10, gateCompensation);
+    }
+    else
+    {
+        cout << "Punkty za belk©: ";
+        colorText(7, gateCompensation);
+    }
+    cout << "\n";
+    cout << fixed << setprecision(1);
+    if (windCompensation < 0)
+    {
+        cout << "Punkty za wiatr: ";
+        colorText(12, windCompensation);
+    }
+    else if (windCompensation > 0)
+    {
+        cout << "Punkty za wiatr: ";
+        colorText(10, windCompensation);
+    }
+    else
+    {
+        cout << "Punkty za wiatr: ";
+        colorText(7, windCompensation);
+    }
+    cout << "\n";
+    cout << fixed << setprecision(1);
+    if (totalCompensation < 0)
+    {
+        cout << "¥cznie: ";
+        colorText(12, totalCompensation);
+    }
+    else if (totalCompensation > 0)
+    {
+        cout << "¥cznie: ";
+        colorText(10, totalCompensation);
+    }
+    else
+    {
+        cout << "¥cznie: ";
+        colorText(7, totalCompensation);
+    }
+    cout << fixed << "\n";
+
+    cout << "Skok zakoäczony: ";
+    if (landType == 1)
+        colorText(11, "telemarkiem");
+    else if (landType == 2)
+        colorText(3, "l¥dowaniem na dwie nogi");
+    else if (landType == 3)
+        colorText(5, "podp¢rk¥");
+    else if (landType == 4)
+        colorText(12, "upadkiem");
     cout << "\n";
 }
 

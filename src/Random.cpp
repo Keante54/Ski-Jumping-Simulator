@@ -54,5 +54,20 @@ void colorText(unsigned short color, std::string text)
     HANDLE hcon = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hcon, color);
     std::cout << text;
-    SetConsoleTextAttribute(hcon, 15);
+    SetConsoleTextAttribute(hcon, 7);
+}
+
+void colorText(unsigned short color, double text)
+{
+    HANDLE hcon = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hcon, color);
+    std::cout << text;
+    SetConsoleTextAttribute(hcon, 7);
+}
+void colorText(unsigned short color, int text)
+{
+    HANDLE hcon = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hcon, color);
+    std::cout << text;
+    SetConsoleTextAttribute(hcon, 7);
 }

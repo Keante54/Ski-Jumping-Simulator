@@ -50,31 +50,72 @@ void Competition::setFinalResultsPosition()
     int i = 1;
     for (auto &fin : finalResults)
     {
-        std::cout << fin.jumper->getSurname() << "\n";
         fin.position = i;
         i++;
     }
 }
 
-void Competition::updateActualJumpers(int round)
+void Competition::updateActualJumpers()
 {
+    int difference = actualJumpers.size() - competitionConfig.getRoundsData()[actualRound];
+    sortResultsVector(finalResults);
     for (const auto &fin : finalResults)
-        if (fin.position > competitionConfig.getRoundsData()[round])
+    {
+        if (fin.position > competitionConfig.getRoundsData()[actualRound])
         {
             int i = 0;
-            int howManyDeleted = 0;
             for (const auto &jum : actualJumpers)
             {
-                if (&jum == fin.jumper)
+                if (jum == fin.jumper)
                 {
-                    std::cout << "Usuni©to skoczka " << actualJumpers[i].getName() << " " << actualJumpers[i].getSurname() << "(pozycja " << fin.position << ")\n";
                     actualJumpers.erase(actualJumpers.begin() + i);
+                    break;
                 }
-                else
-                    // std::cout << "Nie usuni©to skoczka. (Aktualnie: " << actualJumpers[i].getName() << " " << actualJumpers[i].getSurname() << ")\n";
-                    i++;
+                i++;
             }
         }
+    }
+}
+
+void Competition::roundSummary()
+{
+    system("cls");
+    std::cout << "Zakoäczono rund© " << actualRound + 1 << "!\n"
+              << "Odpadˆo " << (actualJumpers.size() - competitionConfig.getRoundsData()[actualRound]) << " zawodnik¢w.\n"
+              << "Wyniki po rundzie " << actualRound + 1 << ":\n";
+    showActualResults();
+    std::cout << "Wci˜nij dowolny przycisk aby przej˜† do nast©pnej serii.\n";
+    getch();
+    system("cls");
+}
+
+void Competition::competitionSummary()
+{
+    std::cout << "Koniec konkursu! Najlepszy okazaˆ si© " << *finalResults[0].jumper;
+    std::cout << "\nPeˆne wyniki:\n";
+    showActualResults();
+    std::cout << "Aby przej˜† do menu, wci˜nij dowolny przycisk.\n";
+    getch();
+    system("cls");
+}
+
+void Competition::sortActualJumpers()
+{
+    vector<Jumper *> temp;
+    for (auto &jum : jumpers)
+        temp.push_back(&jum);
+
+    for (const auto jum : actualJumpers)
+    {
+        for (const auto fin : finalResults)
+        {
+            if (fin.jumper == jum)
+                temp.push_back(jum);
+        }
+    }
+    actualJumpers.erase(actualJumpers.begin(), actualJumpers.end());
+    for (const auto &t : temp)
+        actualJumpers.push_back(t);
 }
 
 void Competition::showActualResults()
@@ -82,10 +123,16 @@ void Competition::showActualResults()
     int i = 1;
     sortResultsVector(finalResults);
     std::cout << "\n";
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, 15);
     for (const auto &fin : finalResults)
     {
-        fin.show();
+        if (!(fin.position > competitionConfig.getRoundsData()[actualRound]))
+            fin.show(true);
+        else
+            fin.show(false);
     }
+    SetConsoleTextAttribute(hConsole, 7);
 }
 
 void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData)
@@ -94,7 +141,9 @@ void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData)
     for (const auto &fin : finalResults)
     {
         if (fin.jumper == jumper)
+        {
             isExists = true;
+        }
     }
     if (!isExists)
     {
@@ -115,15 +164,18 @@ void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData)
 void Competition::startCompetition()
 {
     system("cls");
-    actualJumpers = jumpers;
-    for (int actualRound = 0; actualRound < competitionConfig.getRoundsCount(); actualRound++)
+    for (auto &jum : jumpers)
+    {
+        actualJumpers.push_back(&jum);
+    }
+    while (actualRound < competitionConfig.getRoundsCount())
     {
         int i = 0;
         int ii = 0;
         for (auto &jumper : actualJumpers)
         {
             JumpData jumpData = JumpData();
-            jumpData.setParameters(jumper, *hill, *this);
+            jumpData.setParameters(*jumper, *hill, *this);
             jumpData.jump();
 
             if (isShowResults)
@@ -131,10 +183,10 @@ void Competition::startCompetition()
 
             actualResults.push_back(jumpData);
             sortResultsVector(actualResults);
-            configFinalResults(&jumper, &jumpData);
+            configFinalResults(jumper, &jumpData);
 
             if (ii + 1 != actualJumpers.size())
-                std::cout << "\nNast©pny zawodnik: " << actualJumpers[ii + 1].getName() << " " << actualJumpers[ii + 1].getSurname() << " (" << actualJumpers[ii + 1].getNationality() << ")";
+                std::cout << "\nNast©pny zawodnik: " << actualJumpers[ii + 1]->getName() << " " << actualJumpers[ii + 1]->getSurname() << " (" << actualJumpers[ii + 1]->getNationality() << ")";
 
             showActualResults();
 
@@ -142,7 +194,15 @@ void Competition::startCompetition()
             system("cls");
             ii++;
         }
-        updateActualJumpers(actualRound);
+        if (actualRound + 1 == competitionConfig.getRoundsCount())
+            competitionSummary();
+        else
+            roundSummary();
+        if (actualRound + 1 != competitionConfig.getRoundsCount())
+            updateActualJumpers();
+        actualRound++;
+        //sortActualJumpers();
+        system("cls");
     }
 }
 
@@ -189,7 +249,7 @@ void Competition::showParameters()
          << "Pokazywa† wyniki? " << isShowResults << "\n";
 }
 
-void Competition::FinalResults::show() const
+void Competition::FinalResults::show(bool isQualified) const
 {
     using std::cout;
     using std::fixed;
@@ -205,7 +265,11 @@ void Competition::FinalResults::show() const
         cout << res.getPoints() << "pts), ";
         cout << fixed;
     }
-    cout << "--> " << totalPoints << "pts\n";
+    cout << "--> " << totalPoints << "pts";
+    if (isQualified)
+        cout << " (Q)\n";
+    else
+        cout << "\n";
 }
 void Competition::FinalResults::setTotalPoints()
 {
