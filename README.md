@@ -72,3 +72,6 @@ Przykład
 ```
 0.80, 0.25, 0.10, 1, 1, 1, 1
 ```
+
+## Zapisywanie wyników do pliku
+Wyniki są zapisywane w folderze results. W folderze csv są wyniki oddzielane przecinkami, a w folderze text wszystko jest "ładniej".
