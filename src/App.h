@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 
 class App
 {
@@ -16,12 +17,14 @@ private:
 
     // wybory w menu
     void singleCompetitionChoice();
+    void settingsChoice();
 
     // mini-funkcje dla wybor¢w w menu
+    //konkursy
     void selectHill(Competition * comp);
     void selectCompetitionConfig(Competition * comp);
     void askForCompetitionParameters(Competition *comp);
-
+    //ustawienia
     std::vector<Jumper> jumpersList;
     std::vector<Hill> hillsList;
     std::vector<CompetitionConfig> competitionConfigList;

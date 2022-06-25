@@ -76,7 +76,7 @@ public:
     double getJudgesPoints() const { return judgesPoints; }
     double getGateCompensation() const { return gateCompensation; }
     double getWindCompensation() const { return windCompensation; }
-    double getTotalCompensatin() const { return totalCompensation; }
+    double getTotalCompensation() const { return totalCompensation; }
     bool getDsq() const { return dsq; }
     std::string getDsqReason() const { return dsqReason; }
     int getGateDifference() const;

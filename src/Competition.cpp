@@ -1,4 +1,5 @@
 #include "Competition.h"
+#include "Random.h"
 
 #include <Windows.h>
 #include <conio.h>
@@ -7,6 +8,7 @@
 #include <fstream>
 #include <algorithm>
 #include <iomanip>
+#include <filesystem>
 
 Competition::Competition(int startGate_, double startWind_, double windChange_, double windFaulty_, bool isGateComp_, bool isWindComp_, bool isJudges_, bool isShowResults_)
 {
@@ -79,11 +81,17 @@ void Competition::updateActualJumpers()
 
 void Competition::roundSummary()
 {
+    int howManyJumpersDroppedOut;
     system("cls");
-    std::cout << "Zakoäczono rund© " << actualRound + 1 << "!\n"
-              << "Odpadˆo " << (actualJumpers.size() - competitionConfig.getRoundsData()[actualRound]) << " zawodnik¢w.\n"
+    std::cout << "Zakoäczono rund© " << actualRound + 1 << "!\n";
+    if (competitionConfig.getRoundsData()[actualRound] > actualJumpers.size())
+        howManyJumpersDroppedOut = 0;
+    else
+        howManyJumpersDroppedOut = actualJumpers.size() - competitionConfig.getRoundsData()[actualRound];
+
+    std::cout << "Odpadˆo " << howManyJumpersDroppedOut << " zawodnik¢w.\n"
               << "Wyniki po rundzie " << actualRound + 1 << ":\n";
-    showActualResults();
+    showActualResults(true);
     std::cout << "Wci˜nij dowolny przycisk aby przej˜† do nast©pnej serii.\n";
     getch();
     system("cls");
@@ -93,45 +101,56 @@ void Competition::competitionSummary()
 {
     std::cout << "Koniec konkursu! Najlepszy okazaˆ si© " << *finalResults[0].jumper;
     std::cout << "\nPeˆne wyniki:\n";
-    showActualResults();
+    showActualResults(true);
     std::cout << "Aby przej˜† do menu, wci˜nij dowolny przycisk.\n";
     getch();
     system("cls");
+    saveResultsToFile(SaveMode::Csv);
 }
 
 void Competition::sortActualJumpers()
 {
-    vector<Jumper *> temp;
-    for (auto &jum : jumpers)
-        temp.push_back(&jum);
-
-    for (const auto jum : actualJumpers)
-    {
-        for (const auto fin : finalResults)
-        {
-            if (fin.jumper == jum)
-                temp.push_back(jum);
-        }
-    }
-    actualJumpers.erase(actualJumpers.begin(), actualJumpers.end());
-    for (const auto &t : temp)
-        actualJumpers.push_back(t);
+    actualJumpers.clear();
+    for (int i = 0; i < competitionConfig.getRoundsData()[actualRound]; i++)
+        for (auto &jum : jumpers)
+            if (&jum == finalResults[i].jumper)
+                actualJumpers.insert(actualJumpers.begin(), &jum);
 }
 
-void Competition::showActualResults()
+void Competition::showStartList()
 {
     int i = 1;
+    std::cout << "\n\nLista startowa:\n";
+    for (const auto &jum : actualJumpers)
+    {
+        std::cout << i << ". " << *jum << "\n";
+        i++;
+    }
+}
+
+void Competition::showActualResults(bool isFinal)
+{
     sortResultsVector(finalResults);
     std::cout << "\n";
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, 15);
+
+    int i = 0;
     for (const auto &fin : finalResults)
     {
-        if (!(fin.position > competitionConfig.getRoundsData()[actualRound]))
-            fin.show(true);
-        else
-            fin.show(false);
+        if (fin.position <= competitionConfig.getRoundsData()[actualRound])
+        {
+            if (isFinal)
+                fin.show(false);
+            else
+                fin.show(true);
+        }
     }
+
+    std::cout << "---\n";
+    for (const auto &fin : finalResults)
+        if (fin.position > competitionConfig.getRoundsData()[actualRound])
+            fin.show(false);
+
     SetConsoleTextAttribute(hConsole, 7);
 }
 
@@ -168,6 +187,7 @@ void Competition::startCompetition()
     {
         actualJumpers.push_back(&jum);
     }
+    bool isShowStartList;
     while (actualRound < competitionConfig.getRoundsCount())
     {
         int i = 0;
@@ -186,11 +206,22 @@ void Competition::startCompetition()
             configFinalResults(jumper, &jumpData);
 
             if (ii + 1 != actualJumpers.size())
-                std::cout << "\nNast©pny zawodnik: " << actualJumpers[ii + 1]->getName() << " " << actualJumpers[ii + 1]->getSurname() << " (" << actualJumpers[ii + 1]->getNationality() << ")";
+                std::cout << "\nNast©pny zawodnik: " << *actualJumpers[ii + 1];
 
-            showActualResults();
+            showActualResults(false);
+            if (isShowStartList)
+                showStartList();
 
-            getch();
+            std::cout << "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza† list© startow¥)\n";
+
+            if (getch() == 's')
+                if (isShowStartList)
+                    isShowStartList = false;
+                else
+                {
+                    isShowStartList = true;
+                    showStartList();
+                }
             system("cls");
             ii++;
         }
@@ -201,7 +232,7 @@ void Competition::startCompetition()
         if (actualRound + 1 != competitionConfig.getRoundsCount())
             updateActualJumpers();
         actualRound++;
-        //sortActualJumpers();
+        sortActualJumpers();
         system("cls");
     }
 }
@@ -216,8 +247,6 @@ void Competition::loadParametersFromFile()
     if (ifs.good() == false)
         std::cout << "Nie udaˆo si© otworzy† pliku config.csv!\n";
 
-    getline(ifs, tmp, ',');
-    startGate = stoi(tmp);
     getline(ifs, tmp, ',');
     startWind = stod(tmp);
     getline(ifs, tmp, ',');
@@ -236,6 +265,12 @@ void Competition::loadParametersFromFile()
     ifs.close();
 }
 
+void Competition::askForStartGate()
+{
+    std::cout << "Belka startowa: ";
+    std::cin >> startGate;
+}
+
 void Competition::showParameters()
 {
     using std::cout;
@@ -249,25 +284,67 @@ void Competition::showParameters()
          << "Pokazywa† wyniki? " << isShowResults << "\n";
 }
 
+void Competition::saveResultsToFile(SaveMode mode)
+{
+    using namespace std::filesystem;
+    using std::to_string;
+    std::string fileName;
+    if (mode == SaveMode::Csv)
+    {
+        if (!is_directory("results/csv") || !exists("results/csv"))
+            create_directories("results/csv");
+
+        fileName = "-" + hill->getName() + "K" + to_string(hill->getKPoint()) + "HS" + to_string(hill->getHsPoint());
+        fileName += ".csv";
+
+        std::ofstream ofs;
+        ofs.open("results/csv/" + fileName);
+        for (const auto &fin : finalResults)
+        {
+            ofs << fin.jumper->getName() << ", " << fin.jumper->getSurname() << "," << fin.jumper->getNationality() << ",";
+            for (const auto &res : fin.jumperResults)
+            {
+                ofs << res.getGate() << "," << res.getWind() << "," << res.getDistance() << ",|";
+                if (isJudges)
+                {
+                    for (int i = 0; i < 5; i++)
+                        ofs << res.getJudges(i) << "|";
+                    ofs << ",";
+                }
+                if (isWindComp || isGateComp)
+                    ofs << res.getTotalCompensation() << ",";
+            }
+            ofs << fin.totalPoints << "\n";
+        }
+    }
+}
+
 void Competition::FinalResults::show(bool isQualified) const
 {
     using std::cout;
     using std::fixed;
     using std::setprecision;
 
-    cout << position << ". " << jumper->getName() << " " << jumper->getSurname() << " (" << jumper->getNationality() << ")"
-         << " --> ";
+    colorText(2, position);
+    colorText(7, ". " + jumper->getName() + " " + jumper->getSurname() + " (" + jumper->getNationality() + ")");
+    colorText(15, " --> ");
 
     for (const auto &res : jumperResults)
     {
-        cout << res.getDistance() << "m (";
+        colorText(3, res.getDistance());
+        colorText(3, "m");
+        cout << " (";
         cout << fixed << setprecision(1);
-        cout << res.getPoints() << "pts), ";
+        colorText(6, res.getPoints());
+        colorText(6, "pts");
+        cout << "), ";
         cout << fixed;
     }
-    cout << "--> " << totalPoints << "pts";
+    colorText(15, "--> ");
+    colorText(14, totalPoints);
+    colorText(14, "pts");
     if (isQualified)
-        cout << " (Q)\n";
+        colorText(15, " (Q)\n");
     else
         cout << "\n";
 }

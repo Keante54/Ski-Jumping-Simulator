@@ -40,7 +40,7 @@ private:
     };
 
     vector<Jumper> jumpers;
-    vector<Jumper*> actualJumpers;
+    vector<Jumper *> actualJumpers;
     vector<JumpData> actualResults;
     vector<FinalResults> finalResults;
     vector<FinalResults> tempFinalResults;
@@ -52,9 +52,10 @@ private:
     void roundSummary();
     void competitionSummary();
     void sortActualJumpers();
+    void showStartList();
 
-    void showActualResults();
-    void configFinalResults(Jumper * jumper, JumpData *jumpData);
+    void showActualResults(bool isFinal);
+    void configFinalResults(Jumper *jumper, JumpData *jumpData);
 
     Hill *hill;
     CompetitionConfig competitionConfig;
@@ -81,5 +82,13 @@ public:
     void setCompetitionConfig(const CompetitionConfig &config) { competitionConfig = config; }
 
     void loadParametersFromFile();
+    void askForStartGate();
     void showParameters();
+
+    enum class SaveMode
+    {
+        Text,
+        Csv
+    };
+    void saveResultsToFile(SaveMode mode);
 };

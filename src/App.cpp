@@ -9,6 +9,7 @@
 #include <Windows.h>
 #include <vector>
 #include <fstream>
+#include <string>
 #include <iostream>
 #include <boost/algorithm/string.hpp>
 
@@ -33,7 +34,7 @@ void App::start()
     while (true)
     {
         cout << "Witaj w symulatorze skok¢w narciarskich! Co chcesz zrobi†?\n";
-        cout << "1. Symuluj sezon (niedost©pne)\n2. Symuluj pojedynczy konkurs\n3. Symyluj pojedyncze skoki (niedost©pne)\n4. Ustawienia (niedost©pne)";
+        cout << "1. Symuluj sezon (niedost©pne)\n2. Symuluj pojedynczy konkurs\n3. Symyluj pojedyncze skoki (niedost©pne)\n4. Ustawienia";
 
         switch (numberChoice("\n", 1))
         {
@@ -45,6 +46,7 @@ void App::start()
         case 3:
             break;
         case 4:
+            settingsChoice();
             break;
         default:
             break;
@@ -138,8 +140,7 @@ void App::loadCompetitionConfigFromFile()
         CompetitionConfig config;
         boost::split(result, l, boost::is_any_of(","));
         config.setName(result[0]);
-        config.setIsQualifications(stoi(result[1]));
-        result.erase(result.begin(), result.begin() + 2);
+        result.erase(result.begin(), result.begin() + 1);
         for (const auto &num : result)
         {
             config.addRoundsData(stoi(num));
@@ -160,6 +161,26 @@ void App::singleCompetitionChoice()
     singleCompetition.startCompetition();
 
     getch();
+}
+
+void App::settingsChoice()
+{
+    using std::cout;
+    system("cls");
+
+    cout << "Ustawienia:\n";
+    cout << "\n"
+         << "2. Wr¢†";
+
+    while (true)
+        switch (numberChoice("\n", 1))
+        {
+        case 1:
+            continue;
+        case 2:
+            return;
+            break;
+        }
 }
 
 void App::selectHill(Competition *comp)
@@ -199,6 +220,9 @@ void App::askForCompetitionParameters(Competition *comp)
     getchText;
     sclear;
 
+    singleCompetition.askForStartGate();
+    sclear;
+
     singleCompetition.loadParametersFromFile();
     cout << "Parametry konkursu: (1 - tak, 0 - nie)\n";
     singleCompetition.showParameters();
@@ -235,12 +259,8 @@ void App::showCompetitionConfigs()
     int i = 1;
     for (const auto &cf : competitionConfigList)
     {
-        cout << i << ". " << cf.getName() << " (" << cf.getRoundsCount() << " rundy ";
-        if (cf.getIsQualifications())
-            cout << "+ kwalifikacje) ";
-        else
-            cout << "bez kwalifikacji) ";
-
+        cout << i << ". " << cf.getName()
+             << " (" << cf.getRoundsCount() << " rundy)";
         cout << "(";
         for (const auto &r : cf.getRoundsData())
         {
