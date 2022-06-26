@@ -54,7 +54,7 @@ private:
     void sortActualJumpers();
     void showStartList();
 
-    void showActualResults(bool isFinal);
+    void showActualResults(bool isFinal, bool nextRound);
     void configFinalResults(Jumper *jumper, JumpData *jumpData);
 
     Hill *hill;

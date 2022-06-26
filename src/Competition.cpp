@@ -84,14 +84,14 @@ void Competition::roundSummary()
     int howManyJumpersDroppedOut;
     system("cls");
     std::cout << "Zakoäczono rund© " << actualRound + 1 << "!\n";
-    if (competitionConfig.getRoundsData()[actualRound] > actualJumpers.size())
+    if (competitionConfig.getRoundsData()[actualRound + 1] > actualJumpers.size())
         howManyJumpersDroppedOut = 0;
     else
-        howManyJumpersDroppedOut = actualJumpers.size() - competitionConfig.getRoundsData()[actualRound];
+        howManyJumpersDroppedOut = actualJumpers.size() - competitionConfig.getRoundsData()[actualRound + 1];
 
     std::cout << "Odpadˆo " << howManyJumpersDroppedOut << " zawodnik¢w.\n"
               << "Wyniki po rundzie " << actualRound + 1 << ":\n";
-    showActualResults(true);
+    showActualResults(true, true);
     std::cout << "Wci˜nij dowolny przycisk aby przej˜† do nast©pnej serii.\n";
     getch();
     system("cls");
@@ -101,7 +101,7 @@ void Competition::competitionSummary()
 {
     std::cout << "Koniec konkursu! Najlepszy okazaˆ si© " << *finalResults[0].jumper;
     std::cout << "\nPeˆne wyniki:\n";
-    showActualResults(true);
+    showActualResults(true, true);
     std::cout << "Aby przej˜† do menu, wci˜nij dowolny przycisk.\n";
     getch();
     system("cls");
@@ -128,28 +128,40 @@ void Competition::showStartList()
     }
 }
 
-void Competition::showActualResults(bool isFinal)
+void Competition::showActualResults(bool isFinal, bool nextRound)
 {
     sortResultsVector(finalResults);
     std::cout << "\n";
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    bool isShowDownResults = true;
+    ;
 
     int i = 0;
     for (const auto &fin : finalResults)
     {
-        if (fin.position <= competitionConfig.getRoundsData()[actualRound])
+        if (actualRound + 1 != competitionConfig.getRoundsCount() && fin.position <= competitionConfig.getRoundsData()[actualRound + 1] && nextRound && isFinal)
+            fin.show(true);
+        else if (actualRound + 1 != competitionConfig.getRoundsCount() && fin.position <= competitionConfig.getRoundsData()[actualRound + 1])
         {
             if (isFinal)
                 fin.show(false);
             else
                 fin.show(true);
         }
+        else if (actualRound + 1 == competitionConfig.getRoundsCount())
+        {
+            fin.show(false);
+            isShowDownResults = false;
+        }
     }
 
-    std::cout << "---\n";
-    for (const auto &fin : finalResults)
-        if (fin.position > competitionConfig.getRoundsData()[actualRound])
-            fin.show(false);
+    if (isShowDownResults)
+    {
+        std::cout << "---\n";
+        for (const auto &fin : finalResults)
+            if (actualRound + 1 != competitionConfig.getRoundsCount() && fin.position > competitionConfig.getRoundsData()[actualRound + 1])
+                fin.show(false);
+    }
 
     SetConsoleTextAttribute(hConsole, 7);
 }
@@ -198,9 +210,6 @@ void Competition::startCompetition()
             jumpData.setParameters(*jumper, *hill, *this);
             jumpData.jump();
 
-            if (isShowResults)
-                jumpData.showResults();
-
             actualResults.push_back(jumpData);
             sortResultsVector(actualResults);
             configFinalResults(jumper, &jumpData);
@@ -208,13 +217,18 @@ void Competition::startCompetition()
             if (ii + 1 != actualJumpers.size())
                 std::cout << "\nNast©pny zawodnik: " << *actualJumpers[ii + 1];
 
-            showActualResults(false);
+            showActualResults(false, false);
+
+            if (isShowResults)
+                jumpData.showResults();
+
             if (isShowStartList)
                 showStartList();
 
             std::cout << "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza† list© startow¥)\n";
 
             if (getch() == 's')
+            {
                 if (isShowStartList)
                     isShowStartList = false;
                 else
@@ -222,8 +236,13 @@ void Competition::startCompetition()
                     isShowStartList = true;
                     showStartList();
                 }
+                getch();
+            }
+
             system("cls");
             ii++;
+            saveResultsToFile(SaveMode::Text);
+            saveResultsToFile(SaveMode::Csv);
         }
         if (actualRound + 1 == competitionConfig.getRoundsCount())
             competitionSummary();
@@ -289,24 +308,26 @@ void Competition::saveResultsToFile(SaveMode mode)
     using namespace std::filesystem;
     using std::to_string;
     std::string fileName;
+    fileName = hill->getName() + "K" + to_string(hill->getKPoint()) + "HS" + to_string(hill->getHsPoint());
     if (mode == SaveMode::Csv)
     {
         if (!is_directory("results/csv") || !exists("results/csv"))
             create_directories("results/csv");
 
-        fileName = "-" + hill->getName() + "K" + to_string(hill->getKPoint()) + "HS" + to_string(hill->getHsPoint());
         fileName += ".csv";
 
         std::ofstream ofs;
+        ofs.clear();
         ofs.open("results/csv/" + fileName);
         for (const auto &fin : finalResults)
         {
             ofs << fin.jumper->getName() << ", " << fin.jumper->getSurname() << "," << fin.jumper->getNationality() << ",";
             for (const auto &res : fin.jumperResults)
             {
-                ofs << res.getGate() << "," << res.getWind() << "," << res.getDistance() << ",|";
+                ofs << res.getGate() << "," << res.getWind() << "," << res.getDistance() << "," << res.getPoints() << ",";
                 if (isJudges)
                 {
+                    ofs << "|";
                     for (int i = 0; i < 5; i++)
                         ofs << res.getJudges(i) << "|";
                     ofs << ",";
@@ -316,6 +337,37 @@ void Competition::saveResultsToFile(SaveMode mode)
             }
             ofs << fin.totalPoints << "\n";
         }
+        ofs.close();
+    }
+    else if (mode == SaveMode::Text)
+    {
+        if (!is_directory("results/text") || !exists("results/text"))
+            create_directories("results/text");
+
+        fileName += ".txt";
+
+        std::ofstream ofs;
+        ofs.clear();
+        ofs.open("results/text/" + fileName);
+        for (const auto &fin : finalResults)
+        {
+            ofs << fin.jumper->getName() << " " << fin.jumper->getSurname() << " (" << fin.jumper->getNationality() << "), ";
+            for (const auto &res : fin.jumperResults)
+            {
+                ofs << "Belka: " << res.getGate() << ", Wiatr: " << res.getWind() << ", " << res.getDistance() << "m, " << res.getPoints() << "pts, ";
+                if (isJudges)
+                {
+                    ofs << "|";
+                    for (int i = 0; i < 5; i++)
+                        ofs << res.getJudges(i) << "|";
+                    ofs << ", ";
+                }
+                if (isWindComp || isGateComp)
+                    ofs << "Rekompensata: " << res.getTotalCompensation() << ", ";
+            }
+            ofs << "¥cznie: " << fin.totalPoints << "pts\n";
+        }
+        ofs.close();
     }
 }
 

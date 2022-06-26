@@ -309,7 +309,7 @@ void JumpData::setDsq()
 void JumpData::showResults()
 {
     using namespace std;
-    cout << jumper->getName() << " " << jumper->getSurname() << " (" << jumper->getNationality() << ")\n";
+    cout << "\n\n"<<jumper->getName() << " " << jumper->getSurname() << " (" << jumper->getNationality() << ")\n";
     cout << "Odlegˆo˜†: " << distance;
     cout << " (Belka: " << gate << ") (";
     if ((-getGateDifference()) > 0)
