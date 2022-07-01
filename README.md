@@ -59,19 +59,21 @@ Planica,Slowenia, 200, 240, 8.64, 14.4, 252.5, -157, 82, 1, 0.54, 0.83
 Siła wybicia, technika wybicia i technika lotu to Umiejętność + forma + losowość
 ```
 
-## Plik "config.csv"
+## Plik "competitionRules.csv"
 - Wiatr startowy
 - Zmiana wiatru (Jak wiatr może się zmienić. Wiatr jest obliczany: Wiatr startowy + (losowanie między -zmiana wiatru a zmiana wiatru np. 0.45 + (losowanie między -0.20 a 0.20));
 - Fałszywość wiatru (Jest aby dodać realizmu. Wiatr przy skoku jest bez zmian, ale przy podawaniu wyników i podliczaniu punktów będzie inny. Np. jeżeli fałszywośc wiatru = 0.10. Wiatr w wynikach = Wiatr + (losowanie między -0.10 a 0.10. Można wyłączyć wpisując 0);
 - Rekompensata za belkę (0 = nie, 1 = tak)
 - Rekompensata za wiatr (0 = nie, 1 = tak)
 - Noty sędziowskie (0 = nie, 1 = tak)
-- Pokazywanie wyników (0 = nie, 1 = tak. Np. jeśli chcesz szybko przesymulować konkurs bez oglądania wyników na bieżąco to możesz wyłączyć tą opcje)
 Przykład
 
 ```
-0.80, 0.25, 0.10, 1, 1, 1, 1
+0.80, 0.25, 0.10, 1, 1, 1
 ```
+
+## Plik "config.cfg"
+Plik z zapisanymi ustawieniami z menu. Nie nale�y go edytowa�, tylko zmienia� ustawienia z poziomu programu.
 
 ## Zapisywanie wyników do pliku
 Wyniki są zapisywane w folderze results. W folderze csv są wyniki oddzielane przecinkami, a w folderze text wszystko jest "ładniej".

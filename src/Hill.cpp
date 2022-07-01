@@ -56,7 +56,7 @@ void Hill::startup()
         pointsForMeters = 1.8;
     else if (kPoint >= 170)
     {
-        pointsForKPoint = 1.2;
+        pointsForMeters = 1.2;
         pointsForKPoint = 120;
     }
 

@@ -8,6 +8,9 @@
 #include <string>
 #include <map>
 
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 class App
 {
 private:
@@ -20,11 +23,12 @@ private:
     void settingsChoice();
 
     // mini-funkcje dla wybor¢w w menu
-    //konkursy
-    void selectHill(Competition * comp);
-    void selectCompetitionConfig(Competition * comp);
+    void isShowResultsChoice();
+    // konkursy
+    void selectHill(Competition *comp);
+    void selectCompetitionConfig(Competition *comp);
     void askForCompetitionParameters(Competition *comp);
-    //ustawienia
+    // ustawienia
     std::vector<Jumper> jumpersList;
     std::vector<Hill> hillsList;
     std::vector<CompetitionConfig> competitionConfigList;
@@ -35,6 +39,18 @@ private:
     Competition singleCompetition;
 
     int numberChoice(std::string text, bool enter);
+    bool isShowResults;
+
+    friend class boost::serialization::access;
+    template <class Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar &isShowResults;
+    }
+
+    void saveSettings();
+    void loadSettings();
+    bool isConfigFileEmpty();
 
 public:
     App();

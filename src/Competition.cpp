@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <filesystem>
+#include <array>
 
 Competition::Competition(int startGate_, double startWind_, double windChange_, double windFaulty_, bool isGateComp_, bool isWindComp_, bool isJudges_, bool isShowResults_)
 {
@@ -91,7 +92,7 @@ void Competition::roundSummary()
 
     std::cout << "Odpadˆo " << howManyJumpersDroppedOut << " zawodnik¢w.\n"
               << "Wyniki po rundzie " << actualRound + 1 << ":\n";
-    showActualResults(true, true);
+    showActualResults(false);
     std::cout << "Wci˜nij dowolny przycisk aby przej˜† do nast©pnej serii.\n";
     getch();
     system("cls");
@@ -101,7 +102,7 @@ void Competition::competitionSummary()
 {
     std::cout << "Koniec konkursu! Najlepszy okazaˆ si© " << *finalResults[0].jumper;
     std::cout << "\nPeˆne wyniki:\n";
-    showActualResults(true, true);
+    showFullResults();
     std::cout << "Aby przej˜† do menu, wci˜nij dowolny przycisk.\n";
     getch();
     system("cls");
@@ -117,78 +118,74 @@ void Competition::sortActualJumpers()
                 actualJumpers.insert(actualJumpers.begin(), &jum);
 }
 
-void Competition::showStartList()
+void Competition::showStartList(int actualIndex)
 {
     int i = 1;
     std::cout << "\n\nLista startowa:\n";
-    for (const auto &jum : actualJumpers)
+    for (const auto &jumper : actualJumpers)
     {
-        std::cout << i << ". " << *jum << "\n";
+        colorText(6, i);
+        std::cout << ". " << *jumper;
+        if (actualIndex >= i - 1)
+            colorText(8, " (Skakaˆ)");
+        std::cout << "\n";
         i++;
     }
 }
 
-void Competition::showActualResults(bool isFinal, bool nextRound)
+void Competition::showActualResults(bool isFinal)
+{
+    int round = actualRound + 1;
+
+    sortResultsVector(finalResults);
+    std::cout << "\n";
+
+    for (const auto &fin : finalResults)
+    {
+        if (fin.jumperResults.size() == round && fin.position <= competitionConfig.getRoundsData()[round])
+            fin.show(!isFinal, 2);
+
+        else if (fin.jumperResults.size() == round && fin.position > competitionConfig.getRoundsData()[round])
+            fin.show(false, 6);
+
+        else if (fin.jumperResults.size() == round - 1)
+            fin.show(false, 4);
+    }
+
+    std::cout << "runda " << round << ", limit " << competitionConfig.getRoundsData()[round] << "\n";
+}
+
+void Competition::showFullResults()
 {
     sortResultsVector(finalResults);
     std::cout << "\n";
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    bool isShowDownResults = true;
-    ;
 
-    int i = 0;
     for (const auto &fin : finalResults)
     {
-        if (actualRound + 1 != competitionConfig.getRoundsCount() && fin.position <= competitionConfig.getRoundsData()[actualRound + 1] && nextRound && isFinal)
-            fin.show(true);
-        else if (actualRound + 1 != competitionConfig.getRoundsCount() && fin.position <= competitionConfig.getRoundsData()[actualRound + 1])
-        {
-            if (isFinal)
-                fin.show(false);
-            else
-                fin.show(true);
-        }
-        else if (actualRound + 1 == competitionConfig.getRoundsCount())
-        {
-            fin.show(false);
-            isShowDownResults = false;
-        }
+        if (fin.position <= 3)
+            fin.show(false, 2);
+        else
+            fin.show(false, 6);
     }
-
-    if (isShowDownResults)
-    {
-        std::cout << "---\n";
-        for (const auto &fin : finalResults)
-            if (actualRound + 1 != competitionConfig.getRoundsCount() && fin.position > competitionConfig.getRoundsData()[actualRound + 1])
-                fin.show(false);
-    }
-
-    SetConsoleTextAttribute(hConsole, 7);
 }
 
 void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData)
 {
     bool isExists;
     for (const auto &fin : finalResults)
-    {
         if (fin.jumper == jumper)
-        {
             isExists = true;
-        }
-    }
     if (!isExists)
     {
         FinalResults finres(jumper);
         finalResults.push_back(finres);
     }
     for (auto &fin : finalResults)
-    {
         if (fin.jumper == jumper)
         {
             fin.jumperResults.push_back(*jumpData);
             fin.setTotalPoints();
         }
-    }
     setFinalResultsPosition();
 }
 
@@ -199,7 +196,7 @@ void Competition::startCompetition()
     {
         actualJumpers.push_back(&jum);
     }
-    bool isShowStartList;
+    bool isShowStartList = false;
     while (actualRound < competitionConfig.getRoundsCount())
     {
         int i = 0;
@@ -214,29 +211,42 @@ void Competition::startCompetition()
             sortResultsVector(actualResults);
             configFinalResults(jumper, &jumpData);
 
-            if (ii + 1 != actualJumpers.size())
-                std::cout << "\nNast©pny zawodnik: " << *actualJumpers[ii + 1];
-
-            showActualResults(false, false);
-
             if (isShowResults)
+            {
+                if (ii + 1 != actualJumpers.size())
+                    std::cout << "\nNast©pny zawodnik: " << *actualJumpers[ii + 1];
+                showActualResults(false);
                 jumpData.showResults();
+            }
 
             if (isShowStartList)
-                showStartList();
+                showStartList(ii);
 
-            std::cout << "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza† list© startow¥)\n";
-
-            if (getch() == 's')
+            if (isShowResults)
             {
-                if (isShowStartList)
-                    isShowStartList = false;
-                else
-                {
-                    isShowStartList = true;
-                    showStartList();
-                }
-                getch();
+                std::cout << "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥)\n";
+                if (getch() == 's')
+                    do
+                    {
+                        if (isShowStartList)
+                        {
+                            isShowStartList = false;
+
+                            system("cls");
+                            showActualResults(false);
+                            jumpData.showResults();
+                        }
+                        else
+                        {
+                            isShowStartList = true;
+                            system("cls");
+
+                            showActualResults(false);
+                            jumpData.showResults();
+
+                            showStartList(ii);
+                        }
+                    } while (getch() == 's');
             }
 
             system("cls");
@@ -262,9 +272,9 @@ void Competition::loadParametersFromFile()
 
     std::string tmp;
     std::ifstream ifs;
-    ifs.open("resources/config.csv");
+    ifs.open("resources/competitionRules.csv");
     if (ifs.good() == false)
-        std::cout << "Nie udaˆo si© otworzy† pliku config.csv!\n";
+        std::cout << "Nie udaˆo si© otworzy† pliku competitionRules.csv!\n";
 
     getline(ifs, tmp, ',');
     startWind = stod(tmp);
@@ -278,8 +288,6 @@ void Competition::loadParametersFromFile()
     isWindComp = stoi(tmp);
     getline(ifs, tmp, ',');
     isJudges = stoi(tmp);
-    getline(ifs, tmp, ',');
-    isShowResults = stoi(tmp);
 
     ifs.close();
 }
@@ -371,13 +379,13 @@ void Competition::saveResultsToFile(SaveMode mode)
     }
 }
 
-void Competition::FinalResults::show(bool isQualified) const
+void Competition::FinalResults::show(bool isQualified, short positionColor = 7) const
 {
     using std::cout;
     using std::fixed;
     using std::setprecision;
 
-    colorText(2, position);
+    colorText(positionColor, position);
     colorText(7, ". " + jumper->getName() + " " + jumper->getSurname() + " (" + jumper->getNationality() + ")");
     colorText(15, " --> ");
 

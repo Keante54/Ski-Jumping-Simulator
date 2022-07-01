@@ -34,7 +34,7 @@ private:
         int position;
 
         FinalResults(Jumper *jum) : jumper(jum){};
-        void show(bool isQualified) const;
+        void show(bool isQualified, short positionColor) const;
         void setTotalPoints();
         bool operator>(const FinalResults &finalResults) const { return totalPoints > finalResults.totalPoints; }
     };
@@ -52,9 +52,10 @@ private:
     void roundSummary();
     void competitionSummary();
     void sortActualJumpers();
-    void showStartList();
+    void showStartList(int actualIndex);
 
-    void showActualResults(bool isFinal, bool nextRound);
+    void showActualResults(bool isFinal);
+    void showFullResults();
     void configFinalResults(Jumper *jumper, JumpData *jumpData);
 
     Hill *hill;
@@ -80,6 +81,7 @@ public:
     void setJumpers(const vector<Jumper> &jumpers) { this->jumpers = jumpers; }
     void setHill(Hill *const hill) { this->hill = hill; }
     void setCompetitionConfig(const CompetitionConfig &config) { competitionConfig = config; }
+    void setIsShowResults(bool arg) { isShowResults = arg; }
 
     void loadParametersFromFile();
     void askForStartGate();

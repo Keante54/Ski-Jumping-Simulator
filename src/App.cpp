@@ -18,6 +18,8 @@
 
 App::App()
 {
+    isShowResults = true;
+    loadSettings();
 }
 
 App::~App()
@@ -33,6 +35,7 @@ void App::start()
 
     while (true)
     {
+        system("cls");
         cout << "Witaj w symulatorze skok¢w narciarskich! Co chcesz zrobi†?\n";
         cout << "1. Symuluj sezon (niedost©pne)\n2. Symuluj pojedynczy konkurs\n3. Symyluj pojedyncze skoki (niedost©pne)\n4. Ustawienia";
 
@@ -166,21 +169,41 @@ void App::singleCompetitionChoice()
 void App::settingsChoice()
 {
     using std::cout;
-    system("cls");
-
-    cout << "Ustawienia:\n";
-    cout << "\n"
-         << "2. Wr¢†";
-
     while (true)
+    {
+        saveSettings();
+        system("cls");
+        cout << "Ustawienia: (1 - tak, 0 - nie)\n";
+        cout << "1. Pokazywanie wynik¢w skok¢w w konkursie (" << isShowResults << ")\n"
+        << "2. Wr¢†\n\n";
+
         switch (numberChoice("\n", 1))
         {
         case 1:
+            isShowResultsChoice();
             continue;
         case 2:
             return;
             break;
         }
+    }
+}
+
+void App::isShowResultsChoice()
+{
+    system("cls");
+
+    if (isShowResults)
+    {
+        std::cout << "Wyˆ¥czono pokazywanie wynik¢w w konkursie!\n";
+        isShowResults = false;
+    }
+    else if (!isShowResults)
+    {
+        std::cout << "Wˆ¥czono pokazywanie wynik¢w w konkursie!\n";
+        isShowResults = true;
+    }
+    Sleep(1200);
 }
 
 void App::selectHill(Competition *comp)
@@ -289,4 +312,27 @@ int App::numberChoice(std::string text, bool enter)
         choice = getch() - '0';
 
     return choice;
+}
+
+void App::saveSettings()
+{
+    std::ofstream ofs("config.cfg");
+    boost::archive::text_oarchive oa(ofs);
+    oa << *this;
+}
+
+void App::loadSettings()
+{
+    if (!isConfigFileEmpty())
+    {
+        std::ifstream ifs("config.cfg");
+        boost::archive::text_iarchive ia(ifs);
+        ia >> *this;
+    }
+}
+
+bool App::isConfigFileEmpty()
+{
+    std::ifstream ifs("config.cfg");
+    return ifs.peek() == std::ifstream::traits_type::eof();
 }
