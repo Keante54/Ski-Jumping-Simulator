@@ -7,7 +7,7 @@ Program do symulowania wyników skoków narciarskich.
 ***folder results*** - ma dwa podfoldery: "csv" i "text" dla różnych formatów zapisu. Są tam wyniki konkursów.<br>
 ***folder src*** - kod źrodłowy programu.<br>
 
-## Plik jumpers.csv
+## Plik "jumpers.csv"
 Plik znajduje się w folderze "resources" (i musi tam być). Są w nim wpisani skoczkowie do symulacji.
 
 ### Atrybuty skoczka
@@ -59,21 +59,34 @@ Planica,Slowenia, 200, 240, 8.64, 14.4, 252.5, -157, 82, 1, 0.54, 0.83
 Siła wybicia, technika wybicia i technika lotu to Umiejętność + forma + losowość
 ```
 
-## Plik "competitionRules.csv"
+## Plik "config.csv"
 - Wiatr startowy
 - Zmiana wiatru (Jak wiatr może się zmienić. Wiatr jest obliczany: Wiatr startowy + (losowanie między -zmiana wiatru a zmiana wiatru np. 0.45 + (losowanie między -0.20 a 0.20));
 - Fałszywość wiatru (Jest aby dodać realizmu. Wiatr przy skoku jest bez zmian, ale przy podawaniu wyników i podliczaniu punktów będzie inny. Np. jeżeli fałszywośc wiatru = 0.10. Wiatr w wynikach = Wiatr + (losowanie między -0.10 a 0.10. Można wyłączyć wpisując 0);
 - Rekompensata za belkę (0 = nie, 1 = tak)
 - Rekompensata za wiatr (0 = nie, 1 = tak)
 - Noty sędziowskie (0 = nie, 1 = tak)
-Przykład
+- Pokazywanie wyników (0 = nie, 1 = tak. Np. jeśli chcesz szybko przesymulować konkurs bez oglądania wyników na bieżąco to możesz wyłączyć tą opcje)
 
+Przykład:
 ```
-0.80, 0.25, 0.10, 1, 1, 1
+0.80, 0.25, 0.10, 1, 1, 1, 1
 ```
 
-## Plik "config.cfg"
-Plik z zapisanymi ustawieniami z menu. Nie nale�y go edytowa�, tylko zmienia� ustawienia z poziomu programu.
+## Plik "competitionConfig.csv"
+Plik zawiera tzw. konfiguracje konkursu (czyli ile skoczków skacze w jakiej serii.) Zapisujemy tam dwie rzeczy:
+- Nazwa konfiguracji
+- Informacje o rundach oddzielone przecinkiem (50, 30 aby w drugiej serii skakało 30 skoczków, 50 oznacza liczbe zakwalifikowanych z kwalifikacji, ale to ma znaczenie jedynie w trybie sezonu.)
+
+Przykład:
+```
+World cup, 50, 30
+Flying Championship, 40, 30, 30, 30
+Mini konkurs, 15, 10, 5, 3
+```
+(Liczba rund zależy od liczb wpisanych po przecinku po nazwie. Na końcu nie stawiamy przecinka.)
+
 
 ## Zapisywanie wyników do pliku
 Wyniki są zapisywane w folderze results. W folderze csv są wyniki oddzielane przecinkami, a w folderze text wszystko jest "ładniej".
+Przy konkursie na skoczni o takiej samej nazwie, punkcie K i HS plik z wynikami jest nadpisywany.
