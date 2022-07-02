@@ -1,6 +1,5 @@
 #include "Hill.h"
 
-int Hill::objectsCount = 0;
 
 Hill::Hill()
 {
@@ -11,7 +10,6 @@ Hill::Hill()
     optimalTakeoffPower = takeoffPowerImportance = 0;
     for (auto &fsm : flightStyleMeters)
         fsm = 0;
-    objectsCount++;
 }
 
 Hill::Hill(std::string name_, std::string country_, int kPoint_, int hsPoint_, double maxDistance_, double gatePoints_, double frontWindPoints_, double startDistance_, double takeoffTechniqueMeters_, double flightTechniqueMeters_, int optimalTakeoffPower_, double takeoffPowerImportance_)
@@ -28,22 +26,11 @@ Hill::Hill(std::string name_, std::string country_, int kPoint_, int hsPoint_, d
     flightTechniqueMeters = flightTechniqueMeters_;
     optimalTakeoffPower = optimalTakeoffPower_;
     takeoffPowerImportance = takeoffPowerImportance_;
-    objectsCount++;
 }
 
-Hill::Hill(const Hill &hill)
-{
-    objectsCount++;
-}
-Hill &Hill::operator=(const Hill &hill)
-{
-    objectsCount++;
-    return *this;
-}
 
 Hill::~Hill()
 {
-    objectsCount--;
 }
 
 std::ostream &operator<<(std::ostream &os, const Hill &hill)

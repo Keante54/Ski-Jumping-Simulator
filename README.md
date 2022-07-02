@@ -59,7 +59,7 @@ Planica,Slowenia, 200, 240, 8.64, 14.4, 252.5, -157, 82, 1, 0.54, 0.83
 Siła wybicia, technika wybicia i technika lotu to Umiejętność + forma + losowość
 ```
 
-## Plik "config.csv"
+## Plik "competitionRules.csv"
 - Wiatr startowy
 - Zmiana wiatru (Jak wiatr może się zmienić. Wiatr jest obliczany: Wiatr startowy + (losowanie między -zmiana wiatru a zmiana wiatru np. 0.45 + (losowanie między -0.20 a 0.20));
 - Fałszywość wiatru (Jest aby dodać realizmu. Wiatr przy skoku jest bez zmian, ale przy podawaniu wyników i podliczaniu punktów będzie inny. Np. jeżeli fałszywośc wiatru = 0.10. Wiatr w wynikach = Wiatr + (losowanie między -0.10 a 0.10. Można wyłączyć wpisując 0);
@@ -76,7 +76,7 @@ Przykład:
 ## Plik "competitionConfig.csv"
 Plik zawiera tzw. konfiguracje konkursu (czyli ile skoczków skacze w jakiej serii.) Zapisujemy tam dwie rzeczy:
 - Nazwa konfiguracji
-- Informacje o rundach oddzielone przecinkiem (50, 30 aby w drugiej serii skakało 30 skoczków, 50 oznacza liczbe zakwalifikowanych z kwalifikacji, ale to ma znaczenie jedynie w trybie sezonu.)
+- Informacje o rundach oddzielone przecinkiem (50, 30 aby w drugiej serii skakało 30 skoczków)
 
 Przykład:
 ```

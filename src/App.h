@@ -3,7 +3,6 @@
 #include "Hill.h"
 #include "Competition.h"
 #include "CompetitionConfig.h"
-#include "Season.h"
 
 #include <vector>
 #include <string>
@@ -13,6 +12,7 @@
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 
+
 class App
 {
 private:
@@ -21,23 +21,11 @@ private:
     void loadCompetitionConfigFromFile();
 
     // wybory w menu
-    void seasonsChoice();
     void singleCompetitionChoice();
     void settingsChoice();
 
     // ustawienia
     void isShowResultsChoice();
-
-    // sezony
-    void createSeasonChoice();
-    // tworzenie kalendarza
-    void addCompetitionChoice();
-    void deleteCompetitionChoice();
-    void classificationsChoice();
-    void addClassificationChoice();
-    void deleteClassificationChoice();
-    void addTargetClassificationChoice();
-    void deleteTargetClassificationChoice();
 
     // konkursy
     void selectHill(Competition *comp);
@@ -50,10 +38,6 @@ private:
     void showHills();
     void showCompetitionConfigs();
     Competition singleCompetition;
-
-    std::vector<Season> seasons;
-    std::unique_ptr<Season> season;
-    void setSeason(Season *s) { season.reset(s); }
 
     int numberChoice(std::string text, bool enter);
     bool isShowResults;
@@ -68,8 +52,6 @@ private:
     void saveSettings();
     void loadSettings();
     bool isConfigFileEmpty();
-
-    void saveSeason(const Season & season);
 
 public:
     App();

@@ -38,19 +38,16 @@ void App::start()
     {
         system("cls");
         cout << "Witaj w symulatorze skok¢w narciarskich! Co chcesz zrobi†?\n";
-        cout << "1. Symuluj sezon\n2. Symuluj pojedynczy konkurs\n3. Symyluj pojedyncze skoki (niedost©pne)\n4. Ustawienia";
+        cout << "1. Symuluj pojedynczy konkurs\n2. Symyluj pojedyncze skoki (niedost©pne)\n3. Ustawienia";
 
         switch (numberChoice("\n", 1))
         {
         case 1:
-            seasonsChoice();
-            break;
-        case 2:
             singleCompetitionChoice();
             break;
-        case 3:
+        case 2:
             break;
-        case 4:
+        case 3:
             settingsChoice();
             break;
         default:
@@ -156,40 +153,6 @@ void App::loadCompetitionConfigFromFile()
     ifs.close();
 }
 
-void App::seasonsChoice()
-{
-    while (true)
-    {
-        system("cls");
-
-        std::cout << "Wczytane zapisy sezon¢w:\n";
-        int i = 1;
-
-        if (seasons.size() == 0)
-            std::cout << "BRAK\n";
-        else
-            for (const auto &save : seasons)
-            {
-                std::cout << i << ". " << save.getSaveName() << "\n";
-                i++;
-            }
-
-        std::cout << "\nCo chcesz zrobi†?\n1. Rozegraj istniej¥cy sezon\n2. Stw¢rz nowy sezon\n3. Usuä sezon\n4. Wr¢† do menu\n";
-        switch (numberChoice("\n", true))
-        {
-        case 1:
-            continue;
-        case 2:
-            createSeasonChoice();
-            continue;
-        case 3:
-            continue;
-        case 4:
-            break;
-        }
-    }
-}
-
 void App::singleCompetitionChoice()
 {
 
@@ -242,185 +205,6 @@ void App::isShowResultsChoice()
     Sleep(1200);
 }
 
-void App::createSeasonChoice()
-{
-    using std::cout;
-
-    std::string seasonName;
-    std::cout << "Podaj nazw© sezonu: ";
-    std::cin.clear();
-    std::cin.ignore();
-    std::cin.sync();
-    std::getline(std::cin, seasonName);
-
-    season = std::make_unique<Season>(Season(seasonName));
-    seasons.push_back(*season);
-
-    saveSeason(*season);
-
-    while (true)
-    {
-        saveSeason(*season);
-        system("cls");
-        season->showCompetitions();
-        std::cout << "\n\n\nCo chcesz zrobi†?\n1. Dodaj konkurs\n2. Usuä konkurs\n----\n3. Klasyfikacje\n4. Dodaj klasyfikacj© do konkursu\n5. Usuä klasyfikacj© z konkursu\n6. Wr¢†\n";
-        switch (numberChoice("\n", true))
-        {
-        case 1:
-            addCompetitionChoice();
-            continue;
-        case 2:
-            deleteCompetitionChoice();
-            continue;
-        case 3:
-            classificationsChoice();
-            continue;
-        case 4:
-            addTargetClassificationChoice();
-            continue;
-        case 5:
-            deleteTargetClassificationChoice();
-            continue;
-        case 6:
-            std::cout << "Na pewno wyj˜†? Utracisz dotychczasowy post©p. Je˜li tak, wpisz 't'\n";
-            if (getch() == 't')
-            {
-                season.reset();
-                return;
-                break;
-            }
-        }
-    }
-}
-
-void App::addCompetitionChoice()
-{
-    system("cls");
-    Competition comp;
-    showHills();
-
-    int hillIndex = numberChoice("\n\nNa jakiej skoczni odb©dzie si© konkurs?\n", true);
-    comp.setHill(&hillsList[hillIndex - 1]);
-
-    int addIndex = numberChoice("W kt¢rym miejscu doda† zawody? -1 aby jako ostatnie.\n", true) - 1;
-    if (addIndex == -2)
-        addIndex = -1;
-
-    season->addCompetition(comp, addIndex);
-}
-
-void App::deleteCompetitionChoice()
-{
-    system("cls");
-    season->showCompetitions();
-
-    int compIndex = numberChoice("\n\nKt¢re zawody chcesz usun¥†? -1 ¾eby ostatnie.\n", true) - 1;
-    if (compIndex == -2)
-        compIndex = -1;
-
-    season->deleteCompetition(compIndex);
-}
-
-void App::classificationsChoice()
-{
-    while (true)
-    {
-        system("cls");
-
-        season->showClassifications();
-        std::cout << "\n\nCo chcesz zrobi†?\n1. Dodaj klasyfikacje\n2. Usuä klasyfikacje\n3. Wr¢†\n";
-        switch (numberChoice("\n", true))
-        {
-        case 1:
-            addClassificationChoice();
-            continue;
-        case 2:
-            deleteClassificationChoice();
-            continue;
-        case 3:
-            return;
-            break;
-        }
-    }
-}
-
-void App::addClassificationChoice()
-{
-    system("cls");
-    using std::cin;
-    std::string clasName;
-    Classification::Type clasType;
-
-    std::cout << "Podaj nazw© klasyfikacji: ";
-    cin.clear();
-    cin.ignore();
-    cin.sync();
-    std::getline(cin, clasName);
-
-    std::cout << "Jaki b©dzie spos¢b liczenia punkt¢w?\n1. Zajmowane miejsca\n2. Punkty za skoki\n";
-    int type = numberChoice("\n", true);
-    if (type == 1)
-        clasType = Classification::Places;
-    else
-        clasType = Classification::Points;
-
-    season->addClassification(Classification(clasName, clasType));
-}
-
-void App::deleteClassificationChoice()
-{
-    system("cls");
-    season->showClassifications();
-    int index = numberChoice("\nKt¢r¥ klasyfikacje usun¥†? -1 ¾eby ostatni¥\n", true) - 1;
-    if (index == -2)
-        index = -1;
-
-    season->deleteClassification(index);
-}
-
-void App::addTargetClassificationChoice()
-{
-    std::cout << "\n";
-    season->showCompetitions();
-    int compIndex = numberChoice("\nKt¢ry konkurs?\n", true) - 1;
-    std::cout << "\n";
-    season->showClassifications();
-    int clasIndex = numberChoice("\nKt¢ra klasyfikacja?\n", true) - 1;
-
-    if (compIndex == -2)
-        compIndex = -1;
-    if (clasIndex == -2)
-        clasIndex = -1;
-
-    season->addCompetitionTarget(compIndex, clasIndex);
-}
-
-void App::deleteTargetClassificationChoice()
-{
-    season->showCompetitions();
-    int compIndex = numberChoice("\n\nZ kt¢rego konkursu usun¥†?\n", true) - 1;
-
-    int i = 1;
-    for (const auto &comp : season->getCompetitions())
-        for (const auto &target : comp.getTargetClassifications())
-        {
-            std::cout << i << ". " << target->getName() << " (";
-            if (target->getType() == Classification::Places)
-                std::cout << "Miejsca";
-            else
-                std::cout << "Punkty";
-            std::cout << ")\n";
-            i++;
-        }
-    int clasIndex = numberChoice("\n\nKt¢r¥ klasyfikacje z konkursu usun¥†?\n", true) - 1;
-
-    if (compIndex == -2)
-        compIndex = -1;
-    if (clasIndex == -2)
-        clasIndex = -1;
-
-    season->deleteCompetitionTarget(clasIndex, compIndex);
-}
 
 void App::selectHill(Competition *comp)
 {
@@ -463,6 +247,7 @@ void App::askForCompetitionParameters(Competition *comp)
     sclear;
 
     singleCompetition.loadParametersFromFile();
+    singleCompetition.setIsShowResults(isShowResults);
     cout << "Parametry konkursu: (1 - tak, 0 - nie)\n";
     singleCompetition.showParameters();
     getch();
@@ -551,18 +336,4 @@ bool App::isConfigFileEmpty()
 {
     std::ifstream ifs("config.cfg");
     return ifs.peek() == std::ifstream::traits_type::eof();
-}
-
-void App::saveSeason(const Season &season)
-{
-    using namespace std::filesystem;
-
-    std::string seasonPath = "saves/" + season.getSaveName();
-
-    if (!is_directory(seasonPath) || !exists(seasonPath))
-        create_directories(seasonPath);
-
-    std::ofstream ofs(seasonPath + "/save.sav");
-    boost::archive::text_oarchive oa(ofs);
-    oa << season;
 }

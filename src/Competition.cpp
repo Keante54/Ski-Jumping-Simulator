@@ -11,8 +11,6 @@
 #include <filesystem>
 #include <array>
 
-int Competition::objectsCount = 0;
-
 Competition::Competition(int startGate_, double startWind_, double windChange_, double windFaulty_, bool isGateComp_, bool isWindComp_, bool isJudges_, bool isShowResults_)
 {
     startGate = startGate_;
@@ -23,29 +21,15 @@ Competition::Competition(int startGate_, double startWind_, double windChange_, 
     isWindComp = isWindComp_;
     isJudges = isJudges_;
     isShowResults = isShowResults_;
-
-    objectsCount++;
 }
 
 Competition::Competition()
 {
     startGate = startWind = windChange = windFaulty = isGateComp = isWindComp = isJudges = isShowResults = 0;
-    objectsCount++;
-}
-Competition::Competition(const Competition &comp)
-{
-    objectsCount++;
-}
-
-Competition &Competition::operator=(const Competition &competition)
-{
-    objectsCount++;
-    return *this;
 }
 
 Competition::~Competition()
 {
-    objectsCount--;
 }
 
 template <typename T>
@@ -54,12 +38,6 @@ void Competition::sortResultsVector(vector<T> &vec)
     std::sort(vec.begin(), vec.end(), std::greater<T>());
 }
 
-void Competition::setTargetClassificationsIDs()
-{
-    targetClassificationsIDs.clear();
-    for (const auto &target : targetClassifications)
-        targetClassificationsIDs.push_back(target->getID());
-}
 
 template <>
 void Competition::sortResultsVector(vector<FinalResults> &vec)
@@ -175,8 +153,6 @@ void Competition::showActualResults(bool isFinal)
         else if (fin.jumperResults.size() == round - 1)
             fin.show(false, 4);
     }
-
-    std::cout << "runda " << round << ", limit " << competitionConfig.getRoundsData()[round] << "\n";
 }
 
 void Competition::showFullResults()
@@ -207,15 +183,11 @@ void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData)
     for (auto &fin : finalResults)
         if (fin.jumper == jumper)
         {
-            fin.jumperResults.push_back(*jumpData);
+            std::cout<<jumper<<"\n";
+            fin.jumperResults.push_back(jumpData);
             fin.setTotalPoints();
         }
     setFinalResultsPosition();
-}
-
-void Competition::setHillID()
-{
-    hillID = hill->getID();
 }
 
 void Competition::startCompetition()
@@ -340,11 +312,6 @@ void Competition::showParameters()
          << "Pokazywa† wyniki? " << isShowResults << "\n";
 }
 
-void Competition::addTargetClassification(Classification *clas)
-{
-    targetClassifications.push_back(clas);
-}
-
 void Competition::saveResultsToFile(SaveMode mode)
 {
     using namespace std::filesystem;
@@ -366,16 +333,16 @@ void Competition::saveResultsToFile(SaveMode mode)
             ofs << fin.jumper->getName() << ", " << fin.jumper->getSurname() << "," << fin.jumper->getNationality() << ",";
             for (const auto &res : fin.jumperResults)
             {
-                ofs << res.getGate() << "," << res.getWind() << "," << res.getDistance() << "," << res.getPoints() << ",";
+                ofs << res->getGate() << "," << res->getWind() << "," << res->getDistance() << "," << res->getPoints() << ",";
                 if (isJudges)
                 {
                     ofs << "|";
                     for (int i = 0; i < 5; i++)
-                        ofs << res.getJudges(i) << "|";
+                        ofs << res->getJudges(i) << "|";
                     ofs << ",";
                 }
                 if (isWindComp || isGateComp)
-                    ofs << res.getTotalCompensation() << ",";
+                    ofs << res->getTotalCompensation() << ",";
             }
             ofs << fin.totalPoints << "\n";
         }
@@ -396,16 +363,16 @@ void Competition::saveResultsToFile(SaveMode mode)
             ofs << fin.jumper->getName() << " " << fin.jumper->getSurname() << " (" << fin.jumper->getNationality() << "), ";
             for (const auto &res : fin.jumperResults)
             {
-                ofs << "Belka: " << res.getGate() << ", Wiatr: " << res.getWind() << ", " << res.getDistance() << "m, " << res.getPoints() << "pts, ";
+                ofs << "Belka: " << res->getGate() << ", Wiatr: " << res->getWind() << ", " << res->getDistance() << "m, " << res->getPoints() << "pts, ";
                 if (isJudges)
                 {
                     ofs << "|";
                     for (int i = 0; i < 5; i++)
-                        ofs << res.getJudges(i) << "|";
+                        ofs << res->getJudges(i) << "|";
                     ofs << ", ";
                 }
                 if (isWindComp || isGateComp)
-                    ofs << "Rekompensata: " << res.getTotalCompensation() << ", ";
+                    ofs << "Rekompensata: " << res->getTotalCompensation() << ", ";
             }
             ofs << "¥cznie: " << fin.totalPoints << "pts\n";
         }

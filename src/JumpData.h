@@ -19,10 +19,6 @@ class Competition;
 class JumpData
 {
 private:
-    int ID;
-    static int objectsCount;
-    void setID() { ID = objectsCount - 1; }
-
     enum LandType
     {
         Telemark = 1,
@@ -52,13 +48,6 @@ private:
     Jumper *jumper;
     Hill *hill;
     Competition *competition;
-    int jumperID;
-    int hillID;
-    int competitionID;
-
-    void setJumperID() { jumperID = jumper->getID(); }
-    void setHillID();
-    void setCompetitionID();
 
     // symulacja skoku
     void setTakeoffPower();
@@ -74,8 +63,6 @@ private:
 public:
     JumpData(Jumper *jumper_, Hill *hill_, Competition *competition_);
     JumpData();
-    JumpData(const JumpData &jumpData);
-     JumpData & operator=(const JumpData &jumpData);
     ~JumpData();
 
     bool operator>(const JumpData &jumpData) const { return points > jumpData.points; }
@@ -110,32 +97,4 @@ public:
     void jump();
 
     void showResults();
-
-    private:
-        friend class boost::serialization::access;
-        template <class Archive>
-        void serialize(Archive &ar, const unsigned int version)
-        {
-            ar &ID;
-            ar &takeoffPower;
-            ar &takeoffTechnique;
-            ar &flightTechnique;
-            ar &landType;
-            ar &landRating;
-            ar &takeoffPowerDifference;
-            ar &distance;
-            ar &points;
-            ar &judges;
-            ar &judgesPoints;
-            ar &gateCompensation;
-            ar &windCompensation;
-            ar &totalCompensation;
-            ar &jumperID;
-            ar &hillID;
-            ar &competitionID;
-            ar &dsq;
-            ar &dsqReason;
-            ar &gate;
-            ar &wind;
-        }
 };

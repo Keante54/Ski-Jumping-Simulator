@@ -5,14 +5,18 @@
 #include "JumpData.h"
 #include "Random.h"
 
-int JumpData::objectsCount = 0;
 
 JumpData::JumpData(Jumper *jumper_, Hill *hill_, Competition *competition_)
 {
     jumper = jumper_;
     hill = hill_;
     competition = competition_;
-    objectsCount++;
+    takeoffPower = takeoffTechnique = flightTechnique = takeoffPowerDifference = 0;
+    distance = points = gateCompensation = windCompensation = totalCompensation = dsq = judgesPoints = 0;
+    for (auto &jg : judges)
+    {
+        jg = 0;
+    }
 }
 
 JumpData::JumpData()
@@ -26,29 +30,12 @@ JumpData::JumpData()
     {
         jg = 0;
     }
-    objectsCount++;
-}
-
-JumpData::JumpData(const JumpData &jumpData)
-{
-    objectsCount++;
-}
-
-JumpData &JumpData::operator=(const JumpData &jumpData)
-{
-    objectsCount++;
-    return *this;
 }
 
 JumpData::~JumpData()
 {
-    objectsCount--;
 }
 
-void JumpData::setCompetitionID()
-{
-    competitionID = competition->getID();
-}
 
 void JumpData::setParameters(Jumper &jp, Hill &hl, Competition &comp)
 {
@@ -69,7 +56,7 @@ void JumpData::jump()
     land();
     setJudges();
     setPoints();
-    // setDsq();
+    //setDsq();
 }
 
 void JumpData::setTakeoffPower()
@@ -174,7 +161,7 @@ void JumpData::land()
     else if (landRating < 1)
         landRating = 1;
 
-    rd = (landRating - 65);
+    rd = (landRating - 54);
     rd1 = (((hill->getMaxDistance() - distance) * 3.7) * hill->getLandingDifficulty()) + rd;
     if (rd1 < 2)
         rd1 = 2;
@@ -185,7 +172,7 @@ void JumpData::land()
         landType = Fall;
     else
     {
-        rd = (landRating - 65);
+        rd = (landRating - 54);
         rd1 = (((hill->getMaxDistance() - distance) * 3.7) * hill->getLandingDifficulty()) + rd;
         if (rd1 < 2)
             rd1 = 2;
@@ -198,7 +185,7 @@ void JumpData::land()
         }
         else
         {
-            rd = (landRating - 64);
+            rd = (landRating - 54);
             rd1 = (((hill->getMaxDistance() - distance) * 1.92) * hill->getLandingDifficulty()) + rd;
             if (rd1 < 2)
                 rd1 = 2;
