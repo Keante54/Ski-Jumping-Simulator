@@ -11,6 +11,8 @@
 #include <filesystem>
 #include <array>
 
+int Competition::objectsCount = 0;
+
 Competition::Competition(int startGate_, double startWind_, double windChange_, double windFaulty_, bool isGateComp_, bool isWindComp_, bool isJudges_, bool isShowResults_)
 {
     startGate = startGate_;
@@ -21,20 +23,42 @@ Competition::Competition(int startGate_, double startWind_, double windChange_, 
     isWindComp = isWindComp_;
     isJudges = isJudges_;
     isShowResults = isShowResults_;
+
+    objectsCount++;
 }
 
 Competition::Competition()
 {
     startGate = startWind = windChange = windFaulty = isGateComp = isWindComp = isJudges = isShowResults = 0;
+    objectsCount++;
 }
+Competition::Competition(const Competition &comp)
+{
+    objectsCount++;
+}
+
+Competition &Competition::operator=(const Competition &competition)
+{
+    objectsCount++;
+    return *this;
+}
+
 Competition::~Competition()
 {
+    objectsCount--;
 }
 
 template <typename T>
 void Competition::sortResultsVector(vector<T> &vec)
 {
     std::sort(vec.begin(), vec.end(), std::greater<T>());
+}
+
+void Competition::setTargetClassificationsIDs()
+{
+    targetClassificationsIDs.clear();
+    for (const auto &target : targetClassifications)
+        targetClassificationsIDs.push_back(target->getID());
 }
 
 template <>
@@ -189,6 +213,11 @@ void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData)
     setFinalResultsPosition();
 }
 
+void Competition::setHillID()
+{
+    hillID = hill->getID();
+}
+
 void Competition::startCompetition()
 {
     system("cls");
@@ -311,6 +340,11 @@ void Competition::showParameters()
          << "Pokazywa† wyniki? " << isShowResults << "\n";
 }
 
+void Competition::addTargetClassification(Classification *clas)
+{
+    targetClassifications.push_back(clas);
+}
+
 void Competition::saveResultsToFile(SaveMode mode)
 {
     using namespace std::filesystem;
@@ -376,43 +410,5 @@ void Competition::saveResultsToFile(SaveMode mode)
             ofs << "¥cznie: " << fin.totalPoints << "pts\n";
         }
         ofs.close();
-    }
-}
-
-void Competition::FinalResults::show(bool isQualified, short positionColor = 7) const
-{
-    using std::cout;
-    using std::fixed;
-    using std::setprecision;
-
-    colorText(positionColor, position);
-    colorText(7, ". " + jumper->getName() + " " + jumper->getSurname() + " (" + jumper->getNationality() + ")");
-    colorText(15, " --> ");
-
-    for (const auto &res : jumperResults)
-    {
-        colorText(3, res.getDistance());
-        colorText(3, "m");
-        cout << " (";
-        cout << fixed << setprecision(1);
-        colorText(6, res.getPoints());
-        colorText(6, "pts");
-        cout << "), ";
-        cout << fixed;
-    }
-    colorText(15, "--> ");
-    colorText(14, totalPoints);
-    colorText(14, "pts");
-    if (isQualified)
-        colorText(15, " (Q)\n");
-    else
-        cout << "\n";
-}
-void Competition::FinalResults::setTotalPoints()
-{
-    totalPoints = 0;
-    for (const auto &res : jumperResults)
-    {
-        totalPoints += res.getPoints();
     }
 }

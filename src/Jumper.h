@@ -2,6 +2,11 @@
 #include <string>
 #include <iostream>
 
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/string.hpp>
+
 class Jumper
 {
 private:
@@ -30,7 +35,7 @@ public:
     ~Jumper();
 
     Jumper &operator=(const Jumper &jumper);
-    friend std::ostream & operator<<(std::ostream & os, const Jumper & jumper);
+    friend std::ostream &operator<<(std::ostream &os, const Jumper &jumper);
 
     std::string getName() const { return name; }
     std::string getSurname() const { return surname; }
@@ -51,4 +56,15 @@ public:
     void setLandingSkill(int arg) { landingSkill = arg; }
     void setForm(int arg) { form = arg; }
     void setID() { ID = objectsCount - 1; }
+
+private:
+    friend class boost::serialization::access;
+    template <class Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar &ID;
+        ar &name, surname, nationality;
+        ar &takeoffPowerSkill, takeoffTechniqueSkill, flightTechniqueSkill;
+        ar &flightStyle, landingSkill, form;
+    }
 };

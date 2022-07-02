@@ -1,9 +1,14 @@
 #pragma once
 #include <string>
+#include <iostream>
 
 class Hill
 {
 private:
+    int ID;
+    static int objectsCount;
+    void setID() { ID = objectsCount - 1; }
+
     std::string name, country;
     int kPoint, hsPoint;
 
@@ -25,10 +30,15 @@ private:
 public:
     Hill(std::string name_, std::string country_, int kPoint_, int hsPoint_, double maxDistance_, double gatePoints_, double frontWindPoints_, double startDistance_, double takeoffTechniqueMeters_, double flightTechniqueMeters_, int optimalTakeoffPower_, double takeoffPowerImportance_);
     Hill();
+    Hill(const Hill &hill);
+    Hill &operator=(const Hill &hill);
     ~Hill();
+
+    friend std::ostream &operator<<(std::ostream &os, const Hill &hill);
 
     void startup();
 
+    int getID() const { return ID; }
     std::string getName() const { return name; }
     std::string getCountry() const { return country; }
     int getKPoint() const { return kPoint; }

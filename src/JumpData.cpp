@@ -5,11 +5,14 @@
 #include "JumpData.h"
 #include "Random.h"
 
+int JumpData::objectsCount = 0;
+
 JumpData::JumpData(Jumper *jumper_, Hill *hill_, Competition *competition_)
 {
     jumper = jumper_;
     hill = hill_;
     competition = competition_;
+    objectsCount++;
 }
 
 JumpData::JumpData()
@@ -23,10 +26,28 @@ JumpData::JumpData()
     {
         jg = 0;
     }
+    objectsCount++;
+}
+
+JumpData::JumpData(const JumpData &jumpData)
+{
+    objectsCount++;
+}
+
+JumpData &JumpData::operator=(const JumpData &jumpData)
+{
+    objectsCount++;
+    return *this;
 }
 
 JumpData::~JumpData()
 {
+    objectsCount--;
+}
+
+void JumpData::setCompetitionID()
+{
+    competitionID = competition->getID();
 }
 
 void JumpData::setParameters(Jumper &jp, Hill &hl, Competition &comp)
@@ -309,7 +330,8 @@ void JumpData::setDsq()
 void JumpData::showResults()
 {
     using namespace std;
-    cout << "\n\n"<<jumper->getName() << " " << jumper->getSurname() << " (" << jumper->getNationality() << ")\n";
+    cout << "\n\n"
+         << jumper->getName() << " " << jumper->getSurname() << " (" << jumper->getNationality() << ")\n";
     cout << "Odlegˆo˜†: " << distance;
     cout << " (Belka: " << gate << ") (";
     if ((-getGateDifference()) > 0)
@@ -356,7 +378,7 @@ void JumpData::showResults()
     cout << fixed << setprecision(1);
     if (gateCompensation < 0)
     {
-        cout<<"Punkty za belk©: ";
+        cout << "Punkty za belk©: ";
         colorText(12, gateCompensation);
     }
     else if (gateCompensation > 0)
