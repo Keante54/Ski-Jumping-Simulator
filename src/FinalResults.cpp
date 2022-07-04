@@ -24,11 +24,11 @@ void FinalResults::show(bool isQualified, short positionColor = 7) const
 
     for (const auto &res : jumperResults)
     {
-        colorText(3, res->getDistance());
+        colorText(3, res.getDistance());
         colorText(3, "m");
         cout << " (";
         cout << fixed << setprecision(1);
-        colorText(6, res->getPoints());
+        colorText(6, res.getPoints());
         colorText(6, "pts");
         cout << "), ";
         cout << fixed;
@@ -36,7 +36,6 @@ void FinalResults::show(bool isQualified, short positionColor = 7) const
     colorText(15, "--> ");
     colorText(14, totalPoints);
     colorText(14, "pts");
-    std::cout<<" "<<jumper<<" ";
     if (isQualified)
         colorText(15, " (Q)\n");
     else
@@ -47,6 +46,6 @@ void FinalResults::setTotalPoints()
     totalPoints = 0;
     for (const auto &res : jumperResults)
     {
-        totalPoints += res->getPoints();
+        totalPoints += res.getPoints();
     }
 }

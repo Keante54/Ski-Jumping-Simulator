@@ -38,7 +38,6 @@ void Competition::sortResultsVector(vector<T> &vec)
     std::sort(vec.begin(), vec.end(), std::greater<T>());
 }
 
-
 template <>
 void Competition::sortResultsVector(vector<FinalResults> &vec)
 {
@@ -183,8 +182,7 @@ void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData)
     for (auto &fin : finalResults)
         if (fin.jumper == jumper)
         {
-            std::cout<<jumper<<"\n";
-            fin.jumperResults.push_back(jumpData);
+            fin.jumperResults.push_back(*jumpData);
             fin.setTotalPoints();
         }
     setFinalResultsPosition();
@@ -194,9 +192,7 @@ void Competition::startCompetition()
 {
     system("cls");
     for (auto &jum : jumpers)
-    {
         actualJumpers.push_back(&jum);
-    }
     bool isShowStartList = false;
     while (actualRound < competitionConfig.getRoundsCount())
     {
@@ -275,7 +271,11 @@ void Competition::loadParametersFromFile()
     std::ifstream ifs;
     ifs.open("resources/competitionRules.csv");
     if (ifs.good() == false)
+    {
         std::cout << "Nie udaˆo si© otworzy† pliku competitionRules.csv!\n";
+        Sleep(1500);
+        abort();
+    }
 
     getline(ifs, tmp, ',');
     startWind = stod(tmp);
@@ -333,16 +333,16 @@ void Competition::saveResultsToFile(SaveMode mode)
             ofs << fin.jumper->getName() << ", " << fin.jumper->getSurname() << "," << fin.jumper->getNationality() << ",";
             for (const auto &res : fin.jumperResults)
             {
-                ofs << res->getGate() << "," << res->getWind() << "," << res->getDistance() << "," << res->getPoints() << ",";
+                ofs << res.getGate() << "," << res.getWind() << "," << res.getDistance() << "," << res.getPoints() << ",";
                 if (isJudges)
                 {
                     ofs << "|";
                     for (int i = 0; i < 5; i++)
-                        ofs << res->getJudges(i) << "|";
+                        ofs << res.getJudges(i) << "|";
                     ofs << ",";
                 }
                 if (isWindComp || isGateComp)
-                    ofs << res->getTotalCompensation() << ",";
+                    ofs << res.getTotalCompensation() << ",";
             }
             ofs << fin.totalPoints << "\n";
         }
@@ -363,16 +363,16 @@ void Competition::saveResultsToFile(SaveMode mode)
             ofs << fin.jumper->getName() << " " << fin.jumper->getSurname() << " (" << fin.jumper->getNationality() << "), ";
             for (const auto &res : fin.jumperResults)
             {
-                ofs << "Belka: " << res->getGate() << ", Wiatr: " << res->getWind() << ", " << res->getDistance() << "m, " << res->getPoints() << "pts, ";
+                ofs << "Belka: " << res.getGate() << ", Wiatr: " << res.getWind() << ", " << res.getDistance() << "m, " << res.getPoints() << "pts, ";
                 if (isJudges)
                 {
                     ofs << "|";
                     for (int i = 0; i < 5; i++)
-                        ofs << res->getJudges(i) << "|";
+                        ofs << res.getJudges(i) << "|";
                     ofs << ", ";
                 }
                 if (isWindComp || isGateComp)
-                    ofs << "Rekompensata: " << res->getTotalCompensation() << ", ";
+                    ofs << "Rekompensata: " << res.getTotalCompensation() << ", ";
             }
             ofs << "¥cznie: " << fin.totalPoints << "pts\n";
         }

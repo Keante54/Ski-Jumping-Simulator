@@ -6,12 +6,6 @@
 #include <string>
 #include <array>
 
-#include <boost/archive/text_iarchive.hpp>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/string.hpp>
-#include <boost/serialization/array.hpp>
-
 class Jumper;
 class Hill;
 class Competition;

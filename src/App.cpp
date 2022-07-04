@@ -68,7 +68,8 @@ void App::loadJumpersFromFile()
     if (ifs.good() == false)
     {
         cout << "Nie udaˆo si© otworzy† pliku jumpers.csv!\n";
-        getch();
+        Sleep(1500);
+        abort();
     }
 
     jumpersList.erase(jumpersList.begin(), jumpersList.end());
@@ -95,7 +96,11 @@ void App::loadHillsFromFile()
     ifstream ifs;
     ifs.open("resources/hills.csv");
     if (ifs.good() == false)
+    {
         cout << "Nie udaˆo si© otworzy† pliku hills.csv!\n";
+        Sleep(1500);
+        abort();
+    }
 
     hillsList.erase(hillsList.begin(), hillsList.end());
 
@@ -124,7 +129,11 @@ void App::loadCompetitionConfigFromFile()
     ifstream ifs;
     ifs.open("resources/competitionConfig.csv");
     if (ifs.good() == false)
+    {
         cout << "Nie udaˆo si© otworzy† pliku competitionConfig.csv!\n";
+        Sleep(1500);
+        abort();
+    }
 
     competitionConfigList.erase(competitionConfigList.begin(), competitionConfigList.end());
 
@@ -204,7 +213,6 @@ void App::isShowResultsChoice()
     }
     Sleep(1200);
 }
-
 
 void App::selectHill(Competition *comp)
 {

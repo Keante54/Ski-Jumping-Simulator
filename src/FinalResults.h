@@ -11,7 +11,7 @@ class JumpData;
 struct FinalResults
 {
     Jumper *jumper;
-    vector<JumpData*> jumperResults;
+    vector<JumpData> jumperResults;
     double totalPoints;
     int position;
     FinalResults(Jumper *jum) : jumper(jum) { };
