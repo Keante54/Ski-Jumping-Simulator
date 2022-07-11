@@ -70,7 +70,7 @@ void Hill::startup()
 
     maxDistanceRange = (maxDistance - kPoint) / 23;
     judgeDivider = kPoint / 7;
-    landingDifficulty = 180 / (kPoint * 1.02);
+    landingDifficulty = 180 / (kPoint * 0.5);
     flightStyleMeters[0] = (-13) - ((kPoint - 100) / 7);
     flightStyleMeters[1] = (15.5) - ((kPoint - 100) / 7.2);
     flightStyleMeters[2] = (14) - ((kPoint - 100) / 6);

@@ -48,7 +48,7 @@ void JumpData::jump()
 {
     hill->startup();
     setWind();
-    setGate(competition->getStartGate());
+    setGate(competition->getActualGate());
     setTakeoffPower();
     setTakeoffTechnique();
     setFlightTechnique();

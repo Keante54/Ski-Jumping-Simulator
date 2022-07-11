@@ -10,6 +10,7 @@ class JumpData;
 
 struct FinalResults
 {
+    int startingNumber;
     Jumper *jumper;
     vector<JumpData> jumperResults;
     double totalPoints;
@@ -18,7 +19,7 @@ struct FinalResults
     FinalResults();
     ~FinalResults();
 
-    void show(bool isQualified, short positionColor) const;
+    void show(bool isQualified, short positionColor, bool isShowStartingNumber) const;
     void setTotalPoints();
     bool operator>(const FinalResults &finalResults) const { return totalPoints > finalResults.totalPoints; }
 

@@ -26,6 +26,8 @@ private:
 
     // ustawienia
     void isShowResultsChoice();
+    void isShowStartingNumbersChoice();
+    void isSaveStartingNumbersChoice();
 
     // konkursy
     void selectHill(Competition *comp);
@@ -40,13 +42,18 @@ private:
     Competition singleCompetition;
 
     int numberChoice(std::string text, bool enter);
+
     bool isShowResults;
+    bool isShowStartingNumbers;
+    bool isSaveStartingNumbers;
 
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive &ar, const unsigned int version)
     {
         ar &isShowResults;
+        ar &isShowStartingNumbers;
+        ar &isSaveStartingNumbers;
     }
 
     void saveSettings();

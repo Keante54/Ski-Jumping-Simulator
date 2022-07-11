@@ -20,6 +20,8 @@
 App::App()
 {
     isShowResults = true;
+    isShowStartingNumbers = false;
+    isSaveStartingNumbers = false;
     loadSettings();
 }
 
@@ -183,7 +185,9 @@ void App::settingsChoice()
         system("cls");
         cout << "Ustawienia: (1 - tak, 0 - nie)\n";
         cout << "1. Pokazywanie wynik¢w skok¢w w konkursie (" << isShowResults << ")\n"
-             << "2. Wr¢†\n\n";
+             << "2. Pokazywanie numer¢w startowych w wynikach (" << isShowStartingNumbers << ")\n"
+             << "3. Zapisywanie numer¢w startowych do pliku z wynikami (" << isSaveStartingNumbers << ")\n"
+             << "4. Wr¢†\n\n";
 
         switch (numberChoice("\n", 1))
         {
@@ -191,6 +195,12 @@ void App::settingsChoice()
             isShowResultsChoice();
             continue;
         case 2:
+            isShowStartingNumbersChoice();
+            continue;
+        case 3:
+            isSaveStartingNumbersChoice();
+            continue;
+        case 4:
             return;
             break;
         }
@@ -210,6 +220,40 @@ void App::isShowResultsChoice()
     {
         std::cout << "Wˆ¥czono pokazywanie wynik¢w w konkursie!\n";
         isShowResults = true;
+    }
+    Sleep(1200);
+}
+
+void App::isShowStartingNumbersChoice()
+{
+    system("cls");
+
+    if (isShowStartingNumbers)
+    {
+        std::cout << "Wyˆ¥czono pokazywanie numer¢w startowych w wynikach!\n";
+        isShowStartingNumbers = false;
+    }
+    else if (!isShowStartingNumbers)
+    {
+        std::cout << "Wˆ¥czono pokazywanie numer¢w startowych w wynikach!\n";
+        isShowStartingNumbers = true;
+    }
+    Sleep(1200);
+}
+
+void App::isSaveStartingNumbersChoice()
+{
+    system("cls");
+
+    if (isSaveStartingNumbers)
+    {
+        std::cout << "Wyˆ¥czono zapisywanie numer¢w startowych do pliku z wynikami!\n";
+        isSaveStartingNumbers = false;
+    }
+    else if (!isSaveStartingNumbers)
+    {
+        std::cout << "Wˆ¥czono zapisywanie numer¢w startowych do pliku z wynikami!\n";
+        isSaveStartingNumbers = true;
     }
     Sleep(1200);
 }
@@ -256,6 +300,9 @@ void App::askForCompetitionParameters(Competition *comp)
 
     singleCompetition.loadParametersFromFile();
     singleCompetition.setIsShowResults(isShowResults);
+    singleCompetition.setIsShowStartingNumbers(isShowStartingNumbers);
+    singleCompetition.setIsSaveStartingNumbers(isSaveStartingNumbers);
+
     cout << "Parametry konkursu: (1 - tak, 0 - nie)\n";
     singleCompetition.showParameters();
     getch();

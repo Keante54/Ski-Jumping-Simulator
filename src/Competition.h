@@ -30,9 +30,13 @@ private:
     double windChange;
     double windFaulty;
 
+    int actualGate;
+
     bool isGateComp, isWindComp;
     bool isJudges;
     bool isShowResults;
+    bool isShowStartingNumbers;
+    bool isSaveStartingNumbers;
 
     int actualRound;
 
@@ -53,7 +57,7 @@ private:
 
     void showActualResults(bool isFinal);
     void showFullResults();
-    void configFinalResults(Jumper *jumper, JumpData *jumpData);
+    void configFinalResults(Jumper *jumper, JumpData *jumpData, int index);
 
     Hill *hill;
     CompetitionConfig competitionConfig;
@@ -66,6 +70,7 @@ public:
     void startCompetition();
 
     int getStartGate() const { return startGate; }
+    int getActualGate() const { return actualGate; }
     double getStartWind() const { return startWind; }
     double getWindChange() const { return windChange; }
     double getWindFaulty() const { return windFaulty; }
@@ -75,15 +80,16 @@ public:
     CompetitionConfig getCompetitionConfig() { return competitionConfig; }
     Hill *getHill() const { return hill; }
 
-    void setJumpers(vector<Jumper > jum) { jumpers = jum; }
+    void setJumpers(vector<Jumper> jum) { jumpers = jum; }
     void setHill(Hill *const hl) { hill = hl; }
     void setCompetitionConfig(const CompetitionConfig &config) { competitionConfig = config; }
     void setIsShowResults(bool arg) { isShowResults = arg; }
+    void setIsShowStartingNumbers(bool arg) { isShowStartingNumbers = arg; }
+    void setIsSaveStartingNumbers(bool arg) { isSaveStartingNumbers = arg; }
 
     void loadParametersFromFile();
     void askForStartGate();
     void showParameters();
-
 
     enum class SaveMode
     {

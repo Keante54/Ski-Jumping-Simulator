@@ -144,13 +144,13 @@ void Competition::showActualResults(bool isFinal)
     for (const auto &fin : finalResults)
     {
         if (fin.jumperResults.size() == round && fin.position <= competitionConfig.getRoundsData()[round])
-            fin.show(!isFinal, 2);
+            fin.show(!isFinal, 2, isShowStartingNumbers);
 
         else if (fin.jumperResults.size() == round && fin.position > competitionConfig.getRoundsData()[round])
-            fin.show(false, 6);
+            fin.show(false, 6, isShowStartingNumbers);
 
         else if (fin.jumperResults.size() == round - 1)
-            fin.show(false, 4);
+            fin.show(false, 4, isShowStartingNumbers);
     }
 }
 
@@ -162,13 +162,13 @@ void Competition::showFullResults()
     for (const auto &fin : finalResults)
     {
         if (fin.position <= 3)
-            fin.show(false, 2);
+            fin.show(false, 2, isShowStartingNumbers);
         else
-            fin.show(false, 6);
+            fin.show(false, 6, isShowStartingNumbers);
     }
 }
 
-void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData)
+void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData, int index)
 {
     bool isExists;
     for (const auto &fin : finalResults)
@@ -177,6 +177,7 @@ void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData)
     if (!isExists)
     {
         FinalResults finres(jumper);
+        finres.startingNumber = index;
         finalResults.push_back(finres);
     }
     for (auto &fin : finalResults)
@@ -194,6 +195,7 @@ void Competition::startCompetition()
     for (auto &jum : jumpers)
         actualJumpers.push_back(&jum);
     bool isShowStartList = false;
+    actualGate = startGate;
     while (actualRound < competitionConfig.getRoundsCount())
     {
         int i = 0;
@@ -206,7 +208,7 @@ void Competition::startCompetition()
 
             actualResults.push_back(jumpData);
             sortResultsVector(actualResults);
-            configFinalResults(jumper, &jumpData);
+            configFinalResults(jumper, &jumpData, ii + 1);
 
             if (isShowResults)
             {
@@ -221,8 +223,10 @@ void Competition::startCompetition()
 
             if (isShowResults)
             {
-                std::cout << "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥)\n";
-                if (getch() == 's')
+                char fromGetch;
+                std::cout << "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©)\n";
+                fromGetch = getch();
+                if (fromGetch == 's')
                     do
                     {
                         if (isShowStartList)
@@ -242,8 +246,34 @@ void Competition::startCompetition()
                             jumpData.showResults();
 
                             showStartList(ii);
+                            std::cout << "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©)\n";
                         }
                     } while (getch() == 's');
+                else if (fromGetch == 'b')
+                    do
+                    {
+                        int newGate;
+                        std::cout << "\nBelka: ";
+                        std::cin >> newGate;
+                        if (newGate > actualGate)
+                            std::cout << "Podwy¾szono belk© o " << (newGate - actualGate) << " stopni.\n";
+                        else if (newGate < actualGate)
+                            std::cout << "Obni¾ono belk© o " << (actualGate - newGate) << " stopni.\n";
+                        else
+                            std::cout << "Belka nie zmieniˆa si©.\n";
+                        Sleep(1200);
+
+                        actualGate = newGate;
+
+                        system("cls");
+
+                        showActualResults(false);
+                        jumpData.showResults();
+
+                        if (isShowStartList)
+                            showStartList(ii);
+                        std::cout << "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©)\n";
+                    } while (getch() == 'b');
             }
 
             system("cls");
@@ -309,7 +339,9 @@ void Competition::showParameters()
          << "Rekompensata za belk©: " << isGateComp << "\n"
          << "Rekompensata za wiatr: " << isWindComp << "\n"
          << "Noty za styl: " << isJudges << "\n"
-         << "Pokazywa† wyniki? " << isShowResults << "\n";
+         << "Pokazywa† wyniki? " << isShowResults << "\n"
+         << "Pokazywa† numery startowe? " << isShowStartingNumbers << "\n"
+         << "Zapisywa† numery startowe do pliku? " << isSaveStartingNumbers << "\n";
 }
 
 void Competition::saveResultsToFile(SaveMode mode)
@@ -330,6 +362,8 @@ void Competition::saveResultsToFile(SaveMode mode)
         ofs.open("results/csv/" + fileName);
         for (const auto &fin : finalResults)
         {
+            if (isSaveStartingNumbers)
+                ofs << fin.startingNumber << ", ";
             ofs << fin.jumper->getName() << ", " << fin.jumper->getSurname() << "," << fin.jumper->getNationality() << ",";
             for (const auto &res : fin.jumperResults)
             {
@@ -360,7 +394,11 @@ void Competition::saveResultsToFile(SaveMode mode)
         ofs.open("results/text/" + fileName);
         for (const auto &fin : finalResults)
         {
-            ofs << fin.jumper->getName() << " " << fin.jumper->getSurname() << " (" << fin.jumper->getNationality() << "), ";
+            ofs << fin.jumper->getName() << " " << fin.jumper->getSurname() << " (" << fin.jumper->getNationality() << ")";
+            if (isSaveStartingNumbers)
+                ofs << " (nr " << fin.startingNumber << ")";
+            ofs << ", ";
+
             for (const auto &res : fin.jumperResults)
             {
                 ofs << "Belka: " << res.getGate() << ", Wiatr: " << res.getWind() << ", " << res.getDistance() << "m, " << res.getPoints() << "pts, ";

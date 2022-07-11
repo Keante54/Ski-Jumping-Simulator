@@ -1,18 +1,15 @@
 #include "FinalResults.h"
 #include "Random.h"
 
-
 FinalResults::FinalResults()
 {
 }
-
 
 FinalResults::~FinalResults()
 {
 }
 
-
-void FinalResults::show(bool isQualified, short positionColor = 7) const
+void FinalResults::show(bool isQualified = false, short positionColor = 7, bool isShowStartingNumber = false) const
 {
     using std::cout;
     using std::fixed;
@@ -20,6 +17,12 @@ void FinalResults::show(bool isQualified, short positionColor = 7) const
 
     colorText(positionColor, position);
     colorText(7, ". " + jumper->getName() + " " + jumper->getSurname() + " (" + jumper->getNationality() + ")");
+    if (isShowStartingNumber)
+    {
+        colorText(7, " (nr ");
+        colorText(7, startingNumber);
+        colorText(7, ")");
+    }
     colorText(15, " --> ");
 
     for (const auto &res : jumperResults)

@@ -16,7 +16,7 @@ private:
     double pointsForKPoint, pointsForMeters;
 
     double startDistance;
-    int landingDifficulty;
+    double landingDifficulty;
 
     double takeoffTechniqueMeters, flightTechniqueMeters;
     int optimalTakeoffPower;
