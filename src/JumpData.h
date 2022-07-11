@@ -91,4 +91,5 @@ public:
     void jump();
 
     void showResults();
+    void showResultsForSingleJump();
 };

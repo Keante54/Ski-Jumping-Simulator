@@ -4,6 +4,7 @@
 #include "Competition.h"
 #include "CompetitionConfig.h"
 #include "Hill.h"
+#include "Random.h"
 
 #include <conio.h>
 #include <Windows.h>
@@ -40,7 +41,7 @@ void App::start()
     {
         system("cls");
         cout << "Witaj w symulatorze skok¢w narciarskich! Co chcesz zrobi†?\n";
-        cout << "1. Symuluj pojedynczy konkurs\n2. Symyluj pojedyncze skoki (niedost©pne)\n3. Ustawienia";
+        cout << "1. Symuluj pojedynczy konkurs\n2. Symyluj pojedyncze skoki\n3. Ustawienia";
 
         switch (numberChoice("\n", 1))
         {
@@ -48,6 +49,7 @@ void App::start()
             singleCompetitionChoice();
             break;
         case 2:
+            singleJumpChoice();
             break;
         case 3:
             settingsChoice();
@@ -173,6 +175,57 @@ void App::singleCompetitionChoice()
 
     singleCompetition.startCompetition();
 
+    getch();
+}
+
+void App::singleJumpChoice()
+{
+    using std::cout;
+    int jumpsCount;
+    int gate;
+
+    system("cls");
+
+    showHills();
+    singleJumpHill = &hillsList[numberChoice("\n", 1) - 1];
+    cout << "\nWybrana skocznia: " << *singleJumpHill << "\n";
+    Sleep(1200);
+    system("cls");
+
+    showJumpers();
+    singleJumpJumper = &jumpersList[numberChoice("\n", 1) - 1];
+    cout << "\nWybrany skoczek: " << *singleJumpJumper << "\n";
+    Sleep(1200);
+    system("cls");
+
+    cout << "Belka: ";
+    std::cin >> gate;
+
+    cout << "\nIlo˜† skok¢w: ";
+    std::cin >> jumpsCount;
+
+    system("cls");
+    startSingleJumps(jumpsCount, gate);
+}
+
+void App::startSingleJumps(int jumpsCount, int gate)
+{
+    Competition competition;
+    competition.loadParametersFromFile();
+    competition.setStartGate(gate);
+    competition.setActualGate(gate);
+
+    for (int i = 0; i < jumpsCount; i++)
+    {
+        JumpData jumpData = JumpData();
+        jumpData.setParameters(*singleJumpJumper, *singleJumpHill, competition);
+        
+        jumpData.jump();
+        colorText(15, i + 1);
+        std::cout << ". ";
+        jumpData.showResultsForSingleJump();
+        singleJumps.push_back(jumpData);
+    }
     getch();
 }
 

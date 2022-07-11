@@ -22,12 +22,17 @@ private:
 
     // wybory w menu
     void singleCompetitionChoice();
+    void singleJumpChoice();
     void settingsChoice();
 
     // ustawienia
     void isShowResultsChoice();
     void isShowStartingNumbersChoice();
     void isSaveStartingNumbersChoice();
+
+    //pojedynczy skok
+    void startSingleJumps(int jumpsCount, int gate);
+    std::vector<JumpData> singleJumps;
 
     // konkursy
     void selectHill(Competition *comp);
@@ -59,6 +64,9 @@ private:
     void saveSettings();
     void loadSettings();
     bool isConfigFileEmpty();
+
+    Hill * singleJumpHill;
+    Jumper * singleJumpJumper;
 
 public:
     App();

@@ -1,5 +1,5 @@
 *.txt
-results/csv/
-results/text/
+results/competitions/csv
+results/competitions/text
 .vscode/tasks.json
 .vscode/launch.json

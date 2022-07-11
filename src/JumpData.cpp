@@ -5,7 +5,6 @@
 #include "JumpData.h"
 #include "Random.h"
 
-
 JumpData::JumpData(Jumper *jumper_, Hill *hill_, Competition *competition_)
 {
     jumper = jumper_;
@@ -36,7 +35,6 @@ JumpData::~JumpData()
 {
 }
 
-
 void JumpData::setParameters(Jumper &jp, Hill &hl, Competition &comp)
 {
     jumper = &jp;
@@ -56,7 +54,7 @@ void JumpData::jump()
     land();
     setJudges();
     setPoints();
-    //setDsq();
+    // setDsq();
 }
 
 void JumpData::setTakeoffPower()
@@ -427,3 +425,46 @@ void JumpData::showResults()
 }
 
 int JumpData::getGateDifference() const { return competition->getStartGate() - gate; }
+
+void JumpData::showResultsForSingleJump()
+{
+    using std::cout;
+    using std::fixed;
+    using std::setprecision;
+
+    colorText(7, jumper->getName() + " " + jumper->getSurname() + " (" + jumper->getNationality() + ")");
+    colorText(15, " --> ");
+    cout << fixed << setprecision(1);
+    colorText(3, getDistance());
+    colorText(3, "m");
+    cout << " (";
+    cout << fixed << setprecision(1);
+    colorText(6, getPoints());
+    colorText(6, "pkt");
+    cout << ")";
+    colorText(15, " --> ");
+    if (competition->getIsJudges())
+    {
+        colorText(7, "|");
+        for (const auto &jg : judges)
+        {
+            colorText(12, jg);
+            colorText(7, "|");
+        }
+        colorText(15, ", ");
+    }
+    cout << fixed << setprecision(2);
+    colorText(2, getWind());
+    colorText(2, "m/s");
+    colorText(7, ", ");
+
+    if (competition->getIsWindComp() || competition->getIsGateComp())
+    {
+        cout << fixed << setprecision(1);
+        colorText(7, "Rekompensata: ");
+        colorText(5, getWindCompensation());
+        cout << "\n";
+    }
+    else
+        cout << "\n";
+}

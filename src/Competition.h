@@ -86,6 +86,8 @@ public:
     void setIsShowResults(bool arg) { isShowResults = arg; }
     void setIsShowStartingNumbers(bool arg) { isShowStartingNumbers = arg; }
     void setIsSaveStartingNumbers(bool arg) { isSaveStartingNumbers = arg; }
+    void setStartGate(int arg) { startGate = arg; }
+    void setActualGate(int arg) { actualGate = arg; }
 
     void loadParametersFromFile();
     void askForStartGate();

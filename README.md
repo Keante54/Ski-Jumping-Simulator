@@ -66,11 +66,10 @@ SiÅ‚a wybicia, technika wybicia i technika lotu to UmiejÄ™tnoÅ›Ä‡ + forma + loso
 - Rekompensata za belkÄ™ (0 = nie, 1 = tak)
 - Rekompensata za wiatr (0 = nie, 1 = tak)
 - Noty sÄ™dziowskie (0 = nie, 1 = tak)
-- Pokazywanie wynikÃ³w (0 = nie, 1 = tak. Np. jeÅ›li chcesz szybko przesymulowaÄ‡ konkurs bez oglÄ…dania wynikÃ³w na bieÅ¼Ä…co to moÅ¼esz wyÅ‚Ä…czyÄ‡ tÄ… opcje)
 
 PrzykÅ‚ad:
 ```
-0.80, 0.25, 0.10, 1, 1, 1, 1
+0.80, 0.25, 0.10, 1, 1, 1
 ```
 
 ## Plik "competitionConfig.csv"
@@ -88,5 +87,12 @@ Mini konkurs, 15, 10, 5, 3
 
 
 ## Zapisywanie wynikÃ³w do pliku
-Wyniki sÄ… zapisywane w folderze results. W folderze csv sÄ… wyniki oddzielane przecinkami, a w folderze text wszystko jest "Å‚adniej".
+Wyniki zawod¢w sÄ… zapisywane w folderze results/competitions. W folderze csv sÄ… wyniki oddzielane przecinkami, a w folderze text wszystko jest "Å‚adniej".
 Przy konkursie na skoczni o takiej samej nazwie, punkcie K i HS plik z wynikami jest nadpisywany.
+
+Dla pojedynczych skok¢w wyniki s¥ zapisywane w folderze results/single-jumps (format r¢wnie¾ csv i txt)
+
+
+## System konkurs¢w
+- Aby pokaza†/schowa† list© startow¥, w†i˜nij 's' podczas konkursu.
+- Aby zmieni† belk© w czasie konkursu, w†i˜nij 'b'.

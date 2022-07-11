@@ -352,8 +352,8 @@ void Competition::saveResultsToFile(SaveMode mode)
     fileName = hill->getName() + "K" + to_string(hill->getKPoint()) + "HS" + to_string(hill->getHsPoint());
     if (mode == SaveMode::Csv)
     {
-        if (!is_directory("results/csv") || !exists("results/csv"))
-            create_directories("results/csv");
+        if (!is_directory("results/competitions/csv") || !exists("results/competitions/csv"))
+            create_directories("results/competitions/csv");
 
         fileName += ".csv";
 
@@ -384,8 +384,8 @@ void Competition::saveResultsToFile(SaveMode mode)
     }
     else if (mode == SaveMode::Text)
     {
-        if (!is_directory("results/text") || !exists("results/text"))
-            create_directories("results/text");
+        if (!is_directory("results/competitions/text") || !exists("results/competitions/text"))
+            create_directories("results/competitions/text");
 
         fileName += ".txt";
 
