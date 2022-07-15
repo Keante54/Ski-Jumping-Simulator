@@ -372,7 +372,7 @@ void Competition::saveResultsToFile(SaveMode mode)
                 {
                     ofs << "|";
                     for (int i = 0; i < 5; i++)
-                        ofs << res.getJudges(i) << "|";
+                        ofs << res.getJudges()[i] << "|";
                     ofs << ",";
                 }
                 if (isWindComp || isGateComp)
@@ -406,7 +406,7 @@ void Competition::saveResultsToFile(SaveMode mode)
                 {
                     ofs << "|";
                     for (int i = 0; i < 5; i++)
-                        ofs << res.getJudges(i) << "|";
+                        ofs << res.getJudges()[i] << "|";
                     ofs << ", ";
                 }
                 if (isWindComp || isGateComp)

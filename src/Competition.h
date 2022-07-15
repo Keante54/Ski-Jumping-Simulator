@@ -40,6 +40,8 @@ private:
 
     int actualRound;
 
+    int type;
+
     vector<Jumper> jumpers;
     vector<Jumper *> actualJumpers;
     vector<JumpData> actualResults;
@@ -79,6 +81,7 @@ public:
     bool getIsJudges() const { return isJudges; }
     CompetitionConfig getCompetitionConfig() { return competitionConfig; }
     Hill *getHill() const { return hill; }
+    int getType() const { return type; }
 
     void setJumpers(vector<Jumper> jum) { jumpers = jum; }
     void setHill(Hill *const hl) { hill = hl; }
@@ -88,10 +91,17 @@ public:
     void setIsSaveStartingNumbers(bool arg) { isSaveStartingNumbers = arg; }
     void setStartGate(int arg) { startGate = arg; }
     void setActualGate(int arg) { actualGate = arg; }
+    void setType(int arg) { type = arg; }
 
     void loadParametersFromFile();
     void askForStartGate();
     void showParameters();
+
+    enum Type
+    {
+        MultipleJumps,
+        SingleJump
+    };
 
     enum class SaveMode
     {

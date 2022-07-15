@@ -13,13 +13,6 @@ class Competition;
 class JumpData
 {
 private:
-    enum LandType
-    {
-        Telemark = 1,
-        Both,
-        Propped,
-        Fall
-    };
     // dane skoczka
     int takeoffPower,
         takeoffTechnique, flightTechnique;
@@ -54,10 +47,20 @@ private:
     void setPoints();
     void setDsq();
 
+    void resetJumpParams();
+
 public:
     JumpData(Jumper *jumper_, Hill *hill_, Competition *competition_);
     JumpData();
     ~JumpData();
+
+    enum LandType
+    {
+        Telemark = 1,
+        Both,
+        Propped,
+        Fall
+    };
 
     bool operator>(const JumpData &jumpData) const { return points > jumpData.points; }
 
@@ -74,7 +77,7 @@ public:
     // dane skoku
     double getDistance() const { return distance; }
     double getPoints() const { return points; }
-    double getJudges(const int &n) const { return judges[n]; }
+    const std::array<double, 5> & getJudges() const { return judges; }
     double getJudgesPoints() const { return judgesPoints; }
     double getGateCompensation() const { return gateCompensation; }
     double getWindCompensation() const { return windCompensation; }

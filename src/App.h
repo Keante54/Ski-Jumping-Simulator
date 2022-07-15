@@ -33,6 +33,7 @@ private:
     //pojedynczy skok
     void startSingleJumps(int jumpsCount, int gate);
     std::vector<JumpData> singleJumps;
+    void showSingleJumpsStats();
 
     // konkursy
     void selectHill(Competition *comp);

@@ -214,19 +214,121 @@ void App::startSingleJumps(int jumpsCount, int gate)
     competition.loadParametersFromFile();
     competition.setStartGate(gate);
     competition.setActualGate(gate);
+    competition.setType(Competition::SingleJump);
 
     for (int i = 0; i < jumpsCount; i++)
     {
         JumpData jumpData = JumpData();
         jumpData.setParameters(*singleJumpJumper, *singleJumpHill, competition);
-        
+
         jumpData.jump();
         colorText(15, i + 1);
         std::cout << ". ";
         jumpData.showResultsForSingleJump();
         singleJumps.push_back(jumpData);
     }
-    getch();
+    std::cout << "\n\nAby pokaza† szczeg¢ˆowe statystyki, w†i˜nij 's'.\n";
+    char choice = getch();
+    if (choice == 's')
+    {
+        std::cout << "\n\n";
+        showSingleJumpsStats();
+        getch();
+    }
+}
+
+void App::showSingleJumpsStats()
+{
+    using std::cout, std::fixed, std::setprecision;
+
+    double minDistance = singleJumps[0].getDistance(), maxDistance = singleJumps[0].getDistance(), avgDistance = 0;
+    double minPoints = singleJumps[0].getPoints(), maxPoints = singleJumps[0].getPoints(), avgPoints = 0;
+    double avgJudges = 0;
+    double minWind = singleJumps[0].getWind(), maxWind = singleJumps[0].getWind();
+    int telemarkCount = 0, bothCount = 0, proppedCount = 0, fallCount = 0;
+
+    int divider = 0;
+    for (const auto &jump : singleJumps)
+    {
+        if (jump.getDistance() < minDistance)
+            minDistance = jump.getDistance();
+        else if (jump.getDistance() > maxDistance)
+            maxDistance = jump.getDistance();
+        avgDistance += jump.getDistance();
+
+        if (jump.getPoints() < minPoints)
+            minPoints = jump.getPoints();
+        else if (jump.getPoints() > maxPoints)
+            maxPoints = jump.getPoints();
+        avgPoints += jump.getPoints();
+
+        for (const auto &jg : jump.getJudges())
+            avgJudges += jg;
+
+        if (jump.getWind() < minWind)
+            minWind = jump.getWind();
+        else if (jump.getWind() > maxWind)
+            maxWind = jump.getWind();
+
+        if (jump.getLandType() == JumpData::Telemark)
+            telemarkCount++;
+        else if (jump.getLandType() == JumpData::Both)
+            bothCount++;
+        else if (jump.getLandType() == JumpData::Propped)
+            proppedCount++;
+        else
+            fallCount++;
+
+        divider++;
+    }
+    avgDistance /= divider;
+    avgPoints /= divider;
+    avgJudges /= (divider * 5);
+
+    colorText(7, "Najgorsza odlegˆo˜†: ");
+    colorText(6, minDistance);
+    colorText(7, "\nNajlepsza odlegˆo˜†: ");
+    colorText(6, maxDistance);
+    colorText(7, "\n—rednia odlegˆo˜†: ");
+    colorText(6, avgDistance);
+    colorText(15, "\n-------------");
+
+    colorText(7, "\nNajgorsza ilo˜† punkt¢w: ");
+    colorText(6, minPoints);
+    colorText(7, "\nNajlepsza ilo˜† punkt¢w: ");
+    colorText(6, maxPoints);
+    colorText(7, "\n—rednia ilo˜† punkt¢w: ");
+    colorText(6, avgPoints);
+    colorText(15, "\n-------------");
+
+    colorText(7, "\n—rednie noty s©dziowskie: ");
+    colorText(6, avgJudges);
+    colorText(15, "\n-------------");
+
+    cout << fixed << setprecision(2);
+    colorText(7, "\nNajgorszy wiatr: ");
+    colorText(6, minWind);
+    colorText(7, "\nNajlepszy wiatr: ");
+    colorText(6, maxWind);
+    colorText(15, "\n-------------");
+    cout << fixed;
+
+    colorText(7, "\nSkoki z ");
+    colorText(3, "telemarkiem: ");
+    colorText(6, telemarkCount);
+
+    colorText(7, "\nSkoki z ");
+    colorText(11, "l¥dowaniem na dwie nogi: ");
+    colorText(6, bothCount);
+
+    colorText(7, "\nSkoki ");
+    colorText(5, "podparte: ");
+    colorText(6, proppedCount);
+
+    colorText(7, "\nSkoki z ");
+    colorText(12, "upadkiem: ");
+    colorText(6, fallCount);
+    colorText(15, "\n-------------");
 }
 
 void App::settingsChoice()
@@ -355,6 +457,7 @@ void App::askForCompetitionParameters(Competition *comp)
     singleCompetition.setIsShowResults(isShowResults);
     singleCompetition.setIsShowStartingNumbers(isShowStartingNumbers);
     singleCompetition.setIsSaveStartingNumbers(isSaveStartingNumbers);
+    singleCompetition.setType(Competition::MultipleJumps);
 
     cout << "Parametry konkursu: (1 - tak, 0 - nie)\n";
     singleCompetition.showParameters();
