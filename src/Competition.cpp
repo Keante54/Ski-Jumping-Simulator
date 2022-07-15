@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <filesystem>
 #include <array>
+#include <math.h>
 
 Competition::Competition(int startGate_, double startWind_, double windChange_, double windFaulty_, bool isGateComp_, bool isWindComp_, bool isJudges_, bool isShowResults_)
 {
@@ -46,6 +47,36 @@ void Competition::sortResultsVector(vector<FinalResults> &vec)
     {
         vec[i].position = i + 1;
     }
+}
+
+void Competition::setToBeatDistance(const FinalResults &fin, const JumpData &jum)
+{
+    sortResultsVector(finalResults);
+    for (const auto &res : fin.jumperResults)
+        std::cout << res.getPoints() << "2\n";
+
+    if (fin.jumperResults.size() == 1)
+        toBeatDistance = finalResults[0].totalPoints;
+    else
+        toBeatDistance = finalResults[0].totalPoints - fin.totalPoints;
+    std::cout << "\n"
+              << fin.jumperResults.size() << "\n";
+
+    toBeatDistance -= hill->getPointsForKPoint();
+
+    if (isJudges)
+        toBeatDistance -= 54;
+
+    if (isWindComp)
+        toBeatDistance -= jum.getWindCompensation();
+
+    if (isGateComp)
+        toBeatDistance -= jum.getGateCompensation();
+
+    toBeatDistance /= hill->getPointsForMeters();
+    toBeatDistance += hill->getKPoint();
+
+    toBeatDistance = round(toBeatDistance * 2) / 2;
 }
 
 void Competition::setFinalResultsPosition()
@@ -171,6 +202,7 @@ void Competition::showFullResults()
 void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData, int index)
 {
     bool isExists;
+
     for (const auto &fin : finalResults)
         if (fin.jumper == jumper)
             isExists = true;
@@ -185,6 +217,10 @@ void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData, int ind
         {
             fin.jumperResults.push_back(*jumpData);
             fin.setTotalPoints();
+            for (const auto &res : fin.jumperResults)
+                std::cout << res.getPoints() << "1\n";
+            setToBeatDistance(fin, *jumpData);
+            break;
         }
     setFinalResultsPosition();
 }
@@ -209,6 +245,11 @@ void Competition::startCompetition()
             actualResults.push_back(jumpData);
             sortResultsVector(actualResults);
             configFinalResults(jumper, &jumpData, ii + 1);
+            if (i > 0 || ii > 0 && isShowResults)
+            {
+                std::cout << "\nDo obj©cia prowadzenia: ";
+                colorText(10, toBeatDistance);
+            }
 
             if (isShowResults)
             {
@@ -289,6 +330,7 @@ void Competition::startCompetition()
             updateActualJumpers();
         actualRound++;
         sortActualJumpers();
+        startWind += normalRandom(0, windChange / 2);
         system("cls");
     }
 }

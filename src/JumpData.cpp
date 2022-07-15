@@ -146,7 +146,7 @@ void JumpData::setDistance()
 
     if (distance > hill->getMaxDistance())
         distance = hill->getMaxDistance() + normalRandom(0, hill->getMaxDistanceRange());
-    distance = round(distance * 2) / 2;
+    distance = ceil(distance * 2) / 2;
 }
 
 void JumpData::land()
@@ -159,7 +159,7 @@ void JumpData::land()
     else if (landRating < 1)
         landRating = 1;
 
-    rd = (landRating - 54);
+    rd = (landRating - 50);
     rd1 = (((hill->getMaxDistance() - distance) * 3.7) * hill->getLandingDifficulty()) + rd;
     if (rd1 < 2)
         rd1 = 2;
@@ -170,7 +170,7 @@ void JumpData::land()
         landType = Fall;
     else
     {
-        rd = (landRating - 54);
+        rd = (landRating - 50);
         rd1 = (((hill->getMaxDistance() - distance) * 3.7) * hill->getLandingDifficulty()) + rd;
         if (rd1 < 2)
             rd1 = 2;
@@ -183,7 +183,7 @@ void JumpData::land()
         }
         else
         {
-            rd = (landRating - 54);
+            rd = (landRating - 50);
             rd1 = (((hill->getMaxDistance() - distance) * 1.92) * hill->getLandingDifficulty()) + rd;
             if (rd1 < 2)
                 rd1 = 2;

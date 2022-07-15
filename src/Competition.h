@@ -48,6 +48,9 @@ private:
     vector<FinalResults> finalResults;
     vector<FinalResults> tempFinalResults;
 
+    double toBeatDistance;
+    void setToBeatDistance(const FinalResults & fin, const JumpData & jum);
+
     template <typename T>
     void sortResultsVector(vector<T> &vec);
     void setFinalResultsPosition();
