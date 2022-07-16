@@ -24,6 +24,9 @@ App::App()
     isShowStartingNumbers = false;
     isSaveStartingNumbers = false;
     loadSettings();
+    loadJumpersFromFile();
+    loadHillsFromFile();
+    loadCompetitionConfigFromFile();
 }
 
 App::~App()
@@ -33,9 +36,6 @@ App::~App()
 void App::start()
 {
     using namespace std;
-    loadJumpersFromFile();
-    loadHillsFromFile();
-    loadCompetitionConfigFromFile();
 
     while (true)
     {
@@ -169,7 +169,7 @@ void App::loadCompetitionConfigFromFile()
 void App::singleCompetitionChoice()
 {
 
-    askForCompetitionParameters(&singleCompetition);
+    askForCompetitionParameters();
     std::cout << "Rozpocz©to konkurs...\n";
     Sleep(600);
 
@@ -210,6 +210,7 @@ void App::singleJumpChoice()
 
 void App::startSingleJumps(int jumpsCount, int gate)
 {
+    singleJumps.clear();
     Competition competition;
     competition.loadParametersFromFile();
     competition.setStartGate(gate);
@@ -429,9 +430,10 @@ void App::selectCompetitionConfig(Competition *comp)
     Sleep(1200);
 }
 
-void App::askForCompetitionParameters(Competition *comp)
+void App::askForCompetitionParameters()
 {
     using std::cout;
+    singleCompetition = Competition();
 
     sclear;
     cout << "Wybierz skocznie: \n";
@@ -459,7 +461,7 @@ void App::askForCompetitionParameters(Competition *comp)
     singleCompetition.setIsSaveStartingNumbers(isSaveStartingNumbers);
     singleCompetition.setType(Competition::MultipleJumps);
 
-    cout << "Parametry konkursu: (1 - tak, 0 - nie)\n";
+    colorText(15, "Parametry konkursu: (1 - tak, 0 - nie)\n");
     singleCompetition.showParameters();
     getch();
     sclear;

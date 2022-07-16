@@ -328,9 +328,10 @@ void JumpData::showResults()
     if (!dsq)
     {
         using namespace std;
-        cout << "\n\n"
-             << jumper->getName() << " " << jumper->getSurname() << " (" << jumper->getNationality() << ")\n";
-        cout << "Odlegˆo˜†: " << distance;
+
+        cout << "\n\n";
+        colorText(15, jumper->getName() + " " + jumper->getSurname() + " (" + jumper->getNationality() + ")");
+
         cout << " (Belka: " << gate << ") (";
         if ((-getGateDifference()) > 0)
         {
@@ -346,15 +347,27 @@ void JumpData::showResults()
             colorText(4, to_string(-getGateDifference()));
         }
         cout << ")\n";
+
+        cout << "Odlegˆo˜†: ";
+        colorText(11, distance);
+        cout<<"\n";
+
         cout << fixed << setprecision(1);
-        cout << "Punkty: " << points << "\n";
-        cout << setprecision(1);
-        cout << "|";
-        for (const auto &jg : judges)
-        {
-            cout << jg << "|";
-        }
+        cout << "Punkty: ";
+        colorText(14, points);
         cout << "\n";
+        cout << setprecision(1);
+
+        if (competition->getIsJudges())
+        {
+            cout << "|";
+            for (const auto &jg : judges)
+            {
+                colorText(15, jg);
+                cout<<"|";
+            }
+            cout << "\n";
+        }
 
         cout << fixed << setprecision(2);
         if (wind < 0)
@@ -370,58 +383,70 @@ void JumpData::showResults()
         else
         {
             cout << "Wiatr: ";
-            colorText(7, wind);
+            colorText(15, wind);
         }
         cout << "\n";
         cout << fixed << setprecision(1);
-        if (gateCompensation < 0)
+
+        if (competition->getIsGateComp())
         {
-            cout << "Punkty za belk©: ";
-            colorText(12, gateCompensation);
+            if (gateCompensation < 0)
+            {
+                cout << "Punkty za belk©: ";
+                colorText(12, gateCompensation);
+            }
+            else if (gateCompensation > 0)
+            {
+                cout << "Punkty za belk©: ";
+                colorText(10, gateCompensation);
+            }
+            else
+            {
+                cout << "Punkty za belk©: ";
+                colorText(15, gateCompensation);
+            }
+            cout << "\n";
         }
-        else if (gateCompensation > 0)
-        {
-            cout << "Punkty za belk©: ";
-            colorText(10, gateCompensation);
-        }
-        else
-        {
-            cout << "Punkty za belk©: ";
-            colorText(7, gateCompensation);
-        }
-        cout << "\n";
         cout << fixed << setprecision(1);
-        if (windCompensation < 0)
+
+        if (competition->getIsWindComp())
         {
-            cout << "Punkty za wiatr: ";
-            colorText(12, windCompensation);
+            if (windCompensation < 0)
+            {
+                cout << "Punkty za wiatr: ";
+                colorText(12, windCompensation);
+            }
+            else if (windCompensation > 0)
+            {
+                cout << "Punkty za wiatr: ";
+                colorText(10, windCompensation);
+            }
+            else
+            {
+                cout << "Punkty za wiatr: ";
+                colorText(15, windCompensation);
+            }
+            cout << "\n";
         }
-        else if (windCompensation > 0)
-        {
-            cout << "Punkty za wiatr: ";
-            colorText(10, windCompensation);
-        }
-        else
-        {
-            cout << "Punkty za wiatr: ";
-            colorText(7, windCompensation);
-        }
-        cout << "\n";
         cout << fixed << setprecision(1);
-        if (totalCompensation < 0)
+
+        if (competition->getIsWindComp() && competition->getIsGateComp())
         {
-            cout << "¥cznie: ";
-            colorText(12, totalCompensation);
-        }
-        else if (totalCompensation > 0)
-        {
-            cout << "¥cznie: ";
-            colorText(10, totalCompensation);
-        }
-        else
-        {
-            cout << "¥cznie: ";
-            colorText(7, totalCompensation);
+            if (totalCompensation < 0)
+            {
+                cout << "¥cznie: ";
+                colorText(12, totalCompensation);
+            }
+            else if (totalCompensation > 0)
+            {
+                cout << "¥cznie: ";
+                colorText(10, totalCompensation);
+            }
+            else
+            {
+                cout << "¥cznie: ";
+                colorText(15, totalCompensation);
+            }
         }
         cout << fixed << "\n";
 
@@ -438,10 +463,12 @@ void JumpData::showResults()
     }
     else
     {
+        std::cout << "\n"
+                  << jumper->getName() << " " << jumper->getSurname() << " (" << jumper->getNationality() << ")\n";
         colorText(12, "\nDyskwalifikacja!!!");
         colorText(15, ", Pow¢d: ");
         colorText(13, dsqReason);
-        std::cout<<"\n";
+        std::cout << "\n";
     }
 }
 

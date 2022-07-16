@@ -38,7 +38,7 @@ private:
     // konkursy
     void selectHill(Competition *comp);
     void selectCompetitionConfig(Competition *comp);
-    void askForCompetitionParameters(Competition *comp);
+    void askForCompetitionParameters();
     std::vector<Jumper> jumpersList;
     std::vector<Hill> hillsList;
     std::vector<CompetitionConfig> competitionConfigList;

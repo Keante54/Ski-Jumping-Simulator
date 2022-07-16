@@ -49,18 +49,18 @@ void Competition::sortResultsVector(vector<FinalResults> &vec)
     }
 }
 
-void Competition::setToBeatDistance(const FinalResults &fin, const JumpData &jum)
+void Competition::setToBeatDistance(FinalResults *fin, JumpData *jum)
 {
-    sortResultsVector(finalResults);
-    for (const auto &res : fin.jumperResults)
-        std::cout << res.getPoints() << "2\n";
+    double actualJumperTotalPoints = fin->totalPoints;
+    double actualJumperLastJump = fin->jumperResults[fin->jumperResults.size() - 1].getPoints();
 
-    if (fin.jumperResults.size() == 1)
-        toBeatDistance = finalResults[0].totalPoints;
+    sortResultsVector(finalResults);
+    double leaderPoints = finalResults[0].totalPoints;
+
+    if (actualRound == 0)
+        toBeatDistance = leaderPoints;
     else
-        toBeatDistance = finalResults[0].totalPoints - fin.totalPoints;
-    std::cout << "\n"
-              << fin.jumperResults.size() << "\n";
+        toBeatDistance = leaderPoints - actualJumperTotalPoints + actualJumperLastJump;
 
     toBeatDistance -= hill->getPointsForKPoint();
 
@@ -68,14 +68,13 @@ void Competition::setToBeatDistance(const FinalResults &fin, const JumpData &jum
         toBeatDistance -= 54;
 
     if (isWindComp)
-        toBeatDistance -= jum.getWindCompensation();
+        toBeatDistance -= jum->getWindCompensation();
 
     if (isGateComp)
-        toBeatDistance -= jum.getGateCompensation();
+        toBeatDistance -= jum->getGateCompensation();
 
     toBeatDistance /= hill->getPointsForMeters();
     toBeatDistance += hill->getKPoint();
-
     toBeatDistance = round(toBeatDistance * 2) / 2;
 }
 
@@ -215,12 +214,10 @@ void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData, int ind
     for (auto &fin : finalResults)
         if (fin.jumper == jumper)
         {
+            sortResultsVector(finalResults);
             fin.jumperResults.push_back(*jumpData);
             fin.setTotalPoints();
-            for (const auto &res : fin.jumperResults)
-                std::cout << res.getPoints() << "1\n";
-            setToBeatDistance(fin, *jumpData);
-            break;
+            setToBeatDistance(&fin, jumpData);
         }
     setFinalResultsPosition();
 }
@@ -265,7 +262,7 @@ void Competition::startCompetition()
             if (isShowResults)
             {
                 char fromGetch;
-                std::cout << "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©)\n";
+                colorText(8, "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©)\n");
                 fromGetch = getch();
                 if (fromGetch == 's')
                     do
@@ -287,7 +284,7 @@ void Competition::startCompetition()
                             jumpData.showResults();
 
                             showStartList(ii);
-                            std::cout << "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©)\n";
+                            colorText(8, "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©)\n");
                         }
                     } while (getch() == 's');
                 else if (fromGetch == 'b')
@@ -313,7 +310,7 @@ void Competition::startCompetition()
 
                         if (isShowStartList)
                             showStartList(ii);
-                        std::cout << "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©)\n";
+                        colorText(8, "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©)\n");
                     } while (getch() == 'b');
             }
 
@@ -374,7 +371,8 @@ void Competition::askForStartGate()
 void Competition::showParameters()
 {
     using std::cout;
-    cout << "Belka startowa: " << startGate << "\n"
+    cout << "\nSkocznia: " << *hill << "\n"
+         << "Belka startowa: " << startGate << "\n"
          << "Wiatr: " << startWind << "\n"
          << "Zmienno˜† wiatru: " << windChange << "\n"
          << "Faˆszywo˜c pomiaru wiatru: " << windFaulty << "\n"
