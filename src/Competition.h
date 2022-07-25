@@ -106,10 +106,10 @@ public:
         SingleJump
     };
 
-    enum class SaveMode
+    enum SaveMode
     {
         Text,
         Csv
     };
-    void saveResultsToFile(SaveMode mode);
+    void saveResultsToFile(int mode);
 };

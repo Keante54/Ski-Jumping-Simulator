@@ -384,7 +384,7 @@ void Competition::showParameters()
          << "Zapisywa† numery startowe do pliku? " << isSaveStartingNumbers << "\n";
 }
 
-void Competition::saveResultsToFile(SaveMode mode)
+void Competition::saveResultsToFile(int mode)
 {
     using namespace std::filesystem;
     using std::to_string;
@@ -398,8 +398,8 @@ void Competition::saveResultsToFile(SaveMode mode)
         fileName += ".csv";
 
         std::ofstream ofs;
+        ofs.open("results/competitions/csv/" + fileName);
         ofs.clear();
-        ofs.open("results/csv/" + fileName);
         for (const auto &fin : finalResults)
         {
             if (isSaveStartingNumbers)
@@ -430,8 +430,8 @@ void Competition::saveResultsToFile(SaveMode mode)
         fileName += ".txt";
 
         std::ofstream ofs;
+        ofs.open("results/competitions/text/" + fileName);
         ofs.clear();
-        ofs.open("results/text/" + fileName);
         for (const auto &fin : finalResults)
         {
             ofs << fin.jumper->getName() << " " << fin.jumper->getSurname() << " (" << fin.jumper->getNationality() << ")";
