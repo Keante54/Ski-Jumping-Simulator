@@ -288,7 +288,7 @@ void JumpData::setDsq()
 {
     if (competition->getType() == Competition::MultipleJumps)
     {
-        int rd = randomInt(1, 120);
+        int rd = randomInt(1, 3);
         if (rd == 1)
             dsq = true;
         else
@@ -297,7 +297,7 @@ void JumpData::setDsq()
         if (dsq == true)
         {
             resetJumpParams();
-            rd = randomInt(1, 15);
+            rd = randomInt(1, 120);
 
             if (rd >= 1 && rd <= 2)
                 dsqReason = "Za krotkie narty";

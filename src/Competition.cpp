@@ -211,6 +211,7 @@ void Competition::configFinalResults(Jumper *jumper, JumpData *jumpData, int ind
         finres.startingNumber = index;
         finalResults.push_back(finres);
     }
+    sortResultsVector(finalResults);
     for (auto &fin : finalResults)
         if (fin.jumper == jumper)
         {
