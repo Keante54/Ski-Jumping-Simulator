@@ -47,6 +47,7 @@ void Competition::sortResultsVector(vector<FinalResults> &vec)
     {
         vec[i].position = i + 1;
     }
+    
 }
 
 void Competition::setToBeatDistance(FinalResults *fin, JumpData *jum)
