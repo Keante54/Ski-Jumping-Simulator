@@ -71,3 +71,14 @@ void colorText(unsigned short color, int text)
     std::cout << text;
     SetConsoleTextAttribute(hcon, 7);
 }
+
+bool percentOf(double value1, double percentRequirment, double value2)
+{
+    double percent;
+    percent = value1 / value2 * 100;
+
+    if (percent >= percentRequirment)
+        return true;
+    else
+        return false;
+}

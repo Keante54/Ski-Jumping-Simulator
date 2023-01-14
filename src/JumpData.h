@@ -28,7 +28,8 @@ private:
     bool dsq;
     std::string dsqReason;
 
-    int gate;
+    int gate, coachGate;
+    bool isCoachGate;
     double wind;
 
     // wska«niki na parametry skoku
@@ -72,9 +73,11 @@ public:
     int getLandRating() const { return landRating; }
     int getTakeoffPowerDifference() const { return takeoffPowerDifference; }
     int getGate() const { return gate; }
+    int getCoachGate() const { return coachGate; }
+    bool getIsCoachGate() const { return isCoachGate; }
     double getWind() const { return wind; }
 
-    // dane skoku
+    // dane skokus
     double getDistance() const { return distance; }
     double getPoints() const { return points; }
     const std::array<double, 5> & getJudges() const { return judges; }
@@ -87,7 +90,9 @@ public:
     int getGateDifference() const;
     Jumper *getJumper() const { return jumper; }
 
-    void setGate(const int &arg) { gate = arg; }
+    void setGate(int arg) { gate = arg; }
+    void setCoachGate(int arg) { coachGate = arg; }
+    void setIsCoachGate(bool arg) { isCoachGate = arg; }
 
     // symulacja skoku
     void setParameters(Jumper &jp, Hill &hl, Competition &comp);

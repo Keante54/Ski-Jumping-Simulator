@@ -234,11 +234,26 @@ void Competition::startCompetition()
     {
         int i = 0;
         int ii = 0;
+        int coachGateForNextJumper = 0;
+        bool isCoachGateForNextJumper = false;
+        bool resetCoachGateParams = false;
+        actualGate = startGate;
+
         for (auto &jumper : actualJumpers)
         {
+            //std::cout << startGate << "\n";
+            //std::cout<<resetCoachGateParams<<", "<<isCoachGateForNextJumper<<", "<<coachGateForNextJumper<<"\n";
+            resetCoachGateParams = false;
             JumpData jumpData = JumpData();
             jumpData.setParameters(*jumper, *hill, *this);
+            //std::cout << jumpData.getGate() << ", " << jumpData.getCoachGate() << "\n";
+            jumpData.setIsCoachGate(isCoachGateForNextJumper);
+            if (jumpData.getIsCoachGate())
+                jumpData.setCoachGate(coachGateForNextJumper);
+            //std::cout << jumpData.getGate() << ", " << jumpData.getCoachGate() << "\n";
             jumpData.jump();
+
+            //std::cout<<jumpData.getGate()<<", "<<jumpData.getCoachGate()<<"\n";
 
             actualResults.push_back(jumpData);
             sortResultsVector(actualResults);
@@ -262,10 +277,11 @@ void Competition::startCompetition()
 
             if (isShowResults)
             {
-                char fromGetch;
-                colorText(8, "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©)\n");
+                char fromGetch = 'a';
+                colorText(8, "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©) ('g' aby obni¾y† belk© na pro˜b© trenera)\n");
                 fromGetch = getch();
                 if (fromGetch == 's')
+                {
                     do
                     {
                         if (isShowStartList)
@@ -285,9 +301,10 @@ void Competition::startCompetition()
                             jumpData.showResults();
 
                             showStartList(ii);
-                            colorText(8, "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©)\n");
+                            colorText(8, "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©) ('g' aby obni¾y† belk© na pro˜b© trenera)\n");
                         }
                     } while (getch() == 's');
+                }
                 else if (fromGetch == 'b')
                     do
                     {
@@ -311,14 +328,44 @@ void Competition::startCompetition()
 
                         if (isShowStartList)
                             showStartList(ii);
-                        colorText(8, "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©)\n");
+                        colorText(8, "\nWci˜nij dowolny przycisk, aby przej˜† do nast©pnego skoku (wci˜nij 's' aby pokaza†/ukry† list© startow¥) ('b' aby ustawi† belk©) ('g' aby obni¾y† belk© na pro˜b© trenera)\n");
                     } while (getch() == 'b');
-            }
 
-            system("cls");
-            ii++;
-            saveResultsToFile(SaveMode::Text);
-            saveResultsToFile(SaveMode::Csv);
+                else if (fromGetch == 'g')
+                {
+                    int howManyGates = 0;
+                    std::cout << "Obni¾enie belki na pro˜b© trenera. Ile belek (0 aby anulowa†): ";
+                    std::cin >> howManyGates;
+
+                    if (howManyGates > 0)
+                    {
+                        coachGateForNextJumper = actualGate - howManyGates;
+                        isCoachGateForNextJumper = true;
+                    }
+                    else
+                    {
+                        coachGateForNextJumper = 0;
+                        isCoachGateForNextJumper = false;
+                        system("cls");
+                        showActualResults(false);
+                        jumpData.showResults();
+                    }
+                }
+                if(fromGetch != 'g')
+                {
+                   resetCoachGateParams = true;
+                }
+
+                system("cls");
+                ii++;
+                saveResultsToFile(SaveMode::Text);
+                saveResultsToFile(SaveMode::Csv);
+            }
+            if(resetCoachGateParams)
+            {
+                coachGateForNextJumper = 0;
+                isCoachGateForNextJumper = false;
+            }
         }
         if (actualRound + 1 == competitionConfig.getRoundsCount())
             competitionSummary();

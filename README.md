@@ -94,5 +94,6 @@ Dla pojedynczych skok¢w wyniki s¥ zapisywane w folderze results/single-jumps (fo
 
 
 ## System konkurs¢w
-- Aby pokaza†/schowa† list© startow¥, w†i˜nij 's' podczas konkursu.
-- Aby zmieni† belk© w czasie konkursu, w†i˜nij 'b'.
+- Aby pokaza†/schowa† list© startow¥, wci˜nij 's' podczas konkursu.
+- Aby zmieni† belk© w czasie konkursu, wci˜nij 'b'.
+- Aby obni¾y† belk© na ¾yczenie trenera, wci˜nij 'g'.

@@ -7,3 +7,4 @@ double normalRandom(double mid, double a);
 void colorText(unsigned short color, std::string text);
 void colorText(unsigned short color, double text);
 void colorText(unsigned short color, int text);
+bool percentOf(double value1, double percentRequirment, double value2);

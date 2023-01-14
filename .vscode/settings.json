@@ -108,6 +108,7 @@
         "xlocmon": "cpp",
         "xloctime": "cpp",
         "xtree": "cpp",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "string_view": "cpp"
     }
 }

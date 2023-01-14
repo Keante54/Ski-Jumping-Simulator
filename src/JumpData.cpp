@@ -12,6 +12,7 @@ JumpData::JumpData(Jumper *jumper_, Hill *hill_, Competition *competition_)
     competition = competition_;
     takeoffPower = takeoffTechnique = flightTechnique = takeoffPowerDifference = 0;
     distance = points = gateCompensation = windCompensation = totalCompensation = dsq = judgesPoints = 0;
+    isCoachGate = false;
     for (auto &jg : judges)
     {
         jg = 0;
@@ -46,7 +47,12 @@ void JumpData::jump()
 {
     hill->startup();
     setWind();
-    setGate(competition->getActualGate());
+
+    if (isCoachGate == true)
+        setGate(coachGate);
+    else
+        setGate(competition->getActualGate());
+
     setTakeoffPower();
     setTakeoffTechnique();
     setFlightTechnique();
@@ -233,11 +239,10 @@ void JumpData::setJudges()
         else if (rd == 2)
             jg += (1);
 
-        // if (jg > 20)
-        // jg = 20;
-
-        // else if (jg < 1)
-        //   jg = 1;
+        if (jg > 20)
+            jg = 20;
+        else if (jg < 1)
+            jg = 1;
     }
     double minJudge = judges[0];
     double maxJudge = judges[0];
@@ -266,8 +271,15 @@ void JumpData::setPoints()
         else if (wind == 0)
             windCompensation = 0;
     }
+
     if (competition->getIsGateComp() == true)
+    {
         gateCompensation = getGateDifference() * hill->getGatePoints();
+        if (isCoachGate && percentOf(distance, 95, competition->getHill()->getHsPoint()) == false)
+        {
+            gateCompensation -= (competition->getActualGate() - coachGate) * hill->getGatePoints();
+        }
+    }
 
     points = hill->getPointsForKPoint() + (hill->getPointsForMeters() * (distance - hill->getKPoint()));
 
@@ -332,7 +344,10 @@ void JumpData::showResults()
         cout << "\n\n";
         colorText(15, jumper->getName() + " " + jumper->getSurname() + " (" + jumper->getNationality() + ")");
 
-        cout << " (Belka: " << gate << ") (";
+        cout << " (Belka: " << gate;
+        if (isCoachGate)
+            cout << " - na pro˜b© trenera obni¾ona o " << competition->getActualGate() - coachGate << " stopnie";
+        cout << ") (";
         if ((-getGateDifference()) > 0)
         {
             colorText(2, "+");
@@ -350,7 +365,7 @@ void JumpData::showResults()
 
         cout << "Odlegˆo˜†: ";
         colorText(11, distance);
-        cout<<"\n";
+        cout << "\n";
 
         cout << fixed << setprecision(1);
         cout << "Punkty: ";
@@ -364,7 +379,7 @@ void JumpData::showResults()
             for (const auto &jg : judges)
             {
                 colorText(15, jg);
-                cout<<"|";
+                cout << "|";
             }
             cout << "\n";
         }
@@ -408,6 +423,15 @@ void JumpData::showResults()
             cout << "\n";
         }
         cout << fixed << setprecision(1);
+
+        if (isCoachGate)
+        {
+            if (percentOf(distance, 95, competition->getHill()->getHsPoint()) == true)
+                cout << "Osi¥gni©to 95% punktu HS, przyznano punkty za belk©.";
+            else
+                cout << "NIE osi¥gni©to 95% punktu HS, nie przyznano punkt¢w za belk©.";
+            cout << "\n";
+        }
 
         if (competition->getIsWindComp())
         {
