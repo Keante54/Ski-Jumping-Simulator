@@ -71,7 +71,7 @@ void JumpData::setTakeoffPower()
         jumper->setTakeoffPowerSkill(1);
 
     takeoffPower = jumper->getTakeoffPowerSkill();
-    takeoffPower += randomInt(-3, 3);
+    takeoffPower += randomInt(-4, 4);
     takeoffPower = round(takeoffPower);
 
     if (takeoffPower > 160)
@@ -88,7 +88,7 @@ void JumpData::setTakeoffTechnique()
         jumper->setTakeoffTechniqueSkill(1);
 
     takeoffTechnique = (jumper->getTakeoffTechniqueSkill() * 0.88) + (jumper->getForm() * 1.12);
-    takeoffTechnique += randomInt(-8, 10);
+    takeoffTechnique += randomInt(-15, 12);
     takeoffTechnique = round(takeoffTechnique);
 
     if (takeoffTechnique > 280)
@@ -109,13 +109,13 @@ void JumpData::setFlightTechnique()
     if (jumper->getFlightStyle() == 0)
         flightTechnique += randomInt(-30, -23);
     else if (jumper->getFlightStyle() == 1)
-        flightTechnique += randomInt(-7, 7);
-    else if (jumper->getFlightStyle() == 2)
-        flightTechnique += randomInt(-8, 8);
-    else if (jumper->getFlightStyle() == 3)
-        flightTechnique += randomInt(-9, 9);
-    else if (jumper->getFlightStyle() == 4)
         flightTechnique += randomInt(-10, 10);
+    else if (jumper->getFlightStyle() == 2)
+        flightTechnique += randomInt(-12, 12);
+    else if (jumper->getFlightStyle() == 3)
+        flightTechnique += randomInt(-14, 14);
+    else if (jumper->getFlightStyle() == 4)
+        flightTechnique += randomInt(-16, 16);
 
     flightTechnique += randomInt(0, 5);
     flightTechnique = round(flightTechnique);
@@ -300,7 +300,7 @@ void JumpData::setDsq()
 {
     if (competition->getType() == Competition::MultipleJumps)
     {
-        int rd = randomInt(1, 120);
+        int rd = randomInt(1, 180);
         if (rd == 1)
             dsq = true;
         else
