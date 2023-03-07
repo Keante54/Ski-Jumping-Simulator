@@ -165,8 +165,8 @@ void JumpData::land()
     else if (landRating < 1)
         landRating = 1;
 
-    rd = (landRating - 50);
-    rd1 = (((hill->getMaxDistance() - distance) * 3.7) * hill->getLandingDifficulty()) + rd;
+    rd = (landRating - 45);
+    rd1 = (((hill->getMaxDistance() - distance) * 13) * hill->getLandingDifficulty()) + rd;
     if (rd1 < 2)
         rd1 = 2;
 
@@ -176,8 +176,8 @@ void JumpData::land()
         landType = Fall;
     else
     {
-        rd = (landRating - 50);
-        rd1 = (((hill->getMaxDistance() - distance) * 3.7) * hill->getLandingDifficulty()) + rd;
+        rd = (landRating - 45);
+        rd1 = (((hill->getMaxDistance() - distance) * 13) * hill->getLandingDifficulty()) + rd;
         if (rd1 < 2)
             rd1 = 2;
 
@@ -189,8 +189,8 @@ void JumpData::land()
         }
         else
         {
-            rd = (landRating - 50);
-            rd1 = (((hill->getMaxDistance() - distance) * 1.92) * hill->getLandingDifficulty()) + rd;
+            rd = (landRating - 45);
+            rd1 = (((hill->getMaxDistance() - distance) * 1.5) * hill->getLandingDifficulty()) + rd;
             if (rd1 < 2)
                 rd1 = 2;
 
@@ -300,7 +300,7 @@ void JumpData::setDsq()
 {
     if (competition->getType() == Competition::MultipleJumps)
     {
-        int rd = randomInt(1, 180);
+        int rd = randomInt(1, 200);
         if (rd == 1)
             dsq = true;
         else
